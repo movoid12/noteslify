@@ -14,6 +14,22 @@ If you are not familiar with the different technologies used in this project, pl
 - [Tailwind CSS](https://tailwindcss.com)
 - [tRPC](https://trpc.io)
 
+## Create database with Supabase
+
+- connect your github profile with Supabase and create a database and set a name and password for it.
+- then go to Settings => Database => Connection string => URl and copy that link
+- add the postgresql in the provider of `datasource db` inside your prisma configuration: `schema.prisma`
+- got to table editor on the Supabase and check if you see the tables: account, example, session, user.... if so, then our database is succesfully working
+
+## Set Authentication
+
+- by default you can set it by connect it with discord and all is set. follow that link below:
+
+
+### Authentication with Github OAuth
+
+- 
+
 ## Learn More
 
 To learn more about the [T3 Stack](https://create.t3.gg/), take a look at the following resources:
