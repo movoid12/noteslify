@@ -1,5 +1,5 @@
 /* eslint-disable react-hooks/rules-of-hooks */
-import { Input, Stack, Text } from "@mantine/core";
+import { Box, Input, Stack, Text } from "@mantine/core";
 import { useSession } from "next-auth/react";
 
 import { api } from "~/utils/api";
@@ -30,7 +30,30 @@ const TopicsContent: React.FC = () => {
         }}
       />
       <Text>here is the topics</Text>
-      {JSON.stringify(topics)}
+      {topics?.map((topic) => (
+        <Box
+          key={topic.id}
+          sx={(theme) => ({
+            backgroundColor:
+              theme.colorScheme === "dark"
+                ? theme.colors.dark[6]
+                : theme.colors.gray[0],
+            textAlign: "center",
+            padding: theme.spacing.xl,
+            borderRadius: theme.radius.md,
+            cursor: "pointer",
+
+            "&:hover": {
+              backgroundColor:
+                theme.colorScheme === "dark"
+                  ? theme.colors.dark[5]
+                  : theme.colors.gray[1],
+            },
+          })}
+        >
+          <Text>{topic.title}</Text>
+        </Box>
+      ))}
     </Stack>
   );
 };
