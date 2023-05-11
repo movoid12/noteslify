@@ -12,10 +12,9 @@ import {
   Burger,
   useMantineTheme,
 } from "@mantine/core";
-import { useSession } from "next-auth/react";
 
 import { HeaderContent } from "~/components/header/HeaderContent";
-import { api } from "~/utils/api";
+import TopicsContent from "~/components/topicSidebar/TopicsContent";
 
 const Home: NextPage = () => {
   const theme = useMantineTheme();
@@ -51,6 +50,7 @@ const Home: NextPage = () => {
               width={{ sm: 200, lg: 300 }}
             >
               <Text>Application navbar</Text>
+              <TopicsContent />
             </Navbar>
           }
           footer={
@@ -82,8 +82,7 @@ const Home: NextPage = () => {
             </Header>
           }
         >
-          <Text>Resize app to see responsive navbar in action</Text>
-          <Content />
+          <Text>Resize app to see responsive navbar in action</Text>)
         </AppShell>
       </main>
     </>
@@ -91,15 +90,3 @@ const Home: NextPage = () => {
 };
 
 export default Home;
-
-const Content: React.FC = () => {
-  const { data: sessionData } = useSession();
-
-  const { data: topics, refetch: refetchTopics } = api.topic.getAll.useQuery(
-    undefined,
-    {
-      enabled: sessionData?.user !== undefined,
-    }
-  );
-  return( <div><p>here is the topics</p>{JSON.stringify(topics)}</div>);
-};
