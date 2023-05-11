@@ -1,19 +1,35 @@
+/* eslint-disable @typescript-eslint/no-unsafe-assignment */
+/* eslint-disable @typescript-eslint/no-floating-promises */
 /* eslint-disable react-hooks/rules-of-hooks */
 import { Box, Input, Stack, Text } from "@mantine/core";
 import { useSession } from "next-auth/react";
+import { useState } from "react";
+import { set } from "zod";
 
-import { api } from "~/utils/api";
+import { api, type RouterOutputs } from "~/utils/api";
+
+type Topic = RouterOutputs["topic"]["getAll"][0];
 
 const TopicsContent: React.FC = () => {
   const { data: sessionData } = useSession();
+
+  const [selectedTopic, setSelectedTopic] = useState<Topic | null>(null);
 
   const { data: topics, refetch: refetchTopics } = api.topic.getAll.useQuery(
     undefined,
     {
       enabled: sessionData?.user !== undefined,
+      onSuccess: (data) => {
+        setSelectedTopic(selectedTopic ?? data[0] ?? null);
+      },
     }
   );
-  const createTopic = api.topic.create.useMutation({});
+
+  const createTopic = api.topic.create.useMutation({
+    onSuccess: () => {
+      refetchTopics();
+    },
+  });
 
   return (
     <Stack>
@@ -32,6 +48,10 @@ const TopicsContent: React.FC = () => {
       <Text>here is the topics</Text>
       {topics?.map((topic) => (
         <Box
+          onClick={(evt) => {
+            evt.preventDefault();
+            setSelectedTopic(topic);
+          }}
           key={topic.id}
           sx={(theme) => ({
             backgroundColor:
