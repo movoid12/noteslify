@@ -16,6 +16,12 @@ const NoteEditor = ({
   const [code, setCode] = useState<string>("");
   const [title, setTitle] = useState<string>("");
 
+  // const createNote = api.note.create.useMutation({
+  //   onSuccess: () => {
+  //     refetchNotes();
+  //   },
+  // });
+
   return (
     <Stack spacing="md">
       <Input
@@ -25,7 +31,7 @@ const NoteEditor = ({
       />
       <CodeMirror
         value={code}
-        width="500px"
+        width="auto"
         height="30vh"
         minWidth="100%"
         minHeight="30vh"
@@ -41,7 +47,11 @@ const NoteEditor = ({
         radius="lg"
         uppercase
         variant="outline"
-        onClick={() => onSave({ title, content: code })}
+        onClick={() => {
+          onSave({ title, content: code });
+          setTitle("");
+          setCode("");
+        }}
       >
         Save
       </Button>
