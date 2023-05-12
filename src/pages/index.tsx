@@ -1,7 +1,10 @@
+/* eslint-disable @typescript-eslint/no-unsafe-assignment */
+/* eslint-disable @typescript-eslint/no-unsafe-member-access */
 /* eslint-disable @typescript-eslint/unbound-method */
 import { type NextPage } from "next";
 import Head from "next/head";
 import React, { useState } from "react";
+import { api } from "~/utils/api";
 import {
   AppShell,
   Navbar,
@@ -13,13 +16,34 @@ import {
   useMantineTheme,
 } from "@mantine/core";
 
+import { useStore } from "~/utils/store";
 import { HeaderContent } from "~/components/header/HeaderContent";
 import TopicsContent from "~/components/topicSidebar/TopicsContent";
 import NoteEditor from "~/components/noteEditor/NoteEditor";
+import { NoteCard } from "~/components/noteCard/NoteCard";
+import { useSession } from "next-auth/react";
 
 const Home: NextPage = () => {
   const theme = useMantineTheme();
   const [opened, setOpened] = useState(false);
+  const [selectedTopic] = useStore((state) => [state.selectedTopic]);
+
+  const { data: sessionData } = useSession();
+
+  const { data: notes, refetch: refetchNotes } = api.note.getAll.useQuery(
+    {
+      topicId: selectedTopic?.id ?? "",
+    },
+    {
+      enabled: sessionData?.user !== undefined,
+    }
+  );
+
+  const createNote = api.note.create.useMutation({
+    onSuccess: () => {
+      void refetchNotes();
+    },
+  });
 
   return (
     <>
@@ -84,7 +108,15 @@ const Home: NextPage = () => {
           }
         >
           <Text>Resize app to see responsive navbar in action</Text>
-          <NoteEditor onSave={(note) => console.log(note)} />
+          <NoteEditor
+            onSave={({ title, content }) => {
+              void createNote.mutate({
+                title,
+                content,
+                topicId: selectedTopic?.id ?? "",
+              });
+            }}
+          />
         </AppShell>
       </main>
     </>

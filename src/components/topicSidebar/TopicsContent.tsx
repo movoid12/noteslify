@@ -3,24 +3,26 @@
 /* eslint-disable react-hooks/rules-of-hooks */
 import { Box, Input, Stack, Text } from "@mantine/core";
 import { useSession } from "next-auth/react";
-import { useState } from "react";
-import { set } from "zod";
 
-import { api, type RouterOutputs } from "~/utils/api";
-
-type Topic = RouterOutputs["topic"]["getAll"][0];
+import { useStore, Store } from "~/utils/store";
+import { api } from "~/utils/api";
 
 const TopicsContent: React.FC = () => {
   const { data: sessionData } = useSession();
 
-  const [selectedTopic, setSelectedTopic] = useState<Topic | null>(null);
+  const [selectedTopic, setSelectedTopic] = useStore((state) => [
+    state.selectedTopic,
+    state.setSelectedTopic,
+  ]);
 
   const { data: topics, refetch: refetchTopics } = api.topic.getAll.useQuery(
     undefined,
     {
       enabled: sessionData?.user !== undefined,
-      onSuccess: (data) => {
-        setSelectedTopic(selectedTopic ?? data[0] ?? null);
+      onSuccess: (topics) => {
+        if (topics?.length) {
+          setSelectedTopic(topics[0]);
+        }
       },
     }
   );
