@@ -10,7 +10,7 @@
     "start": "next start"
   },
   "dependencies": {
-    "@codemirror/lang-markdown": "github:codemirror/lang-markdown",
+    "@codemirror/lang-markdown": "6.1.1",
     "@codemirror/language-data": "^6.3.1",
     "@codemirror/view": "^6.11.1",
     "@emotion/react": "^11.11.0",

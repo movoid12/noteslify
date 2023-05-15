@@ -2,8 +2,8 @@ lockfileVersion: '6.0'
 
 dependencies:
   '@codemirror/lang-markdown':
-    specifier: github:codemirror/lang-markdown
-    version: github.com/codemirror/lang-markdown/d6deca177ce503171f37d303f3788b3c48016ad4
+    specifier: 6.1.1
+    version: 6.1.1
   '@codemirror/language-data':
     specifier: ^6.3.1
     version: 6.3.1(@codemirror/state@6.2.0)(@codemirror/view@6.11.1)(@lezer/common@1.0.2)
@@ -4991,19 +4991,4 @@ packages:
     dependencies:
       react: 18.2.0
       use-sync-external-store: 1.2.0(react@18.2.0)
-    dev: false
-
-  github.com/codemirror/lang-markdown/d6deca177ce503171f37d303f3788b3c48016ad4:
-    resolution: {tarball: https://codeload.github.com/codemirror/lang-markdown/tar.gz/d6deca177ce503171f37d303f3788b3c48016ad4}
-    name: '@codemirror/lang-markdown'
-    version: 6.1.1
-    prepare: true
-    requiresBuild: true
-    dependencies:
-      '@codemirror/lang-html': 6.4.3
-      '@codemirror/language': 6.6.0
-      '@codemirror/state': 6.2.0
-      '@codemirror/view': 6.11.1
-      '@lezer/common': 1.0.2
-      '@lezer/markdown': 1.0.2
     dev: false
