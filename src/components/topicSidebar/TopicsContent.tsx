@@ -51,6 +51,7 @@ const TopicsContent: React.FC = () => {
       <Text>Select a Topic:</Text>
       {topics?.map((topic) => (
         <Box
+        bg={selectedTopic?.id === topic.id ? "#d2c293a3" : ""}
           onClick={(evt) => {
             evt.preventDefault();
             setSelectedTopic(topic);
@@ -65,7 +66,6 @@ const TopicsContent: React.FC = () => {
             padding: theme.spacing.xl,
             borderRadius: theme.radius.md,
             cursor: "pointer",
-
             "&:hover": {
               backgroundColor:
                 theme.colorScheme === "dark"

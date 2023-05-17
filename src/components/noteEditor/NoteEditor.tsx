@@ -2,7 +2,7 @@
 /* eslint-disable @typescript-eslint/no-unsafe-assignment */
 /* eslint-disable @typescript-eslint/no-unsafe-call */
 import { useState } from "react";
-import { Button, Input, Space, Stack, Textarea } from "@mantine/core";
+import { Button, Input, Mark, Space, Stack, Text } from "@mantine/core";
 import { useSession } from "next-auth/react";
 import { api } from "~/utils/api";
 
@@ -22,7 +22,7 @@ const NoteEditor = ({
   const [title, setTitle] = useState<string>("");
   const selectedTopic = useTopicStore((state) => state.selectedTopic);
 
-  const { data: notes, refetch: refetchNotes } = api.note.getAll.useQuery(
+  const { refetch: refetchNotes } = api.note.getAll.useQuery(
     { topicId: selectedTopic?.id ?? "" },
     {
       enabled: sessionData?.user !== undefined && selectedTopic !== null,
@@ -37,6 +37,9 @@ const NoteEditor = ({
 
   return (
     <Stack spacing="md">
+      <Text size="lg" weight={700}>
+        Selected Topic: <Mark> {selectedTopic?.title ?? "Select a topic to create a note"}</Mark>
+      </Text>
       <Input
       placeholder={sessionData?.user === undefined ? "Sign in to create a note" : "Title"}
         value={title}

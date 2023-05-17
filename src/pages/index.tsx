@@ -83,7 +83,7 @@ const Home: NextPage = () => {
             </Header>
           }
         >
-          <Text>Main Coloumn</Text>
+
           <NoteEditor onSave={(note) => console.log(note)} />
           <NoteCard />
         </AppShell>

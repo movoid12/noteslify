@@ -1,23 +1,11 @@
-/* eslint-disable @typescript-eslint/no-unsafe-member-access */
-/* eslint-disable @typescript-eslint/no-unused-vars */
-/* eslint-disable @typescript-eslint/no-unsafe-argument */
-/* eslint-disable @typescript-eslint/no-unsafe-call */
-/* eslint-disable @typescript-eslint/no-unsafe-assignment */
-/* eslint-disable react/no-children-prop */
 import ReactMarkdown from "react-markdown";
 import remarkGfm from "remark-gfm";
 import MarkdownComponents, {useStyles} from "./MarkdownComponents";
-
-import { PrismLight as SyntaxHighlighter } from 'react-syntax-highlighter';
-import { materialLight, oneDark } from 'react-syntax-highlighter/dist/cjs/styles/prism';
 import {
   Accordion,
   ActionIcon,
   Badge,
-
-
   Group,
-
   Paper,
   Stack,
 } from "@mantine/core";
