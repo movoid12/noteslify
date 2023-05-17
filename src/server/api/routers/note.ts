@@ -3,7 +3,6 @@ import { z } from "zod";
 import { createTRPCRouter, protectedProcedure } from "../trpc";
 
 export const noteRouter = createTRPCRouter({
-  // create a delete function that takes in a noteId
 
   delete: protectedProcedure
     .input(z.object({ id: z.string() }))
