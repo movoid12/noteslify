@@ -22,7 +22,7 @@ export const HeaderContent = () => {
 
   return (
     <>
-      <Group grow >
+      <Group >
       <Text size={"sm"}>
         {sessionData?.user?.name ? ` user: ${sessionData.user.name}` : ""}
         {""}
