@@ -16,6 +16,7 @@ import {
 import { HeaderContent } from "~/components/header/HeaderContent";
 import TopicsContent from "~/components/topicSidebar/TopicsContent";
 import NoteEditor from "~/components/noteEditor/NoteEditor";
+import { NoteCard } from "~/components/noteCard/NoteCard";
 
 const Home: NextPage = () => {
   const theme = useMantineTheme();
@@ -50,7 +51,6 @@ const Home: NextPage = () => {
               hidden={!opened}
               width={{ sm: 200, lg: 300 }}
             >
-              <Text>Application navbar</Text>
               <TopicsContent />
             </Navbar>
           }
@@ -83,8 +83,9 @@ const Home: NextPage = () => {
             </Header>
           }
         >
-          <Text>Resize app to see responsive navbar in action</Text>
+          <Text>Main Coloumn</Text>
           <NoteEditor onSave={(note) => console.log(note)} />
+          <NoteCard />
         </AppShell>
       </main>
     </>
