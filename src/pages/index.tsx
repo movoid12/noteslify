@@ -11,6 +11,7 @@ import {
   MediaQuery,
   Burger,
   useMantineTheme,
+  ScrollArea,
 } from "@mantine/core";
 
 import { HeaderContent } from "~/components/header/HeaderContent";
@@ -51,7 +52,9 @@ const Home: NextPage = () => {
               hidden={!opened}
               width={{ sm: 200, lg: 300 }}
             >
+                    <Navbar.Section grow component={ScrollArea} mx="-xs" px="xs">
               <TopicsContent />
+      </Navbar.Section>
             </Navbar>
           }
           footer={

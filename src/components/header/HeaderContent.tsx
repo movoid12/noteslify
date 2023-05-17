@@ -11,20 +11,22 @@ import {
   Indicator,
 } from "@mantine/core";
 import { IconSun, IconMoonStars } from "@tabler/icons-react";
-import { useNetwork } from "@mantine/hooks";
+import { useNetwork, useOs } from "@mantine/hooks";
 
 export const HeaderContent = () => {
   const { data: sessionData } = useSession();
   const { colorScheme, toggleColorScheme } = useMantineColorScheme();
-  const networkStatus = useNetwork();
   const dark = colorScheme === "dark";
 
+  const networkStatus = useNetwork();
+  const os = useOs();
+  // const isDesktop = os === "macos" || os === "windows" || os === "linux";
 
   return (
     <>
       <Group >
       <Text size={"sm"}>
-        {sessionData?.user?.name ? ` user: ${sessionData.user.name}` : ""}
+        {/* {sessionData?.user?.name ? ` User: ${sessionData.user.name}` : ""} */}
         {""}
       </Text>
         {sessionData?.user ? (
