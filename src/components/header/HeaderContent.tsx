@@ -8,36 +8,42 @@ import {
   Avatar,
   Group,
   Button,
+  Indicator,
 } from "@mantine/core";
 import { IconSun, IconMoonStars } from "@tabler/icons-react";
+import { useNetwork } from "@mantine/hooks";
 
 export const HeaderContent = () => {
   const { data: sessionData } = useSession();
   const { colorScheme, toggleColorScheme } = useMantineColorScheme();
+  const networkStatus = useNetwork();
   const dark = colorScheme === "dark";
+
+
   return (
     <>
-      <Text>
-        Noteslify App
-        {sessionData?.user?.name ? `Notes for ${sessionData.user.name}` : ""}
+      <Group grow >
+      <Text size={"sm"}>
+        {sessionData?.user?.name ? ` user: ${sessionData.user.name}` : ""}
         {""}
       </Text>
-      <Group>
         {sessionData?.user ? (
           <>
-            <Button variant="outline" color="orange" onClick={() => void signOut()}>Sign out</Button>
-            <Avatar
+          <Indicator  color={networkStatus.online ? 'green' : 'red'}>
+            <Avatar size={"sm"}
               src={sessionData?.user?.image ?? ""}
               alt={sessionData?.user?.name ?? ""}
             />
+            </Indicator>
+            <Button size="xs" variant="filled" color="red" onClick={() => void signOut()}>Sign out</Button>
           </>
         ) : (
-          <Button variant="outline" color="orange" onClick={() => void signIn()}>Sign in</Button>
+          <Button variant="filled" color="green" onClick={() => void signIn()}>Sign in</Button>
         )}
       </Group>
 
       <ActionIcon
-        variant="outline"
+        variant="light"
         color={dark ? "yellow" : "blue"}
         onClick={() => toggleColorScheme()}
         title="Toggle color scheme"
