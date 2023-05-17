@@ -1,28 +1,25 @@
 /* eslint-disable @typescript-eslint/no-unsafe-assignment */
 /* eslint-disable @typescript-eslint/no-floating-promises */
 /* eslint-disable react-hooks/rules-of-hooks */
-import { Box, Input, Stack, Text } from "@mantine/core";
+import { Box, Divider, Input, Stack, Text } from "@mantine/core";
 import { useSession } from "next-auth/react";
-
-import { useStore, Store } from "~/utils/store";
 import { api } from "~/utils/api";
+import { useTopicStore } from "~/utils/store";
 
 const TopicsContent: React.FC = () => {
   const { data: sessionData } = useSession();
 
-  const [selectedTopic, setSelectedTopic] = useStore((state) => [
-    state.selectedTopic,
-    state.setSelectedTopic,
-  ]);
+  const selectedTopic = useTopicStore((state) => state.selectedTopic);
+  const setSelectedTopic = useTopicStore((state) => state.setSelectedTopic);
+
+  console.log(selectedTopic?.title ?? "no topic selected");
 
   const { data: topics, refetch: refetchTopics } = api.topic.getAll.useQuery(
     undefined,
     {
       enabled: sessionData?.user !== undefined,
-      onSuccess: (topics) => {
-        if (topics?.length) {
-          setSelectedTopic(topics[0]);
-        }
+      onSuccess: (data) => {
+        setSelectedTopic(selectedTopic ?? data[0] ?? null);
       },
     }
   );
@@ -32,12 +29,15 @@ const TopicsContent: React.FC = () => {
       refetchTopics();
     },
   });
+  // background color of Box Component changed when the topic is selected
 
   return (
     <Stack>
+      <Text>To add new Topic:</Text>
       <Input
         variant="filled"
-        placeholder="Enter topic name"
+        disabled={sessionData?.user === undefined}
+        placeholder={sessionData?.user === undefined ? "Sign in to add topic" : "Add a new topic"}
         radius="xl"
         size="md"
         onKeyDown={(e) => {
@@ -47,7 +47,8 @@ const TopicsContent: React.FC = () => {
           }
         }}
       />
-      <Text>here is the topics</Text>
+      <Divider />
+      <Text>Select a Topic:</Text>
       {topics?.map((topic) => (
         <Box
           onClick={(evt) => {
@@ -70,6 +71,12 @@ const TopicsContent: React.FC = () => {
                 theme.colorScheme === "dark"
                   ? theme.colors.dark[5]
                   : theme.colors.gray[1],
+            },
+            "&:active": {
+              backgroundColor:
+                theme.colorScheme === "dark"
+                  ? theme.colors.dark[4]
+                  : theme.colors.gray[2],
             },
           })}
         >
