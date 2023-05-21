@@ -21,4 +21,29 @@ export const topicRouter = createTRPCRouter({
         },
       });
     }),
+
+  delete: protectedProcedure
+    .input(z.object({ id: z.string() }))
+    .mutation(({ ctx, input }) => {
+      return ctx.prisma.topic.delete({
+        where: {
+          id: input.id,
+        },
+      });
+    }
+    ),
+
+  update: protectedProcedure
+    .input(z.object({ id: z.string(), title: z.string() }))
+    .mutation(({ ctx, input }) => {
+      return ctx.prisma.topic.update({
+        where: {
+          id: input.id,
+        },
+        data: {
+          title: input.title,
+        },
+      });
+    }
+    ),
 });
