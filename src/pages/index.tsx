@@ -52,9 +52,9 @@ const Home: NextPage = () => {
               hidden={!opened}
               width={{ sm: 200, lg: 300 }}
             >
-                    <Navbar.Section grow component={ScrollArea} mx="-xs" px="xs">
-              <TopicsContent />
-      </Navbar.Section>
+              <Navbar.Section grow component={ScrollArea} mx="-xs" px="xs">
+                <TopicsContent />
+              </Navbar.Section>
             </Navbar>
           }
           footer={
@@ -86,7 +86,6 @@ const Home: NextPage = () => {
             </Header>
           }
         >
-
           <NoteEditor onSave={(note) => console.log(note)} />
           <NoteCard />
         </AppShell>

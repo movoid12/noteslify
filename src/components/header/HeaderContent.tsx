@@ -24,23 +24,28 @@ export const HeaderContent = () => {
 
   return (
     <>
-      <Group >
-      <Text size={"sm"}>
-        {/* {sessionData?.user?.name ? ` User: ${sessionData.user.name}` : ""} */}
-        {""}
-      </Text>
+      <Group>
+        <Text size={"sm"}>
+          {/* {sessionData?.user?.name ? ` User: ${sessionData.user.name}` : ""} */}
+          {""}
+        </Text>
         {sessionData?.user ? (
           <>
-          <Indicator  color={networkStatus.online ? 'green' : 'red'}>
-            <Avatar size={"sm"}
-              src={sessionData?.user?.image ?? ""}
-              alt={sessionData?.user?.name ?? ""}
-            />
+            <Indicator color={networkStatus.online ? "green" : "red"}>
+              <Avatar
+                size={"sm"}
+                src={sessionData?.user?.image ?? ""}
+                alt={sessionData?.user?.name ?? ""}
+              />
             </Indicator>
-            <Button size="xs" variant="filled" color="red" onClick={() => void signOut()}>Sign out</Button>
+            <Button size="xs" variant="filled" color="red" onClick={() => void signOut()}>
+              Sign out
+            </Button>
           </>
         ) : (
-          <Button variant="filled" color="green" onClick={() => void signIn()}>Sign in</Button>
+          <Button variant="filled" color="green" onClick={() => void signIn()}>
+            Sign in
+          </Button>
         )}
       </Group>
 

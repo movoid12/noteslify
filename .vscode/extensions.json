@@ -1,8 +1,8 @@
 {
-    "recommendations": [
-        "aaron-bond.better-comments",
-        "esbenp.prettier-vscode",
-        "dbaeumer.vscode-eslint",
-        "prisma.prisma"
-    ]
+  "recommendations": [
+    "aaron-bond.better-comments",
+    "esbenp.prettier-vscode",
+    "dbaeumer.vscode-eslint",
+    "prisma.prisma"
+  ]
 }

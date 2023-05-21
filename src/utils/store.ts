@@ -1,5 +1,5 @@
 /* eslint-disable @typescript-eslint/await-thenable */
-import { create } from 'zustand'
+import { create } from "zustand";
 
 import { type RouterOutputs } from "~/utils/api";
 

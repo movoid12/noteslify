@@ -1,14 +1,7 @@
 import ReactMarkdown from "react-markdown";
 import remarkGfm from "remark-gfm";
-import MarkdownComponents, {useStyles} from "./MarkdownComponents";
-import {
-  Accordion,
-  ActionIcon,
-  Badge,
-  Group,
-  Paper,
-  Stack,
-} from "@mantine/core";
+import MarkdownComponents, { useStyles } from "./MarkdownComponents";
+import { Accordion, ActionIcon, Badge, Group, Paper, Stack } from "@mantine/core";
 
 import { api } from "~/utils/api";
 import { IconNote, IconTrash } from "@tabler/icons-react";
@@ -16,19 +9,15 @@ import { useTopicStore } from "~/utils/store";
 import { useSession } from "next-auth/react";
 import React from "react";
 
-
 export const NoteCard = () => {
   const selectedTopic = useTopicStore((state) => state.selectedTopic);
   const { data: sessionData } = useSession();
 
-  const {
-    data: notes,
-    refetch: refetchNotes,
-  } = api.note.getAll.useQuery(
+  const { data: notes, refetch: refetchNotes } = api.note.getAll.useQuery(
     { topicId: selectedTopic?.id ?? "" },
     {
       enabled: sessionData?.user !== undefined && selectedTopic !== null,
-    }
+    },
   );
 
   const deleteNote = api.note.delete.useMutation({
@@ -43,19 +32,13 @@ export const NoteCard = () => {
       {/* <LoadingOverlay visible={dataLoading} overlayBlur={2} /> */}
       {notes?.map((note) => (
         <Paper withBorder key={note.id}>
-          <Accordion
-            variant="filled"
-            classNames={classes}
-            className={classes.root}
-          >
+          <Accordion variant="filled" classNames={classes} className={classes.root}>
             <Accordion.Item value={note.title}>
               <Group position="right">
-                <Accordion.Control  icon={<IconNote />}>
-                  {note.title}
-                </Accordion.Control>
+                <Accordion.Control icon={<IconNote />}>{note.title}</Accordion.Control>
 
                 <ActionIcon
-                mr={"md"}
+                  mr={"md"}
                   color="red"
                   variant="outline"
                   onClick={() => {
@@ -66,14 +49,17 @@ export const NoteCard = () => {
                 </ActionIcon>
               </Group>
               <Accordion.Panel>
-                <ReactMarkdown components={MarkdownComponents} remarkPlugins={[remarkGfm]}>
+                <ReactMarkdown
+                  components={MarkdownComponents}
+                  remarkPlugins={[remarkGfm]}
+                >
                   {note.content}
                 </ReactMarkdown>
               </Accordion.Panel>
-                <Badge m={"sm"} color="teal" variant="outline">
-                  created: {note.createdAt.toLocaleDateString()} -{" "}
-                  {note.createdAt.toLocaleTimeString()}
-                </Badge>
+              <Badge m={"sm"} color="teal" variant="outline">
+                created: {note.createdAt.toLocaleDateString()} -{" "}
+                {note.createdAt.toLocaleTimeString()}
+              </Badge>
             </Accordion.Item>
           </Accordion>
         </Paper>

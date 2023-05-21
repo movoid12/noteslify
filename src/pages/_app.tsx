@@ -2,11 +2,7 @@
 import { type AppType } from "next/app";
 import { type Session } from "next-auth";
 import { SessionProvider } from "next-auth/react";
-import {
-  MantineProvider,
-  ColorSchemeProvider,
-  ColorScheme,
-} from "@mantine/core";
+import { MantineProvider, ColorSchemeProvider, ColorScheme } from "@mantine/core";
 import { useState } from "react";
 
 import { api } from "~/utils/api";
@@ -26,11 +22,7 @@ const MyApp: AppType<{ session: Session | null }> = ({
         colorScheme={colorScheme}
         toggleColorScheme={toggleColorScheme}
       >
-        <MantineProvider
-          withGlobalStyles
-          withNormalizeCSS
-          theme={{ colorScheme }}
-        >
+        <MantineProvider withGlobalStyles withNormalizeCSS theme={{ colorScheme }}>
           <Component {...pageProps} />
         </MantineProvider>
       </ColorSchemeProvider>

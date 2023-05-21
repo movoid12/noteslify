@@ -26,7 +26,7 @@ const NoteEditor = ({
     { topicId: selectedTopic?.id ?? "" },
     {
       enabled: sessionData?.user !== undefined && selectedTopic !== null,
-    }
+    },
   );
 
   const createNote = api.note.create.useMutation({
@@ -38,27 +38,28 @@ const NoteEditor = ({
   return (
     <Stack spacing="md">
       <Text size="lg" weight={700}>
-        Selected Topic: <Mark> {selectedTopic?.title ?? "Select a topic to create a note"}</Mark>
+        Selected Topic:{" "}
+        <Mark> {selectedTopic?.title ?? "Select a topic to create a note"}</Mark>
       </Text>
       <Input
-      placeholder={sessionData?.user === undefined ? "Sign in to create a note" : "Title"}
+        placeholder={
+          sessionData?.user === undefined ? "Sign in to create a note" : "Title"
+        }
         value={title}
         onChange={(e) => setTitle(e.currentTarget.value)}
         disabled={sessionData?.user === undefined}
       />
-       <CodeMirror
+      <CodeMirror
         value={code}
-        editable = { sessionData?.user === undefined ? false : true}
-        readOnly = { sessionData?.user === undefined ? true : false}
+        editable={sessionData?.user === undefined ? false : true}
+        readOnly={sessionData?.user === undefined ? true : false}
         width="auto"
         height="30vh"
         minWidth="100%"
         minHeight="30vh"
-        extensions={[
-          markdown({ base: markdownLanguage, codeLanguages: languages }),
-        ]}
+        extensions={[markdown({ base: markdownLanguage, codeLanguages: languages })]}
         onChange={(value) => setCode(value)}
-      /> 
+      />
       <Space />
       <Button
         color="green"
@@ -75,7 +76,11 @@ const NoteEditor = ({
           setTitle("");
           setCode("");
         }}
-        disabled={title.trim().length === 0 || code.trim().length === 0 || sessionData?.user === undefined}
+        disabled={
+          title.trim().length === 0 ||
+          code.trim().length === 0 ||
+          sessionData?.user === undefined
+        }
       >
         Save
       </Button>

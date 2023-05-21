@@ -25,10 +25,9 @@ If you are not familiar with the different technologies used in this project, pl
 
 - by default you can set it by connect it with discord and all is set. follow that link below:
 
-
 ### Authentication with Github OAuth
 
-- 
+-
 
 ## Learn More
 
