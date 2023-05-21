@@ -2,6 +2,7 @@ import ReactMarkdown from "react-markdown";
 import remarkGfm from "remark-gfm";
 import MarkdownComponents, { useStyles } from "./MarkdownComponents";
 import { Accordion, ActionIcon, Badge, Group, Paper, Stack } from "@mantine/core";
+import rehypeRaw from 'rehype-raw'
 
 import { api } from "~/utils/api";
 import { IconNote, IconTrash } from "@tabler/icons-react";
@@ -52,6 +53,7 @@ export const NoteCard = () => {
                 <ReactMarkdown
                   components={MarkdownComponents}
                   remarkPlugins={[remarkGfm]}
+                  rehypePlugins={[rehypeRaw]} 
                 >
                   {note.content}
                 </ReactMarkdown>
