@@ -89,7 +89,7 @@ const TopicsContent: React.FC = () => {
       >
         Add Topic
       </Button>
-      <Button onClick={open}>Delete Topic</Button>
+      <Button onClick={open} disabled={sessionData?.user === undefined} >Delete Topic</Button>
       <Divider />
       <Modal opened={opened} onClose={close} title="Delete Topic">
         <Container>

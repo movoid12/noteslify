@@ -1,6 +1,3 @@
-/* eslint-disable @typescript-eslint/no-unsafe-argument */
-/* eslint-disable @typescript-eslint/no-unsafe-assignment */
-/* eslint-disable @typescript-eslint/no-unsafe-call */
 import { useState } from "react";
 import { Button, Input, Mark, Space, Stack, Text } from "@mantine/core";
 import { useSession } from "next-auth/react";
@@ -55,6 +52,10 @@ const NoteEditor = ({
       setCode(editor.getHTML());
     },
   });
+
+  if (!editor) {
+    return null;
+  }
 
   return (
     <Stack spacing="md">
@@ -136,8 +137,7 @@ const NoteEditor = ({
             <RichTextEditor.AlignRight />
           </RichTextEditor.ControlsGroup>
         </RichTextEditor.Toolbar>
-
-        <RichTextEditor.Content mih={"30vh"} />
+        { sessionData?.user !== undefined ? <RichTextEditor.Content mih={"30vh"} /> : null }
       </RichTextEditor>
       <Space />
       <Button
@@ -154,7 +154,7 @@ const NoteEditor = ({
           onSave({ title, content: code });
           setTitle("");
           setCode("");
-          // editor.commands.clearContent();
+          editor.commands.clearContent();
         }}
         disabled={
           title.trim().length === 0 ||
