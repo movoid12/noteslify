@@ -4,7 +4,6 @@
 import {
   Box,
   Button,
-  Checkbox,
   Container,
   Divider,
   Group,
@@ -89,9 +88,9 @@ const TopicsContent: React.FC = () => {
       >
         Add Topic
       </Button>
-      <Button onClick={open} disabled={sessionData?.user === undefined} >Delete Topic</Button>
+      <Button onClick={open} disabled={sessionData?.user === undefined} >Manage Topics</Button>
       <Divider />
-      <Modal opened={opened} onClose={close} title="Delete Topic">
+      <Modal opened={opened} onClose={close} title="Manage Topics">
         <Container>
           {topics?.map((topic) => (
             <Box key={topic.id}>
@@ -110,7 +109,7 @@ const TopicsContent: React.FC = () => {
       </Modal>
       <Group position="apart">
         <Text>Select a Topic:</Text>
-        <Mark>{topicsCount} Topics</Mark>
+        <Mark fz={12}>{topicsCount} Topics</Mark>
       </Group>
       {topics?.map((topic) => (
         <Box

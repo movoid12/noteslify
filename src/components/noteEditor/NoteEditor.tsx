@@ -1,5 +1,5 @@
-import { useState } from "react";
-import { Button, Input, Mark, Space, Stack, Text } from "@mantine/core";
+import { SetStateAction, useState } from "react";
+import { Button, Input, Mark, Space, Stack, Tabs, Text } from "@mantine/core";
 import { useSession } from "next-auth/react";
 import { api } from "~/utils/api";
 
@@ -12,6 +12,10 @@ import Underline from "@tiptap/extension-underline";
 import TextAlign from "@tiptap/extension-text-align";
 import { Color } from "@tiptap/extension-color";
 import TextStyle from "@tiptap/extension-text-style";
+import { markdown, markdownLanguage } from "@codemirror/lang-markdown";
+import { languages } from "@codemirror/language-data";
+import CodeMirror from "@uiw/react-codemirror";
+import { IconMarkdown, IconNotes } from "@tabler/icons-react";
 
 const NoteEditor = ({
   onSave,
@@ -71,7 +75,14 @@ const NoteEditor = ({
         onChange={(e) => setTitle(e.currentTarget.value)}
         disabled={sessionData?.user === undefined}
       />
-      {/* <CodeMirror
+      <Tabs color="teal" >
+        <Tabs.List grow onClick={() => { setCode("");  editor.commands.clearContent();}}>
+          <Tabs.Tab value="richtext" icon={<IconNotes size="0.8rem" />}>Text Editor</Tabs.Tab>
+          <Tabs.Tab value="markdown" icon={<IconMarkdown size="0.8rem" />}>Markdown Editor</Tabs.Tab>
+        </Tabs.List>
+        <Tabs.Panel value="markdown">
+
+      <CodeMirror
         value={code}
         editable={sessionData?.user === undefined ? false : true}
         readOnly={sessionData?.user === undefined ? true : false}
@@ -80,9 +91,11 @@ const NoteEditor = ({
         minWidth="100%"
         minHeight="30vh"
         extensions={[markdown({ base: markdownLanguage, codeLanguages: languages })]}
-        onChange={(value) => setCode(value)}
-      /> */}
-      <RichTextEditor editor={editor} h={"35vh"} style={{ overflowY: "scroll" }}>
+        onChange={(value: SetStateAction<string>) => setCode(value)}
+      />
+        </Tabs.Panel>
+        <Tabs.Panel value="richtext">
+      <RichTextEditor editor={editor} h={"35vh"} style={{ overflowY: "auto" }}>
         <RichTextEditor.Toolbar sticky>
           <RichTextEditor.ControlsGroup>
             <RichTextEditor.ColorPicker
@@ -139,6 +152,8 @@ const NoteEditor = ({
         </RichTextEditor.Toolbar>
         { sessionData?.user !== undefined ? <RichTextEditor.Content mih={"30vh"} /> : null }
       </RichTextEditor>
+        </Tabs.Panel>
+      </Tabs>
       <Space />
       <Button
         color="green"
