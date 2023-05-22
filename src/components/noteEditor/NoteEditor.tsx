@@ -75,7 +75,7 @@ const NoteEditor = ({
         onChange={(e) => setTitle(e.currentTarget.value)}
         disabled={sessionData?.user === undefined}
       />
-      <Tabs color="teal" >
+      <Tabs color="teal" defaultValue="richtext">
         <Tabs.List grow onClick={() => { setCode("");  editor.commands.clearContent();}}>
           <Tabs.Tab value="richtext" icon={<IconNotes size="0.8rem" />}>Text Editor</Tabs.Tab>
           <Tabs.Tab value="markdown" icon={<IconMarkdown size="0.8rem" />}>Markdown Editor</Tabs.Tab>
