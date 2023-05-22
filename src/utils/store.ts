@@ -1,11 +1,22 @@
 /* eslint-disable @typescript-eslint/await-thenable */
 import { create } from "zustand";
 
-import { type RouterOutputs } from "~/utils/api";
+type Topic = {
+  id: string;
+  createdAt: Date;
+  updatedAt: Date;
+  title: string;
+  userId: string;
+}
 
-type Topic = RouterOutputs["topic"]["getAll"][0];
-
-type Note = RouterOutputs["note"]["getAll"][0];
+type Note = {
+  id: string;
+  createdAt: Date;
+  updatedAt: Date;
+  title: string;
+  content: string;
+  topicId: string;
+}
 
 type TopicStore = {
   selectedTopic: Topic | null;

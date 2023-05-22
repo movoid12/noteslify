@@ -17,14 +17,15 @@ import { languages } from "@codemirror/language-data";
 import CodeMirror from "@uiw/react-codemirror";
 import { IconMarkdown, IconNotes } from "@tabler/icons-react";
 
+type NoteEditorProps = {
+  onSave: (note: { title: string; content: string }) => void;
+};
 const NoteEditor = ({
   onSave,
-}: {
-  onSave: (note: { title: string; content: string }) => void;
-}) => {
+}: NoteEditorProps) => {
   const { data: sessionData } = useSession();
 
-  const [code, setCode] = useState<string>("");
+  const [noteContent, setNoteContent] = useState<string>("");
   const [title, setTitle] = useState<string>("");
   const selectedTopic = useTopicStore((state) => state.selectedTopic);
 
@@ -51,9 +52,9 @@ const NoteEditor = ({
       TextStyle,
       Color,
     ],
-    content: code,
+    content: noteContent,
     onUpdate: ({ editor }) => {
-      setCode(editor.getHTML());
+      setNoteContent(editor.getHTML());
     },
   });
 
@@ -76,14 +77,14 @@ const NoteEditor = ({
         disabled={sessionData?.user === undefined}
       />
       <Tabs color="teal" defaultValue="richtext">
-        <Tabs.List grow onClick={() => { setCode("");  editor.commands.clearContent();}}>
+        <Tabs.List grow onClick={() => { setNoteContent("");  editor.commands.clearContent();}}>
           <Tabs.Tab value="richtext" icon={<IconNotes size="0.8rem" />}>Text Editor</Tabs.Tab>
           <Tabs.Tab value="markdown" icon={<IconMarkdown size="0.8rem" />}>Markdown Editor</Tabs.Tab>
         </Tabs.List>
         <Tabs.Panel value="markdown">
 
       <CodeMirror
-        value={code}
+        value={noteContent}
         editable={sessionData?.user === undefined ? false : true}
         readOnly={sessionData?.user === undefined ? true : false}
         width="auto"
@@ -91,7 +92,7 @@ const NoteEditor = ({
         minWidth="100%"
         minHeight="30vh"
         extensions={[markdown({ base: markdownLanguage, codeLanguages: languages })]}
-        onChange={(value: SetStateAction<string>) => setCode(value)}
+        onChange={(value: string) => setNoteContent(value)}
       />
         </Tabs.Panel>
         <Tabs.Panel value="richtext">
@@ -163,17 +164,17 @@ const NoteEditor = ({
         onClick={() => {
           createNote.mutate({
             title,
-            content: code,
+            content: noteContent,
             topicId: selectedTopic?.id ?? "",
           });
-          onSave({ title, content: code });
+          onSave({ title, content: noteContent });
           setTitle("");
-          setCode("");
+          setNoteContent("");
           editor.commands.clearContent();
         }}
         disabled={
           title.trim().length === 0 ||
-          code.trim().length === 0 ||
+          noteContent.trim().length === 0 ||
           sessionData?.user === undefined
         }
       >
