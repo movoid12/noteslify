@@ -1,27 +1,13 @@
 /* eslint-disable @typescript-eslint/unbound-method */
 import { type NextPage } from "next";
 import Head from "next/head";
-import React, { useState } from "react";
-import {
-  AppShell,
-  Navbar,
-  Header,
-  Footer,
-  MediaQuery,
-  Burger,
-  useMantineTheme,
-  ScrollArea,
-} from "@mantine/core";
+import React from "react";
 
-import { HeaderContent } from "~/components/header/HeaderContent";
-import TopicsContent from "~/components/topicSidebar/TopicsContent";
 import NoteEditor from "~/components/noteEditor/NoteEditor";
 import { NoteCard } from "~/components/noteCard/NoteCard";
+import { PageLayout } from "~/components/PageLayout";
 
 const Home: NextPage = () => {
-  const theme = useMantineTheme();
-  const [opened, setOpened] = useState(false);
-
   return (
     <>
       <Head>
@@ -32,63 +18,10 @@ const Home: NextPage = () => {
         />
         <link rel="icon" href="/favicon.ico" />
       </Head>
-      <main>
-        <AppShell
-          styles={{
-            main: {
-              background:
-                theme.colorScheme === "dark"
-                  ? theme.colors.dark[8]
-                  : theme.colors.gray[0],
-            },
-          }}
-          navbarOffsetBreakpoint="sm"
-          asideOffsetBreakpoint="sm"
-          navbar={
-            <Navbar
-              p="md"
-              hiddenBreakpoint="sm"
-              hidden={!opened}
-              width={{ sm: 200, lg: 300 }}
-            >
-              <Navbar.Section grow component={ScrollArea} mx="-xs" px="xs">
-                <TopicsContent />
-              </Navbar.Section>
-            </Navbar>
-          }
-          footer={
-            <Footer height={60} p="md">
-              Application footer
-            </Footer>
-          }
-          header={
-            <Header height={{ base: 50, md: 70 }} p="md">
-              <div
-                style={{
-                  display: "flex",
-                  alignItems: "center",
-                  height: "100%",
-                  justifyContent: "space-between",
-                }}
-              >
-                <MediaQuery largerThan="sm" styles={{ display: "none" }}>
-                  <Burger
-                    opened={opened}
-                    onClick={() => setOpened((o) => !o)}
-                    size="sm"
-                    color={theme.colors.gray[6]}
-                    mr="xl"
-                  />
-                </MediaQuery>
-                <HeaderContent />
-              </div>
-            </Header>
-          }
-        >
-          <NoteEditor onSave={(note) => console.log(note)} />
-          <NoteCard />
-        </AppShell>
-      </main>
+      <PageLayout withNavbar>
+        <NoteEditor onSave={(note) => console.log(note)} />
+        <NoteCard />
+      </PageLayout>
     </>
   );
 };

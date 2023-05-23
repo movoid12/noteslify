@@ -1,5 +1,3 @@
-import type { PropsWithChildren } from "react";
-import Head from "next/head";
 import React, { useState } from "react";
 import {
   AppShell,
@@ -15,21 +13,18 @@ import {
 import TopicsContent from "~/components/topicSidebar/TopicsContent";
 import { HeaderContent } from "~/components/header/HeaderContent";
 
-export const PageLayout = (props: PropsWithChildren) => {
+interface PageLayoutProps {
+  children: React.ReactNode;
+  withNavbar?: boolean;
+}
+
+export const PageLayout: React.FC<PageLayoutProps> = ({ children, withNavbar }) => {
   const theme = useMantineTheme();
 
   const [opened, setOpened] = useState(false);
 
   return (
     <>
-      <Head>
-        <title>Noteslify App</title>
-        <meta
-          name="description"
-          content="Noteslify an app that makes your more creative to make"
-        />
-        <link rel="icon" href="/favicon.ico" />
-      </Head>
       <main>
         <AppShell
           styles={{
@@ -43,16 +38,20 @@ export const PageLayout = (props: PropsWithChildren) => {
           navbarOffsetBreakpoint="sm"
           asideOffsetBreakpoint="sm"
           navbar={
-            <Navbar
-              p="md"
-              hiddenBreakpoint="sm"
-              hidden={!opened}
-              width={{ sm: 200, lg: 300 }}
-            >
-              <Navbar.Section grow component={ScrollArea} mx="-xs" px="xs">
-                <TopicsContent />
-              </Navbar.Section>
-            </Navbar>
+            <div>
+              {withNavbar && (
+                <Navbar
+                  p="md"
+                  hiddenBreakpoint="sm"
+                  hidden={!opened}
+                  width={{ sm: 200, lg: 300 }}
+                >
+                  <Navbar.Section grow component={ScrollArea} mx="-xs" px="xs">
+                    <TopicsContent />
+                  </Navbar.Section>
+                </Navbar>
+              )}
+            </div>
           }
           footer={
             <Footer height={60} p="md">
@@ -83,7 +82,7 @@ export const PageLayout = (props: PropsWithChildren) => {
             </Header>
           }
         >
-          {props.children}
+          {children}
         </AppShell>
       </main>
     </>
