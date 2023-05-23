@@ -1,0 +1,45 @@
+import { Group } from "@mantine/core";
+import { type NextPage } from "next";
+import Head from "next/head";
+import { ReactMarkdown } from "react-markdown/lib/react-markdown";
+import rehypeRaw from "rehype-raw";
+import remarkGfm from "remark-gfm";
+import BackButton from "~/components/BackButton/BackButton";
+import { PageLayout } from "~/components/PageLayout";
+import MarkdownConfig from "~/utils/MarkdownConfig";
+import { useNoteStore } from "~/utils/store";
+
+const NotePage: NextPage = () => {
+  const selectedNote = useNoteStore((state) => state.selectedNote);
+
+  if (selectedNote === null) {
+    return null;
+  }
+
+  return (
+    <>
+      <Head>
+        <title>Noteslify App</title>
+        <meta
+          name="description"
+          content="Noteslify an app that makes your more creative to make"
+        />
+        <link rel="icon" href="/favicon.ico" />
+      </Head>
+      <PageLayout>
+        <Group position="left" >
+          <BackButton />
+        </Group>
+        <ReactMarkdown
+          components={MarkdownConfig}
+          remarkPlugins={[remarkGfm]}
+          rehypePlugins={[rehypeRaw]}
+        >
+          {selectedNote.content}
+        </ReactMarkdown>
+      </PageLayout>
+    </>
+  );
+};
+
+export default NotePage;

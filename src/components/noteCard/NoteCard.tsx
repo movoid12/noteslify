@@ -1,17 +1,21 @@
-import ReactMarkdown from "react-markdown";
-import remarkGfm from "remark-gfm";
-import MarkdownComponents, { useStyles } from "./MarkdownComponents";
-import { Accordion, ActionIcon, Badge, Group, Paper, Stack } from "@mantine/core";
-import rehypeRaw from 'rehype-raw'
+/* eslint-disable @typescript-eslint/restrict-template-expressions */
+
+import { useStyles } from "../../utils/MarkdownConfig";
+import { Accordion, ActionIcon, Badge, Group, Paper, Stack, Text } from "@mantine/core";
 
 import { api } from "~/utils/api";
-import { IconNote, IconTrash } from "@tabler/icons-react";
-import { useTopicStore } from "~/utils/store";
+import { IconExternalLink, IconNote, IconTrash } from "@tabler/icons-react";
+import { useTopicStore, useNoteStore } from "~/utils/store";
 import { useSession } from "next-auth/react";
-import React from "react";
+import React, { useEffect } from "react";
+import Link from "next/link";
 
 export const NoteCard = () => {
   const selectedTopic = useTopicStore((state) => state.selectedTopic);
+
+  const selectedNote = useNoteStore((state) => state.selectedNote);
+  const setSelectedNote = useNoteStore((state) => state.setSelectedNote);
+
   const { data: sessionData } = useSession();
 
   const { data: notes, refetch: refetchNotes } = api.note.getAll.useQuery(
@@ -34,7 +38,12 @@ export const NoteCard = () => {
       {notes?.map((note) => (
         <Paper withBorder key={note.id}>
           <Accordion variant="filled" classNames={classes} className={classes.root}>
-            <Accordion.Item value={note.title}>
+            <Accordion.Item
+              value={note.title}
+              onClick={() => {
+                setSelectedNote(note);
+              }}
+            >
               <Group position="right">
                 <Accordion.Control icon={<IconNote />}>{note.title}</Accordion.Control>
 
@@ -48,15 +57,17 @@ export const NoteCard = () => {
                 >
                   <IconTrash />
                 </ActionIcon>
+                <ActionIcon mr={"md"} color="blue" variant="outline">
+                  <Link
+
+                    href={`/topics/${selectedTopic?.title}/notes/${note?.title}`}
+                  >
+                    <IconExternalLink />
+                  </Link>
+                </ActionIcon>
               </Group>
               <Accordion.Panel>
-                <ReactMarkdown
-                  components={MarkdownComponents}
-                  remarkPlugins={[remarkGfm]}
-                  rehypePlugins={[rehypeRaw]} 
-                >
-                  {note.content}
-                </ReactMarkdown>
+                <Text size="md">open to see your note content</Text>
               </Accordion.Panel>
               <Badge m={"sm"} color="teal" variant="outline">
                 created: {note.createdAt.toLocaleDateString()} -{" "}
