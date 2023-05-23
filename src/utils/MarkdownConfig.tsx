@@ -14,7 +14,7 @@ type MarkdownComponentsProps = {
   children: React.ReactNode;
 };
 
-const MarkdownComponents: object = {
+const MarkdownConfig: object = {
   code({ node, inline, className, children, ...props }: MarkdownComponentsProps) {
     const match = /language-(\w+)/.exec(className || "");
     return !inline && match ? (
@@ -79,4 +79,4 @@ export const useStyles = createStyles((theme) => ({
   },
 }));
 
-export default MarkdownComponents;
+export default MarkdownConfig;

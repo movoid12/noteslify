@@ -32,4 +32,14 @@ export const noteRouter = createTRPCRouter({
         },
       });
     }),
+  get: protectedProcedure
+    .input(z.object({ id: z.string() }))
+    .query(({ ctx, input }) => {
+      return ctx.prisma.note.findFirst({
+        where: {
+          id: input.id,
+        },
+      });
+    }
+    ),
 });
