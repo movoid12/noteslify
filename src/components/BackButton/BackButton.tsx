@@ -6,10 +6,13 @@ import { useRouter } from "next/router";
 
 const BackButton = () => {
   const router = useRouter();
+  const handleBack = () => {
+    void router.back();
+  };
 
   return (
     <>
-      <ActionIcon variant="outline" color="red" onClick={() => router.back()}>
+      <ActionIcon variant="outline" color="red" onClick={handleBack}>
         <IconArrowBack />
       </ActionIcon>
     </>

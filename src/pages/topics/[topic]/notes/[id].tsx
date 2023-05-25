@@ -1,4 +1,4 @@
-import { Group } from "@mantine/core";
+import { Divider, Group, Title } from "@mantine/core";
 import { type NextPage } from "next";
 import Head from "next/head";
 import { ReactMarkdown } from "react-markdown/lib/react-markdown";
@@ -7,12 +7,16 @@ import remarkGfm from "remark-gfm";
 import BackButton from "~/components/BackButton/BackButton";
 import { PageLayout } from "~/components/PageLayout";
 import MarkdownConfig from "~/utils/MarkdownConfig";
-import { useNoteStore } from "~/utils/store";
+import { useNoteStore, useTopicStore } from "~/utils/store";
 
 const NotePage: NextPage = () => {
   const selectedNote = useNoteStore((state) => state.selectedNote);
+  const selectedTopic = useTopicStore((state) => state.selectedTopic);
 
   if (selectedNote === null) {
+    return null;
+  }
+  if (selectedTopic === null) {
     return null;
   }
 
@@ -27,9 +31,12 @@ const NotePage: NextPage = () => {
         <link rel="icon" href="/favicon.ico" />
       </Head>
       <PageLayout>
-        <Group position="left" >
+        <Group position="apart" mb="md">
+          <Title color="yellow" order={5}>Topic: {selectedTopic.title}</Title>
+          <Title order={2}>{selectedNote.title}</Title>
           <BackButton />
         </Group>
+        <Divider size="lg"/>
         <ReactMarkdown
           components={MarkdownConfig}
           remarkPlugins={[remarkGfm]}

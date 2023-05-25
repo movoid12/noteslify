@@ -14,45 +14,19 @@ import {
   Text,
 } from "@mantine/core";
 import { useDisclosure } from "@mantine/hooks";
-import { useSession } from "next-auth/react";
 import { useState } from "react";
-import { api } from "~/utils/api";
+
 import { useTopicStore } from "~/utils/store";
+import { useTopicLogic } from "~/helpers/helpers";
 
-const TopicsContent: React.FC = () => {
-  const { data: sessionData } = useSession();
-
+const AppNavbar: React.FC = () => {
   const selectedTopic = useTopicStore((state) => state.selectedTopic);
   const setSelectedTopic = useTopicStore((state) => state.setSelectedTopic);
 
+  const { createTopic, topics, deleteTopic, updateTopic, sessionData } = useTopicLogic();
+
   const [newTopic, setNewTopic] = useState("");
-  const [topicEdit, setTopicEdit] = useState(false);
   const [opened, { open, close }] = useDisclosure(false);
-
-  const { data: topics, refetch: refetchTopics } = api.topic.getAll.useQuery(undefined, {
-    enabled: sessionData?.user !== undefined,
-    onSuccess: (data) => {
-      setSelectedTopic(selectedTopic ?? data[0] ?? null);
-    },
-  });
-
-  const createTopic = api.topic.create.useMutation({
-    onSuccess: () => {
-      refetchTopics();
-    },
-  });
-  const deleteTopic = api.topic.delete.useMutation({
-    onSuccess: () => {
-      refetchTopics();
-    },
-  });
-  const updateTopic = api.topic.update.useMutation({
-    onSuccess: () => {
-      refetchTopics();
-    },
-  });
-
-  const topicsCount = topics?.length ?? 0;
 
   // background color of Box Component changed when the topic is selected
 
@@ -84,11 +58,13 @@ const TopicsContent: React.FC = () => {
           createTopic.mutate({ title: newTopic });
           setNewTopic("");
         }}
-        disabled={sessionData?.user === undefined}
+        disabled={sessionData?.user === undefined || newTopic === ""}
       >
         Add Topic
       </Button>
-      <Button onClick={open} disabled={sessionData?.user === undefined} >Manage Topics</Button>
+      <Button onClick={open} disabled={sessionData?.user === undefined}>
+        Manage Topics
+      </Button>
       <Divider />
       <Modal opened={opened} onClose={close} title="Manage Topics">
         <Container>
@@ -109,7 +85,7 @@ const TopicsContent: React.FC = () => {
       </Modal>
       <Group position="apart">
         <Text>Select a Topic:</Text>
-        <Mark fz={12}>{topicsCount} Topics</Mark>
+        {/* <Mark fz={12}>{topicsCount} Topics</Mark> */}
       </Group>
       {topics?.map((topic) => (
         <Box
@@ -141,4 +117,4 @@ const TopicsContent: React.FC = () => {
   );
 };
 
-export default TopicsContent;
+export default AppNavbar;

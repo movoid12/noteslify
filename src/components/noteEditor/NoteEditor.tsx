@@ -1,9 +1,5 @@
-import { SetStateAction, useState } from "react";
+import { useState } from "react";
 import { Button, Input, Mark, Space, Stack, Tabs, Text } from "@mantine/core";
-import { useSession } from "next-auth/react";
-import { api } from "~/utils/api";
-
-import { useTopicStore } from "~/utils/store";
 import { useEditor } from "@tiptap/react";
 import { RichTextEditor, Link } from "@mantine/tiptap";
 import Highlight from "@tiptap/extension-highlight";
@@ -17,30 +13,20 @@ import { languages } from "@codemirror/language-data";
 import CodeMirror from "@uiw/react-codemirror";
 import { IconMarkdown, IconNotes } from "@tabler/icons-react";
 
+import { useTopicLogic } from "~/helpers/helpers";
+import { useTopicStore } from "~/utils/store";
+
 type NoteEditorProps = {
   onSave: (note: { title: string; content: string }) => void;
 };
-const NoteEditor = ({
-  onSave,
-}: NoteEditorProps) => {
-  const { data: sessionData } = useSession();
-
-  const [noteContent, setNoteContent] = useState<string>("");
-  const [title, setTitle] = useState<string>("");
+const NoteEditor = ({ onSave }: NoteEditorProps) => {
   const selectedTopic = useTopicStore((state) => state.selectedTopic);
 
-  const { refetch: refetchNotes } = api.note.getAll.useQuery(
-    { topicId: selectedTopic?.id ?? "" },
-    {
-      enabled: sessionData?.user !== undefined && selectedTopic !== null,
-    },
-  );
+  const [noteContent, setNoteContent] = useState<string>("");
 
-  const createNote = api.note.create.useMutation({
-    onSuccess: () => {
-      void refetchNotes();
-    },
-  });
+  const [title, setTitle] = useState<string>("");
+
+  const { createNote, sessionData } = useTopicLogic();
 
   const editor = useEditor({
     extensions: [
@@ -57,6 +43,23 @@ const NoteEditor = ({
       setNoteContent(editor.getHTML());
     },
   });
+
+  const pickColors = [
+    "#25262b",
+    "#868e96",
+    "#fa5252",
+    "#e64980",
+    "#be4bdb",
+    "#7950f2",
+    "#4c6ef5",
+    "#228be6",
+    "#15aabf",
+    "#12b886",
+    "#40c057",
+    "#82c91e",
+    "#fab005",
+    "#fd7e14",
+  ];
 
   if (!editor) {
     return null;
@@ -77,82 +80,76 @@ const NoteEditor = ({
         disabled={sessionData?.user === undefined}
       />
       <Tabs color="teal" defaultValue="richtext">
-        <Tabs.List grow onClick={() => { setNoteContent("");  editor.commands.clearContent();}}>
-          <Tabs.Tab value="richtext" icon={<IconNotes size="0.8rem" />}>Text Editor</Tabs.Tab>
-          <Tabs.Tab value="markdown" icon={<IconMarkdown size="0.8rem" />}>Markdown Editor</Tabs.Tab>
+        <Tabs.List
+          grow
+          onClick={() => {
+            setNoteContent("");
+            editor.commands.clearContent();
+          }}
+        >
+          <Tabs.Tab value="richtext" icon={<IconNotes size="0.8rem" />}>
+            Text Editor
+          </Tabs.Tab>
+          <Tabs.Tab value="markdown" icon={<IconMarkdown size="0.8rem" />}>
+            Markdown Editor
+          </Tabs.Tab>
         </Tabs.List>
         <Tabs.Panel value="markdown">
-
-      <CodeMirror
-        value={noteContent}
-        editable={sessionData?.user === undefined ? false : true}
-        readOnly={sessionData?.user === undefined ? true : false}
-        width="auto"
-        height="30vh"
-        minWidth="100%"
-        minHeight="30vh"
-        extensions={[markdown({ base: markdownLanguage, codeLanguages: languages })]}
-        onChange={(value: string) => setNoteContent(value)}
-      />
+          <CodeMirror
+            value={noteContent}
+            editable={sessionData?.user === undefined ? false : true}
+            readOnly={sessionData?.user === undefined ? true : false}
+            width="auto"
+            height="30vh"
+            minWidth="100%"
+            minHeight="30vh"
+            extensions={[markdown({ base: markdownLanguage, codeLanguages: languages })]}
+            onChange={(value: string) => setNoteContent(value)}
+          />
         </Tabs.Panel>
         <Tabs.Panel value="richtext">
-      <RichTextEditor editor={editor} h={"35vh"} style={{ overflowY: "auto" }}>
-        <RichTextEditor.Toolbar sticky>
-          <RichTextEditor.ControlsGroup>
-            <RichTextEditor.ColorPicker
-              colors={[
-                "#25262b",
-                "#868e96",
-                "#fa5252",
-                "#e64980",
-                "#be4bdb",
-                "#7950f2",
-                "#4c6ef5",
-                "#228be6",
-                "#15aabf",
-                "#12b886",
-                "#40c057",
-                "#82c91e",
-                "#fab005",
-                "#fd7e14",
-              ]}
-            />
-            <RichTextEditor.Bold />
-            <RichTextEditor.Italic />
-            <RichTextEditor.Underline />
-            <RichTextEditor.Strikethrough />
-            <RichTextEditor.ClearFormatting />
-            <RichTextEditor.Highlight />
-            <RichTextEditor.Code />
-          </RichTextEditor.ControlsGroup>
+          <RichTextEditor editor={editor} h={"35vh"} style={{ overflowY: "auto" }}>
+            <RichTextEditor.Toolbar sticky>
+              <RichTextEditor.ControlsGroup>
+                <RichTextEditor.ColorPicker colors={pickColors} />
+                <RichTextEditor.Bold />
+                <RichTextEditor.Italic />
+                <RichTextEditor.Underline />
+                <RichTextEditor.Strikethrough />
+                <RichTextEditor.ClearFormatting />
+                <RichTextEditor.Highlight />
+                <RichTextEditor.Code />
+              </RichTextEditor.ControlsGroup>
 
-          <RichTextEditor.ControlsGroup>
-            <RichTextEditor.H1 />
-            <RichTextEditor.H2 />
-            <RichTextEditor.H3 />
-            <RichTextEditor.H4 />
-          </RichTextEditor.ControlsGroup>
+              <RichTextEditor.ControlsGroup>
+                <RichTextEditor.H1 />
+                <RichTextEditor.H2 />
+                <RichTextEditor.H3 />
+                <RichTextEditor.H4 />
+              </RichTextEditor.ControlsGroup>
 
-          <RichTextEditor.ControlsGroup>
-            <RichTextEditor.Hr />
-            <RichTextEditor.BulletList />
-            <RichTextEditor.OrderedList />
-          </RichTextEditor.ControlsGroup>
+              <RichTextEditor.ControlsGroup>
+                <RichTextEditor.Hr />
+                <RichTextEditor.BulletList />
+                <RichTextEditor.OrderedList />
+              </RichTextEditor.ControlsGroup>
 
-          <RichTextEditor.ControlsGroup>
-            <RichTextEditor.Link />
-            <RichTextEditor.Unlink />
-          </RichTextEditor.ControlsGroup>
+              <RichTextEditor.ControlsGroup>
+                <RichTextEditor.Link />
+                <RichTextEditor.Unlink />
+              </RichTextEditor.ControlsGroup>
 
-          <RichTextEditor.ControlsGroup>
-            <RichTextEditor.AlignLeft />
-            <RichTextEditor.AlignCenter />
-            <RichTextEditor.AlignJustify />
-            <RichTextEditor.AlignRight />
-          </RichTextEditor.ControlsGroup>
-        </RichTextEditor.Toolbar>
-        { sessionData?.user !== undefined ? <RichTextEditor.Content mih={"30vh"} /> : null }
-      </RichTextEditor>
+              <RichTextEditor.ControlsGroup>
+                <RichTextEditor.AlignLeft />
+                <RichTextEditor.AlignCenter />
+                <RichTextEditor.AlignJustify />
+                <RichTextEditor.AlignRight />
+              </RichTextEditor.ControlsGroup>
+            </RichTextEditor.Toolbar>
+            {sessionData?.user !== undefined ? (
+              <RichTextEditor.Content mih={"30vh"} />
+            ) : null}
+          </RichTextEditor>
         </Tabs.Panel>
       </Tabs>
       <Space />

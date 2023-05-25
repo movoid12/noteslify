@@ -13,13 +13,13 @@ import {
 import { IconSun, IconMoonStars } from "@tabler/icons-react";
 import { useNetwork, useOs } from "@mantine/hooks";
 
-export const HeaderContent = () => {
+export const AppHeader = () => {
   const { data: sessionData } = useSession();
   const { colorScheme, toggleColorScheme } = useMantineColorScheme();
   const dark = colorScheme === "dark";
 
   const networkStatus = useNetwork();
-  const os = useOs();
+  // const os = useOs();
   // const isDesktop = os === "macos" || os === "windows" || os === "linux";
 
   return (

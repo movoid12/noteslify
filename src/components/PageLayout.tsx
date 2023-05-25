@@ -10,8 +10,8 @@ import {
   ScrollArea,
 } from "@mantine/core";
 
-import TopicsContent from "~/components/topicSidebar/TopicsContent";
-import { HeaderContent } from "~/components/header/HeaderContent";
+import AppNavbar from "~/components/AppNavbar/AppNavbar";
+import { AppHeader } from "~/components/AppHeader/AppHeader";
 
 interface PageLayoutProps {
   children: React.ReactNode;
@@ -47,7 +47,7 @@ export const PageLayout: React.FC<PageLayoutProps> = ({ children, withNavbar }) 
                   width={{ sm: 200, lg: 300 }}
                 >
                   <Navbar.Section grow component={ScrollArea} mx="-xs" px="xs">
-                    <TopicsContent />
+                    <AppNavbar />
                   </Navbar.Section>
                 </Navbar>
               )}
@@ -77,7 +77,7 @@ export const PageLayout: React.FC<PageLayoutProps> = ({ children, withNavbar }) 
                     mr="xl"
                   />
                 </MediaQuery>
-                <HeaderContent />
+                <AppHeader />
               </div>
             </Header>
           }

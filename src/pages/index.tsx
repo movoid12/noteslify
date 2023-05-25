@@ -3,8 +3,8 @@ import { type NextPage } from "next";
 import Head from "next/head";
 import React from "react";
 
-import NoteEditor from "~/components/noteEditor/NoteEditor";
-import { NoteCard } from "~/components/noteCard/NoteCard";
+import NoteEditor from "~/components/NoteEditor/NoteEditor";
+import { NoteCard } from "~/components/NoteCard/NoteCard";
 import { PageLayout } from "~/components/PageLayout";
 
 const Home: NextPage = () => {

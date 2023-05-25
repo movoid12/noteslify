@@ -1,7 +1,7 @@
 /* eslint-disable @typescript-eslint/await-thenable */
 import { create } from "zustand";
 
-type Topic = {
+export type Topic = {
   id: string;
   createdAt: Date;
   updatedAt: Date;
@@ -9,7 +9,7 @@ type Topic = {
   userId: string;
 }
 
-type Note = {
+export type Note = {
   id: string;
   createdAt: Date;
   updatedAt: Date;
