@@ -13,7 +13,7 @@ import { languages } from "@codemirror/language-data";
 import CodeMirror from "@uiw/react-codemirror";
 import { IconMarkdown, IconNotes } from "@tabler/icons-react";
 
-import { useTopicLogic } from "~/helpers/helpers";
+import { useTopicLogic } from "~/helpers/useTopicLogic";
 import { useTopicStore } from "~/utils/store";
 
 type NoteEditorProps = {
@@ -61,9 +61,12 @@ const NoteEditor = ({ onSave }: NoteEditorProps) => {
     "#fd7e14",
   ];
 
-  if (!editor) {
-    return null;
-  }
+  const clearHandleClick = () => {
+    if (!editor) {
+      return null;
+    }
+    editor.commands.clearContent();
+  };
 
   return (
     <Stack spacing="md">
@@ -84,7 +87,7 @@ const NoteEditor = ({ onSave }: NoteEditorProps) => {
           grow
           onClick={() => {
             setNoteContent("");
-            editor.commands.clearContent();
+            clearHandleClick();
           }}
         >
           <Tabs.Tab value="richtext" icon={<IconNotes size="0.8rem" />}>
@@ -167,7 +170,7 @@ const NoteEditor = ({ onSave }: NoteEditorProps) => {
           onSave({ title, content: noteContent });
           setTitle("");
           setNoteContent("");
-          editor.commands.clearContent();
+          clearHandleClick();
         }}
         disabled={
           title.trim().length === 0 ||

@@ -6,7 +6,7 @@ import { ActionIcon, Badge, Button, Group, Paper, Stack, Title } from "@mantine/
 
 import { IconTrash } from "@tabler/icons-react";
 import { useTopicStore, useNoteStore } from "~/utils/store";
-import { useTopicLogic } from "~/helpers/helpers";
+import { useTopicLogic } from "~/helpers/useTopicLogic";
 
 import React from "react";
 

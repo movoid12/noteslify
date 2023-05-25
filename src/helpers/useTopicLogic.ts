@@ -1,11 +1,10 @@
 import { api } from "~/utils/api";
 import { useSession } from "next-auth/react";
-import z from "zod";
 
 import { type Topic, useTopicStore, type Note } from "~/utils/store";
 
 
-type UseTopicLogic = {
+type UseTopicLogicProps = {
     topics: Topic[];
     createTopic: ReturnType<typeof api.topic.create.useMutation>;
     deleteTopic: ReturnType<typeof api.topic.delete.useMutation>;
@@ -18,7 +17,7 @@ type UseTopicLogic = {
 }
 
 
-const useTopicLogic = (): UseTopicLogic => {
+const useTopicLogic = (): UseTopicLogicProps => {
 
     const selectedTopic = useTopicStore((state) => state.selectedTopic);
     const setSelectedTopic = useTopicStore((state) => state.setSelectedTopic);

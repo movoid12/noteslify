@@ -13,7 +13,7 @@ import {
 import { IconSun, IconMoonStars } from "@tabler/icons-react";
 import { useNetwork, useOs } from "@mantine/hooks";
 
-export const AppHeader = () => {
+const AppHeader = () => {
   const { data: sessionData } = useSession();
   const { colorScheme, toggleColorScheme } = useMantineColorScheme();
   const dark = colorScheme === "dark";
@@ -60,3 +60,5 @@ export const AppHeader = () => {
     </>
   );
 };
+
+export default AppHeader;
