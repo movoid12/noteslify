@@ -19,6 +19,7 @@ interface PageLayoutProps {
 }
 
 export const PageLayout: React.FC<PageLayoutProps> = ({ children, withNavbar }) => {
+  
   const theme = useMantineTheme();
 
   const [opened, setOpened] = useState(false);

@@ -1,6 +1,3 @@
-/* eslint-disable @typescript-eslint/no-unsafe-assignment */
-/* eslint-disable @typescript-eslint/no-floating-promises */
-/* eslint-disable react-hooks/rules-of-hooks */
 import {
   ActionIcon,
   Button,
@@ -23,31 +20,34 @@ import { IconEdit, IconX } from '@tabler/icons-react';
 const AppNavbar: React.FC = () => {
   const { createTopic, topics, deleteTopic, updateTopic, sessionData } = useHelpers();
 
-  const selectedTopic = useTopicStore((state) => state.selectedTopic);
-
-  const setSelectedTopic = useTopicStore((state) => state.setSelectedTopic);
+  const { selectedTopic, setSelectedTopic } = useTopicStore((state) => ({
+    selectedTopic: state.selectedTopic,
+    setSelectedTopic: state.setSelectedTopic,
+  }));
 
   const [opened, { open, close }] = useDisclosure(false);
 
+  // * new topic
+
   const [newTopic, setNewTopic] = useState('');
-
-  const [editMode, setEditMode] = useState(false);
-
-  const [tempTopic, setTempTopic] = useState('');
-
-  const [editingTopicId, setEditingTopicId] = useState('');
 
   const handleCreateTopic = () => {
     createTopic.mutate({ title: newTopic });
     setNewTopic('');
   };
 
-  const handleDeleteTopic = (id: string) => {
-    deleteTopic.mutate({ id });
-  };
+  // * delete topic
+
+  const handleDeleteTopic = (id: string) => deleteTopic.mutate({ id });
+
+  // * edit topic
+
+  const [tempTopic, setTempTopic] = useState('');
+
+  const [editingTopicId, setEditingTopicId] = useState('');
 
   const handleEditTopic = (id: string) => {
-    setEditMode(true);
+    setEditingTopicId(id);
 
     const topic = topics?.find((topic) => topic.id === id);
 
@@ -58,14 +58,17 @@ const AppNavbar: React.FC = () => {
 
   const handleUpdateItem = (id: string) => {
     updateTopic.mutate({ id, title: tempTopic });
-    setTempTopic('');
-    setEditMode(false);
+    handleFormReset();
   };
 
-  const handleCloseEdit = () => {
-    setEditMode(false);
+  // * reset form
+
+  const handleFormReset = () => {
+    setEditingTopicId('');
     setTempTopic('');
   };
+
+  // * render
 
   const topicsCount = topics?.length;
 
@@ -103,7 +106,7 @@ const AppNavbar: React.FC = () => {
       <Modal
         opened={opened}
         onClose={() => {
-          setEditMode(false);
+          handleFormReset();
           close();
         }}
         title="Manage Topics"
@@ -112,12 +115,12 @@ const AppNavbar: React.FC = () => {
           {topics?.map((topic) => (
             <>
               <Group mb="sm" mt="sm" position="apart" key={topic.id}>
-                {editMode && editingTopicId === topic.id ? (
+                {editingTopicId === topic.id ? (
                   <>
                     <Input
                       onChange={(e) => setTempTopic(e.currentTarget.value)}
                       value={tempTopic}
-                      rightSection={<IconX onClick={handleCloseEdit} cursor="pointer" />}
+                      rightSection={<IconX onClick={handleFormReset} cursor="pointer" />}
                     />
                     <Button onClick={() => handleUpdateItem(topic.id)}>Update</Button>
                   </>
@@ -125,7 +128,6 @@ const AppNavbar: React.FC = () => {
                   <>
                     <ActionIcon
                       onClick={() => {
-                        setEditMode(true);
                         setEditingTopicId(topic.id);
                         handleEditTopic(topic.id);
                       }}
