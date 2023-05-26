@@ -1,21 +1,16 @@
 /* eslint-disable react/no-children-prop */
-import { createStyles, rem, useMantineTheme } from "@mantine/core";
+import { createStyles, rem } from "@mantine/core";
 import { PrismLight as SyntaxHighlighter } from "react-syntax-highlighter";
-import { materialLight, oneDark } from "react-syntax-highlighter/dist/cjs/styles/prism";
-import { useColorScheme } from "@mantine/hooks";
+import { oneDark } from "react-syntax-highlighter/dist/cjs/styles/prism";
 
 type MarkdownComponentsProps = {
-  node: {
-    children: string;
-    value: string;
-  };
   inline: boolean;
   className: string;
   children: React.ReactNode;
 };
 
 const MarkdownConfig: object = {
-  code({ node, inline, className, children, ...props }: MarkdownComponentsProps) {
+  code({ inline, className, children, ...props }: MarkdownComponentsProps) {
     const match = /language-(\w+)/.exec(className || "");
     return !inline && match ? (
       <SyntaxHighlighter
