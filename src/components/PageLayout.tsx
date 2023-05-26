@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useState } from 'react';
 import {
   AppShell,
   Navbar,
@@ -8,10 +8,10 @@ import {
   Burger,
   useMantineTheme,
   ScrollArea,
-} from "@mantine/core";
+} from '@mantine/core';
 
-import AppNavbar from "~/components/AppNavbar/AppNavbar";
-import AppHeader from "~/components/AppHeader/AppHeader";
+import AppNavbar from '~/components/AppNavbar/AppNavbar';
+import AppHeader from '~/components/AppHeader/AppHeader';
 
 interface PageLayoutProps {
   children: React.ReactNode;
@@ -29,7 +29,7 @@ export const PageLayout: React.FC<PageLayoutProps> = ({ children, withNavbar }) 
         styles={{
           main: {
             background:
-              theme.colorScheme === "dark" ? theme.colors.dark[8] : theme.colors.gray[0],
+              theme.colorScheme === 'dark' ? theme.colors.dark[8] : theme.colors.gray[0],
           },
         }}
         navbarOffsetBreakpoint="sm"
@@ -59,13 +59,13 @@ export const PageLayout: React.FC<PageLayoutProps> = ({ children, withNavbar }) 
           <Header height={{ base: 50, md: 70 }} p="md">
             <div
               style={{
-                display: "flex",
-                alignItems: "center",
-                height: "100%",
-                justifyContent: "space-between",
+                display: 'flex',
+                alignItems: 'center',
+                height: '100%',
+                justifyContent: 'space-between',
               }}
             >
-              <MediaQuery largerThan="sm" styles={{ display: "none" }}>
+              <MediaQuery largerThan="sm" styles={{ display: 'none' }}>
                 <Burger
                   opened={opened}
                   onClick={() => setOpened((o) => !o)}

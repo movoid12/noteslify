@@ -1,13 +1,13 @@
-import { Divider, Group, Title } from "@mantine/core";
-import { type NextPage } from "next";
-import Head from "next/head";
-import { ReactMarkdown } from "react-markdown/lib/react-markdown";
-import rehypeRaw from "rehype-raw";
-import remarkGfm from "remark-gfm";
-import BackButton from "~/components/BackButton/BackButton";
-import { PageLayout } from "~/components/PageLayout";
-import markdownConf from "~/utils/MarkdownConfig";
-import { useNoteStore, useTopicStore } from "~/utils/store";
+import { Divider, Group, Title } from '@mantine/core';
+import { type NextPage } from 'next';
+import Head from 'next/head';
+import { ReactMarkdown } from 'react-markdown/lib/react-markdown';
+import rehypeRaw from 'rehype-raw';
+import remarkGfm from 'remark-gfm';
+import BackButton from '~/components/BackButton/BackButton';
+import { PageLayout } from '~/components/PageLayout';
+import markdownConf from '~/utils/MarkdownConfig';
+import { useNoteStore, useTopicStore } from '~/utils/store';
 
 const NotePage: NextPage = () => {
   const selectedNote = useNoteStore((state) => state.selectedNote);
@@ -34,9 +34,11 @@ const NotePage: NextPage = () => {
         <Group position="apart" mb="md">
           <BackButton />
           <Title order={2}>{selectedNote.title}</Title>
-          <Title color="yellow" order={5}>Topic: {selectedTopic.title}</Title>
+          <Title color="yellow" order={5}>
+            Topic: {selectedTopic.title}
+          </Title>
         </Group>
-        <Divider size="lg"/>
+        <Divider size="lg" />
         <ReactMarkdown
           components={markdownConf}
           remarkPlugins={[remarkGfm]}

@@ -1,11 +1,11 @@
 /* eslint-disable @typescript-eslint/unbound-method */
-import { type NextPage } from "next";
-import Head from "next/head";
-import React from "react";
+import { type NextPage } from 'next';
+import Head from 'next/head';
+import React from 'react';
 
-import NoteEditor from "~/components/NoteEditor/NoteEditor";
-import { NoteCard } from "~/components/NoteCard/NoteCard";
-import { PageLayout } from "~/components/PageLayout";
+import NoteEditor from '~/components/NoteEditor/NoteEditor';
+import { NoteCard } from '~/components/NoteCard/NoteCard';
+import { PageLayout } from '~/components/PageLayout';
 
 const Home: NextPage = () => {
   return (

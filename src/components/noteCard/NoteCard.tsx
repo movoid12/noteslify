@@ -1,23 +1,23 @@
 /* eslint-disable @typescript-eslint/no-unsafe-call */
 /* eslint-disable @typescript-eslint/restrict-template-expressions */
 
-import { useStyles } from "../../utils/MarkdownConfig";
-import { ActionIcon, Badge, Button, Group, Paper, Stack, Title } from "@mantine/core";
+import React from 'react';
+import { useStyles } from '../../utils/MarkdownConfig';
+import { ActionIcon, Badge, Button, Group, Paper, Stack, Title } from '@mantine/core';
+import { useRouter } from 'next/router';
 
-import { IconTrash } from "@tabler/icons-react";
-import { useTopicStore, useNoteStore } from "~/utils/store";
-import { useHelpers } from "~/helpers/useHelpers";
-
-import React from "react";
-
-import { useRouter } from "next/router";
+import { IconTrash } from '@tabler/icons-react';
+import { useTopicStore, useNoteStore } from '~/utils/store';
+import { useHelpers } from '~/helpers/useHelpers';
 
 export const NoteCard = () => {
   const selectedTopic = useTopicStore((state) => state.selectedTopic);
 
   const selectedNote = useNoteStore((state) => state.selectedNote);
   const setSelectedNote = useNoteStore((state) => state.setSelectedNote);
+
   const { notes, deleteNote } = useHelpers();
+
   const { classes } = useStyles();
 
   const router = useRouter();
@@ -49,12 +49,12 @@ export const NoteCard = () => {
             </Button>
           </Group>
           <Group position="apart">
-            <Badge m={"sm"} color="teal" variant="outline">
-              created: {note.createdAt.toLocaleDateString()} -{" "}
+            <Badge m={'sm'} color="teal" variant="outline">
+              created: {note.createdAt.toLocaleDateString()} -{' '}
               {note.createdAt.toLocaleTimeString()}
             </Badge>
             <ActionIcon
-              mr={"md"}
+              mr="md"
               color="red"
               variant="outline"
               onClick={() => {

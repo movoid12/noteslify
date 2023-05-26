@@ -1,5 +1,5 @@
 /* eslint-disable @typescript-eslint/await-thenable */
-import { create } from "zustand";
+import { create } from 'zustand';
 
 export type Topic = {
   id: string;
@@ -7,7 +7,7 @@ export type Topic = {
   updatedAt: Date;
   title: string;
   userId: string;
-}
+};
 
 export type Note = {
   id: string;
@@ -16,7 +16,7 @@ export type Note = {
   title: string;
   content: string;
   topicId: string;
-}
+};
 
 type TopicStore = {
   selectedTopic: Topic | null;

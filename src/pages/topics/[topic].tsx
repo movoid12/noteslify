@@ -1,6 +1,6 @@
-import { type NextPage } from "next";
-import Head from "next/head";
-import { useTopicStore } from "~/utils/store";
+import { type NextPage } from 'next';
+import Head from 'next/head';
+import { useTopicStore } from '~/utils/store';
 
 const CategoryPage: NextPage = () => {
   const selectedTopic = useTopicStore((state) => state.selectedTopic);

@@ -1,6 +1,6 @@
-import { z } from "zod";
+import { z } from 'zod';
 
-import { createTRPCRouter, protectedProcedure } from "../trpc";
+import { createTRPCRouter, protectedProcedure } from '../trpc';
 
 export const noteRouter = createTRPCRouter({
   delete: protectedProcedure
@@ -32,16 +32,13 @@ export const noteRouter = createTRPCRouter({
         },
       });
     }),
-  get: protectedProcedure
-    .input(z.object({ id: z.string() }))
-    .query(({ ctx, input }) => {
-      return ctx.prisma.note.findFirst({
-        where: {
-          id: input.id,
-        },
-      });
-    }
-    ),
+  get: protectedProcedure.input(z.object({ id: z.string() })).query(({ ctx, input }) => {
+    return ctx.prisma.note.findFirst({
+      where: {
+        id: input.id,
+      },
+    });
+  }),
   update: protectedProcedure
     .input(z.object({ id: z.string(), title: z.string(), content: z.string() }))
     .mutation(async ({ ctx, input }) => {
@@ -54,6 +51,5 @@ export const noteRouter = createTRPCRouter({
           content: input.content,
         },
       });
-    }
-    ),
+    }),
 });
