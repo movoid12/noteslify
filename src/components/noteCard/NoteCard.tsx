@@ -6,7 +6,7 @@ import { ActionIcon, Badge, Button, Group, Paper, Stack, Title } from "@mantine/
 
 import { IconTrash } from "@tabler/icons-react";
 import { useTopicStore, useNoteStore } from "~/utils/store";
-import { useTopicLogic } from "~/helpers/useTopicLogic";
+import { useHelpers } from "~/helpers/useHelpers";
 
 import React from "react";
 
@@ -17,7 +17,7 @@ export const NoteCard = () => {
 
   const selectedNote = useNoteStore((state) => state.selectedNote);
   const setSelectedNote = useNoteStore((state) => state.setSelectedNote);
-  const { notes, deleteNote } = useTopicLogic();
+  const { notes, deleteNote } = useHelpers();
   const { classes } = useStyles();
 
   const router = useRouter();

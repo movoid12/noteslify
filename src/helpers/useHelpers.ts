@@ -4,7 +4,7 @@ import { useSession } from "next-auth/react";
 import { type Topic, useTopicStore, type Note } from "~/utils/store";
 
 
-type UseTopicLogicProps = {
+type useHelpersProps = {
     topics: Topic[];
     createTopic: ReturnType<typeof api.topic.create.useMutation>;
     deleteTopic: ReturnType<typeof api.topic.delete.useMutation>;
@@ -17,7 +17,7 @@ type UseTopicLogicProps = {
 }
 
 
-const useTopicLogic = (): UseTopicLogicProps => {
+const useHelpers = (): useHelpersProps => {
 
     const selectedTopic = useTopicStore((state) => state.selectedTopic);
     const setSelectedTopic = useTopicStore((state) => state.setSelectedTopic);
@@ -85,4 +85,4 @@ const useTopicLogic = (): UseTopicLogicProps => {
     }
 }
 
-export { useTopicLogic }
+export { useHelpers }

@@ -13,7 +13,7 @@ import { languages } from "@codemirror/language-data";
 import CodeMirror from "@uiw/react-codemirror";
 import { IconMarkdown, IconNotes } from "@tabler/icons-react";
 
-import { useTopicLogic } from "~/helpers/useTopicLogic";
+import { useHelpers } from "~/helpers/useHelpers";
 import { useTopicStore } from "~/utils/store";
 
 type NoteEditorProps = {
@@ -26,7 +26,7 @@ const NoteEditor = ({ onSave }: NoteEditorProps) => {
 
   const [title, setTitle] = useState<string>("");
 
-  const { createNote, sessionData } = useTopicLogic();
+  const { createNote, sessionData } = useHelpers();
 
   const editor = useEditor({
     extensions: [

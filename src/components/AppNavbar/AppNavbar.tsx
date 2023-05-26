@@ -17,11 +17,11 @@ import { useDisclosure } from "@mantine/hooks";
 import { useState } from "react";
 
 import { useTopicStore } from "~/utils/store";
-import { useTopicLogic } from "~/helpers/useTopicLogic";
+import { useHelpers } from "~/helpers/useHelpers";
 import { IconEdit, IconX } from "@tabler/icons-react";
 
 const AppNavbar: React.FC = () => {
-  const { createTopic, topics, deleteTopic, updateTopic, sessionData } = useTopicLogic();
+  const { createTopic, topics, deleteTopic, updateTopic, sessionData } = useHelpers();
 
   const selectedTopic = useTopicStore((state) => state.selectedTopic);
 
