@@ -3,22 +3,22 @@
 /* eslint-disable react-hooks/rules-of-hooks */
 import {
   ActionIcon,
-  Box,
   Button,
   Container,
   Divider,
   Group,
   Input,
   Modal,
+  Paper,
   Stack,
   Text,
-} from "@mantine/core";
-import { useDisclosure } from "@mantine/hooks";
-import { useState } from "react";
+} from '@mantine/core';
+import { useDisclosure } from '@mantine/hooks';
+import { useState } from 'react';
 
-import { useTopicStore } from "~/utils/store";
-import { useHelpers } from "~/helpers/useHelpers";
-import { IconEdit, IconX } from "@tabler/icons-react";
+import { useTopicStore } from '~/utils/store';
+import { useHelpers } from '~/helpers/useHelpers';
+import { IconEdit, IconX } from '@tabler/icons-react';
 
 const AppNavbar: React.FC = () => {
   const { createTopic, topics, deleteTopic, updateTopic, sessionData } = useHelpers();
@@ -29,17 +29,17 @@ const AppNavbar: React.FC = () => {
 
   const [opened, { open, close }] = useDisclosure(false);
 
-  const [newTopic, setNewTopic] = useState("");
+  const [newTopic, setNewTopic] = useState('');
 
   const [editMode, setEditMode] = useState(false);
 
-  const [tempTopic, setTempTopic] = useState("");
+  const [tempTopic, setTempTopic] = useState('');
 
-  const [editingTopicId, setEditingTopicId] = useState("");
+  const [editingTopicId, setEditingTopicId] = useState('');
 
   const handleCreateTopic = () => {
     createTopic.mutate({ title: newTopic });
-    setNewTopic("");
+    setNewTopic('');
   };
 
   const handleDeleteTopic = (id: string) => {
@@ -58,16 +58,17 @@ const AppNavbar: React.FC = () => {
 
   const handleUpdateItem = (id: string) => {
     updateTopic.mutate({ id, title: tempTopic });
-    setTempTopic("");
+    setTempTopic('');
     setEditMode(false);
   };
 
   const handleCloseEdit = () => {
     setEditMode(false);
-    setTempTopic("");
+    setTempTopic('');
   };
 
   const topicsCount = topics?.length;
+
   return (
     <Stack>
       <Text>To add new Topic:</Text>
@@ -75,7 +76,7 @@ const AppNavbar: React.FC = () => {
         variant="filled"
         disabled={sessionData?.user === undefined}
         placeholder={
-          sessionData?.user === undefined ? "Sign in to add topic" : "Add a new topic"
+          sessionData?.user === undefined ? 'Sign in to add topic' : 'Add a new topic'
         }
         radius="xl"
         size="md"
@@ -84,14 +85,14 @@ const AppNavbar: React.FC = () => {
           setNewTopic(e.currentTarget.value);
         }}
         onKeyDown={(e) => {
-          if (e.key === "Enter") {
+          if (e.key === 'Enter') {
             handleCreateTopic;
           }
         }}
       />
       <Button
         onClick={handleCreateTopic}
-        disabled={sessionData?.user === undefined || newTopic === ""}
+        disabled={sessionData?.user === undefined || newTopic === ''}
       >
         Add Topic
       </Button>
@@ -116,9 +117,7 @@ const AppNavbar: React.FC = () => {
                     <Input
                       onChange={(e) => setTempTopic(e.currentTarget.value)}
                       value={tempTopic}
-                      rightSection={
-                        <IconX onClick={handleCloseEdit} style={{ cursor: "pointer" }} />
-                      }
+                      rightSection={<IconX onClick={handleCloseEdit} cursor="pointer" />}
                     />
                     <Button onClick={() => handleUpdateItem(topic.id)}>Update</Button>
                   </>
@@ -150,8 +149,9 @@ const AppNavbar: React.FC = () => {
         <Text fz={12}>{topicsCount} Topics</Text>
       </Group>
       {topics?.map((topic) => (
-        <Box
-          bg={selectedTopic?.id === topic.id ? "#d2c293a3" : ""}
+        <Paper
+          withBorder
+          bg={selectedTopic?.id === topic.id ? '#d2c293a3' : ''}
           onClick={(evt) => {
             evt.preventDefault();
             setSelectedTopic(topic);
@@ -159,21 +159,21 @@ const AppNavbar: React.FC = () => {
           key={topic.id}
           sx={(theme) => ({
             backgroundColor:
-              theme.colorScheme === "dark" ? theme.colors.dark[6] : theme.colors.gray[0],
-            textAlign: "center",
+              theme.colorScheme === 'dark' ? theme.colors.dark[6] : theme.colors.gray[0],
+            textAlign: 'center',
             padding: theme.spacing.xl,
             borderRadius: theme.radius.md,
-            cursor: "pointer",
-            "&:hover": {
+            cursor: 'pointer',
+            '&:hover': {
               backgroundColor:
-                theme.colorScheme === "dark"
+                theme.colorScheme === 'dark'
                   ? theme.colors.dark[5]
                   : theme.colors.gray[1],
             },
           })}
         >
           <Text>{topic.title}</Text>
-        </Box>
+        </Paper>
       ))}
     </Stack>
   );
