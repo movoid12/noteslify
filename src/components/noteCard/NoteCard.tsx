@@ -1,20 +1,30 @@
 /* eslint-disable @typescript-eslint/no-unsafe-call */
 /* eslint-disable @typescript-eslint/restrict-template-expressions */
-
+import dayjs from 'dayjs';
+import relativeTime from 'dayjs/plugin/relativeTime';
 import React from 'react';
-import { useStyles } from '../../utils/MarkdownConfig';
-import { ActionIcon, Badge, Button, Group, Paper, Stack, Title } from '@mantine/core';
+import {
+  ActionIcon,
+  Badge,
+  Button,
+  Group,
+  Paper,
+  Stack,
+  Title,
+  Tooltip,
+} from '@mantine/core';
 import { useRouter } from 'next/router';
-
 import { IconTrash } from '@tabler/icons-react';
+
 import { useTopicStore, useNoteStore } from '~/utils/store';
 import { useHelpers } from '~/helpers/useHelpers';
+import { useStyles } from '../../utils/MarkdownConfig';
+
+dayjs.extend(relativeTime);
 
 export const NoteCard = () => {
   const selectedTopic = useTopicStore((state) => state.selectedTopic);
-
-  const selectedNote = useNoteStore((state) => state.selectedNote);
-  const setSelectedNote = useNoteStore((state) => state.setSelectedNote);
+  const { selectedNote, setSelectedNote } = useNoteStore((state) => state);
 
   const { notes, deleteNote } = useHelpers();
 
@@ -49,10 +59,20 @@ export const NoteCard = () => {
             </Button>
           </Group>
           <Group position="apart">
-            <Badge m={'sm'} color="teal" variant="outline">
-              created: {note.createdAt.toLocaleDateString()} -{' '}
-              {note.createdAt.toLocaleTimeString()}
-            </Badge>
+            <Tooltip
+              position="bottom-end"
+              color="blue"
+              radius="xl"
+              arrowPosition="center"
+              withArrow
+              openDelay={300}
+              style={{ fontSize: 12 }}
+              label={`${note.createdAt.toLocaleDateString()} ${note.createdAt.toLocaleTimeString()}`}
+            >
+              <Badge m={'sm'} color="teal" variant="outline">
+                {dayjs(note.createdAt).fromNow()}
+              </Badge>
+            </Tooltip>
             <ActionIcon
               mr="md"
               color="red"
