@@ -7,6 +7,7 @@ import {
   ActionIcon,
   Badge,
   Button,
+  Center,
   Group,
   Paper,
   Stack,
@@ -19,6 +20,7 @@ import { IconTrash } from '@tabler/icons-react';
 import { useTopicStore, useNoteStore } from '~/utils/store';
 import { useHelpers } from '~/helpers/useHelpers';
 import { useStyles } from '../../utils/MarkdownConfig';
+import { LoadingSpinner } from '~/components/LoadingSpinner/LoadingSpinner';
 
 dayjs.extend(relativeTime);
 
@@ -38,7 +40,9 @@ export const NoteCard = () => {
 
   return (
     <Stack>
-      {/* <LoadingOverlay visible={dataLoading} overlayBlur={2} /> */}
+      <Center>
+        <LoadingSpinner />
+      </Center>
       {notes?.map((note) => (
         <Paper
           key={note.id}

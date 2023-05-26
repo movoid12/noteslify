@@ -13,6 +13,8 @@ type useHelpersProps = {
   deleteNote: ReturnType<typeof api.note.delete.useMutation>;
   updateNote: ReturnType<typeof api.note.update.useMutation>;
   notes: Note[];
+  noteIsLoading: boolean;
+  topicIsLoading: boolean;
 };
 
 const useHelpers = (): useHelpersProps => {
@@ -21,7 +23,7 @@ const useHelpers = (): useHelpersProps => {
 
   const { data: sessionData } = useSession();
 
-  const { data: topics, refetch: refetchTopics } = api.topic.getAll.useQuery(undefined, {
+  const { data: topics, refetch: refetchTopics, isLoading: topicIsLoading } = api.topic.getAll.useQuery(undefined, {
     enabled: sessionData?.user !== undefined,
     onSuccess: (data) => {
       setSelectedTopic(selectedTopic ?? data[0] ?? null);
@@ -44,7 +46,7 @@ const useHelpers = (): useHelpersProps => {
     },
   });
 
-  const { data: notes, refetch: refetchNotes } = api.note.getAll.useQuery(
+  const { data: notes, refetch: refetchNotes, isLoading: noteIsLoading } = api.note.getAll.useQuery(
     { topicId: selectedTopic?.id ?? '' },
     {
       enabled: sessionData?.user !== undefined && selectedTopic !== null,
@@ -79,6 +81,8 @@ const useHelpers = (): useHelpersProps => {
     deleteNote,
     updateNote,
     notes: notes ?? [],
+    noteIsLoading,
+    topicIsLoading,
   };
 };
 
