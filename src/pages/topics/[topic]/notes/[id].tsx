@@ -32,9 +32,9 @@ const NotePage: NextPage = () => {
       </Head>
       <PageLayout>
         <Group position="apart" mb="md">
-          <Title color="yellow" order={5}>Topic: {selectedTopic.title}</Title>
-          <Title order={2}>{selectedNote.title}</Title>
           <BackButton />
+          <Title order={2}>{selectedNote.title}</Title>
+          <Title color="yellow" order={5}>Topic: {selectedTopic.title}</Title>
         </Group>
         <Divider size="lg"/>
         <ReactMarkdown
