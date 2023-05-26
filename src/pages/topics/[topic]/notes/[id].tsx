@@ -6,7 +6,7 @@ import rehypeRaw from "rehype-raw";
 import remarkGfm from "remark-gfm";
 import BackButton from "~/components/BackButton/BackButton";
 import { PageLayout } from "~/components/PageLayout";
-import MarkdownConfig from "~/utils/MarkdownConfig";
+import markdownConf from "~/utils/MarkdownConfig";
 import { useNoteStore, useTopicStore } from "~/utils/store";
 
 const NotePage: NextPage = () => {
@@ -38,7 +38,7 @@ const NotePage: NextPage = () => {
         </Group>
         <Divider size="lg"/>
         <ReactMarkdown
-          components={MarkdownConfig}
+          components={markdownConf}
           remarkPlugins={[remarkGfm]}
           rehypePlugins={[rehypeRaw]}
         >
