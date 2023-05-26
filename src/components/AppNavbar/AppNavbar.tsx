@@ -2,13 +2,13 @@
 /* eslint-disable @typescript-eslint/no-floating-promises */
 /* eslint-disable react-hooks/rules-of-hooks */
 import {
+  ActionIcon,
   Box,
   Button,
   Container,
   Divider,
   Group,
   Input,
-  Mark,
   Modal,
   Stack,
   Text,
@@ -17,19 +17,57 @@ import { useDisclosure } from "@mantine/hooks";
 import { useState } from "react";
 
 import { useTopicStore } from "~/utils/store";
-import { useTopicLogic } from "~/helpers/helpers";
+import { useTopicLogic } from "~/helpers/useTopicLogic";
+import { IconEdit, IconX } from "@tabler/icons-react";
 
 const AppNavbar: React.FC = () => {
-  const selectedTopic = useTopicStore((state) => state.selectedTopic);
-  const setSelectedTopic = useTopicStore((state) => state.setSelectedTopic);
-
   const { createTopic, topics, deleteTopic, updateTopic, sessionData } = useTopicLogic();
 
-  const [newTopic, setNewTopic] = useState("");
+  const selectedTopic = useTopicStore((state) => state.selectedTopic);
+
+  const setSelectedTopic = useTopicStore((state) => state.setSelectedTopic);
+
   const [opened, { open, close }] = useDisclosure(false);
 
-  // background color of Box Component changed when the topic is selected
+  const [newTopic, setNewTopic] = useState("");
 
+  const [editMode, setEditMode] = useState(false);
+
+  const [tempTopic, setTempTopic] = useState("");
+
+  const [editingTopicId, setEditingTopicId] = useState("");
+
+  const handleCreateTopic = () => {
+    createTopic.mutate({ title: newTopic });
+    setNewTopic("");
+  };
+
+  const handleDeleteTopic = (id: string) => {
+    deleteTopic.mutate({ id });
+  };
+
+  const handleEditTopic = (id: string) => {
+    setEditMode(true);
+
+    const topic = topics?.find((topic) => topic.id === id);
+
+    if (topic) {
+      setTempTopic(topic.title);
+    }
+  };
+
+  const handleUpdateItem = (id: string) => {
+    updateTopic.mutate({ id, title: tempTopic });
+    setTempTopic("");
+    setEditMode(false);
+  };
+
+  const handleCloseEdit = () => {
+    setEditMode(false);
+    setTempTopic("");
+  };
+
+  const topicsCount = topics?.length;
   return (
     <Stack>
       <Text>To add new Topic:</Text>
@@ -47,17 +85,12 @@ const AppNavbar: React.FC = () => {
         }}
         onKeyDown={(e) => {
           if (e.key === "Enter") {
-            createTopic.mutate({ title: e.currentTarget.value });
-            e.currentTarget.value = "";
-            setNewTopic("");
+            handleCreateTopic;
           }
         }}
       />
       <Button
-        onClick={() => {
-          createTopic.mutate({ title: newTopic });
-          setNewTopic("");
-        }}
+        onClick={handleCreateTopic}
         disabled={sessionData?.user === undefined || newTopic === ""}
       >
         Add Topic
@@ -66,26 +99,55 @@ const AppNavbar: React.FC = () => {
         Manage Topics
       </Button>
       <Divider />
-      <Modal opened={opened} onClose={close} title="Manage Topics">
+      <Modal
+        opened={opened}
+        onClose={() => {
+          setEditMode(false);
+          close();
+        }}
+        title="Manage Topics"
+      >
         <Container>
           {topics?.map((topic) => (
-            <Box key={topic.id}>
-              <Text size="sm">{topic.title}</Text>
-
-              <Button
-                onClick={() => {
-                  deleteTopic.mutate({ id: topic.id });
-                }}
-              >
-                Delete
-              </Button>
-            </Box>
+            <>
+              <Group mb="sm" mt="sm" position="apart" key={topic.id}>
+                {editMode && editingTopicId === topic.id ? (
+                  <>
+                    <Input
+                      onChange={(e) => setTempTopic(e.currentTarget.value)}
+                      value={tempTopic}
+                      rightSection={
+                        <IconX onClick={handleCloseEdit} style={{ cursor: "pointer" }} />
+                      }
+                    />
+                    <Button onClick={() => handleUpdateItem(topic.id)}>Update</Button>
+                  </>
+                ) : (
+                  <>
+                    <ActionIcon
+                      onClick={() => {
+                        setEditMode(true);
+                        setEditingTopicId(topic.id);
+                        handleEditTopic(topic.id);
+                      }}
+                    >
+                      <IconEdit />
+                    </ActionIcon>
+                    <Text size="sm">{topic.title}</Text>
+                    <Button onClick={() => handleDeleteTopic(topic.id)} variant="outline">
+                      Delete
+                    </Button>
+                  </>
+                )}
+              </Group>
+              <Divider />
+            </>
           ))}
         </Container>
       </Modal>
       <Group position="apart">
         <Text>Select a Topic:</Text>
-        {/* <Mark fz={12}>{topicsCount} Topics</Mark> */}
+        <Text fz={12}>{topicsCount} Topics</Text>
       </Group>
       {topics?.map((topic) => (
         <Box
