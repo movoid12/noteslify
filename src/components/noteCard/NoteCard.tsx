@@ -17,16 +17,16 @@ import {
 import { useRouter } from 'next/router';
 import { IconTrash } from '@tabler/icons-react';
 
-import { useTopicStore, useNoteStore } from '~/utils/store';
+import { useTopicStore, useNoteStore, type Note } from '~/utils/store';
 import { useHelpers } from '~/helpers/useHelpers';
 import { useStyles } from '../../utils/MarkdownConfig';
-import { LoadingSpinner } from '~/components/LoadingSpinner/LoadingSpinner';
+import { LoadingSpinnerNotes } from '~/components/LoadingSpinner/LoadingSpinner';
 
 dayjs.extend(relativeTime);
 
 export const NoteCard = () => {
   const selectedTopic = useTopicStore((state) => state.selectedTopic);
-  const { selectedNote, setSelectedNote } = useNoteStore((state) => state);
+  const { setSelectedNote } = useNoteStore((state) => state);
 
   const { notes, deleteNote } = useHelpers();
 
@@ -34,31 +34,28 @@ export const NoteCard = () => {
 
   const router = useRouter();
 
-  const handleRoute = () => {
-    void router.push(`/topics/${selectedTopic?.title}/notes/${selectedNote?.title}`);
+  const handleRoute = (reqNote: Note) => {
+    setSelectedNote(reqNote);
+    void router.push(`/topics/${selectedTopic?.title}/notes/${reqNote.title}`);
   };
 
   return (
     <Stack>
       <Center>
-        <LoadingSpinner />
+        <LoadingSpinnerNotes />
       </Center>
       {notes?.map((note) => (
-        <Paper
-          key={note.id}
-          onClick={() => {
-            setSelectedNote(note);
-          }}
-          variant="filled"
-          className={classes.root}
-          withBorder
-          p="md"
-        >
+        <Paper key={note.id} variant="filled" className={classes.root} withBorder p="md">
           <Group position="apart">
             <Title order={3} m="md">
               {note.title}
             </Title>
-            <Button color="blue" onClick={handleRoute}>
+            <Button
+              color="blue"
+              onClick={() => {
+                handleRoute(note);
+              }}
+            >
               Open note
             </Button>
           </Group>

@@ -16,6 +16,7 @@ import { useState } from 'react';
 import { useTopicStore } from '~/utils/store';
 import { useHelpers } from '~/helpers/useHelpers';
 import { IconEdit, IconX } from '@tabler/icons-react';
+import { LoadingSpinnerTopics } from '../LoadingSpinner/LoadingSpinner';
 
 const AppNavbar: React.FC = () => {
   const { createTopic, topics, deleteTopic, updateTopic, sessionData } = useHelpers();
@@ -150,6 +151,7 @@ const AppNavbar: React.FC = () => {
         <Text>Select a Topic:</Text>
         <Text fz={12}>{topicsCount} Topics</Text>
       </Group>
+      <LoadingSpinnerTopics />
       {topics?.map((topic) => (
         <Paper
           withBorder
