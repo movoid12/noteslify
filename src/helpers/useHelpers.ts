@@ -23,7 +23,7 @@ const useHelpers = (): useHelpersProps => {
 
   const { data: sessionData } = useSession();
 
-  const { data: topics, refetch: refetchTopics, isLoading: topicIsLoading, isFetching: topicIsFetching } = api.topic.getAll.useQuery(undefined, {
+  const { data: topics, refetch: refetchTopics, isLoading: topicIsLoading } = api.topic.getAll.useQuery(undefined, {
     enabled: sessionData?.user !== undefined,
     onSuccess: (data) => {
       setSelectedTopic(selectedTopic ?? data[0] ?? null);
@@ -46,7 +46,7 @@ const useHelpers = (): useHelpersProps => {
     },
   });
 
-  const { data: notes, refetch: refetchNotes, isLoading: noteIsLoading, isFetching: noteIsFetching } = api.note.getAll.useQuery(
+  const { data: notes, refetch: refetchNotes, isLoading: noteIsLoading } = api.note.getAll.useQuery(
     { topicId: selectedTopic?.id ?? '' },
     {
       enabled: sessionData?.user !== undefined && selectedTopic !== null,

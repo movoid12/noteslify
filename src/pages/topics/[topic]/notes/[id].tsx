@@ -1,26 +1,32 @@
 import { Divider, Group, Title } from '@mantine/core';
 import { type NextPage } from 'next';
 import Head from 'next/head';
+import { useRouter } from 'next/router';
 import { ReactMarkdown } from 'react-markdown/lib/react-markdown';
 import rehypeRaw from 'rehype-raw';
 import remarkGfm from 'remark-gfm';
+
 import BackButton from '~/components/BackButton/BackButton';
 import { PageLayout } from '~/components/PageLayout';
 import markdownConf from '~/utils/MarkdownConfig';
-import { useNoteStore, useTopicStore } from '~/utils/store';
-
+import { useNoteStore } from '~/utils/store';
 
 const NotePage: NextPage = () => {
   const selectedNote = useNoteStore((state) => state.selectedNote);
-  const selectedTopic = useTopicStore((state) => state.selectedTopic);
+
+  const router = useRouter();
+
+  const topicMeta = router.query.topic?.toString() || '';
+
+  const noteMeta = router.query.id?.toString() || '';
 
   // const [topic, setTopic] = useState();
   // const [note, setNote] = useState();
 
   // useEffect(() => {
-    
+
   //   async function init() {
-      
+
   //     const topicFromApi = api.topic.getById(topicId);
   //     const noteFromApi = api.note.getById(noteId);
 
@@ -28,12 +34,9 @@ const NotePage: NextPage = () => {
   //     setNote(noteFromApi)
   //   }
 
-    
   // }, [topicId, noteId ])
 
-
-  
-  if (selectedNote === null || selectedTopic === null) {
+  if (selectedNote === null) {
     return null;
   }
 
@@ -50,9 +53,9 @@ const NotePage: NextPage = () => {
       <PageLayout>
         <Group position="apart" mb="md">
           <BackButton />
-          <Title order={2}>{selectedNote.title}</Title>
+          <Title order={2}>{noteMeta}</Title>
           <Title color="yellow" order={5}>
-            Topic: {selectedTopic.title}
+            Topic: {topicMeta}
           </Title>
         </Group>
         <Divider size="lg" />
