@@ -63,7 +63,8 @@ export const authOptions: NextAuthOptions = {
           pass: process.env.EMAIL_SERVER_PASSWORD
         }
       },
-      from: process.env.EMAIL_FROM
+      from: process.env.EMAIL_FROM,
+      maxAge: 10 * 60 // Magic links are valid for 10 min only
     }),
     /**
      * ...add more providers here.
