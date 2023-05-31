@@ -1,5 +1,5 @@
 /* eslint-disable @typescript-eslint/unbound-method */
-import { signIn, signOut, useSession } from 'next-auth/react';
+import { signIn, signOut } from 'next-auth/react';
 
 import {
   ActionIcon,
@@ -12,18 +12,25 @@ import {
 } from '@mantine/core';
 import { IconSun, IconMoonStars } from '@tabler/icons-react';
 import { useNetwork } from '@mantine/hooks';
+import { useHelpers } from '~/helpers/useHelpers';
 
 const AppHeader = () => {
-  const { data: sessionData } = useSession();
+  // * color theme
   const { colorScheme, toggleColorScheme } = useMantineColorScheme();
   const dark = colorScheme === 'dark';
+
+  // * session data
+
+  const { sessionData } = useHelpers();
+
+  // * network status
 
   const networkStatus = useNetwork();
 
   return (
     <>
       <Group>
-        <Text size='sm'>
+        <Text size="sm">
           {/* {sessionData?.user?.name ? ` User: ${sessionData.user.name}` : ""} */}
           {''}
         </Text>
@@ -31,7 +38,7 @@ const AppHeader = () => {
           <>
             <Indicator color={networkStatus.online ? 'green' : 'red'}>
               <Avatar
-                size='sm'
+                size="sm"
                 src={sessionData?.user?.image ?? ''}
                 alt={sessionData?.user?.name ?? ''}
               />
