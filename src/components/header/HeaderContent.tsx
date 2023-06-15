@@ -1,5 +1,5 @@
 /* eslint-disable @typescript-eslint/unbound-method */
-import { signIn, signOut } from 'next-auth/react';
+import { signIn, signOut, useSession } from "next-auth/react";
 
 import {
   ActionIcon,
@@ -9,38 +9,33 @@ import {
   Group,
   Button,
   Indicator,
-} from '@mantine/core';
-import { IconSun, IconMoonStars } from '@tabler/icons-react';
-import { useNetwork } from '@mantine/hooks';
-import { useHelpers } from '~/helpers/useHelpers';
+} from "@mantine/core";
+import { IconSun, IconMoonStars } from "@tabler/icons-react";
+import { useNetwork, useOs } from "@mantine/hooks";
 
-const AppHeader = () => {
-  // * color theme
+export const HeaderContent = () => {
+  const { data: sessionData } = useSession();
   const { colorScheme, toggleColorScheme } = useMantineColorScheme();
-  const dark = colorScheme === 'dark';
-
-  // * session data
-
-  const { sessionData } = useHelpers();
-
-  // * network status
+  const dark = colorScheme === "dark";
 
   const networkStatus = useNetwork();
+  const os = useOs();
+  // const isDesktop = os === "macos" || os === "windows" || os === "linux";
 
   return (
     <>
       <Group>
-        <Text size="sm">
+        <Text size={"sm"}>
           {/* {sessionData?.user?.name ? ` User: ${sessionData.user.name}` : ""} */}
-          {''}
+          {""}
         </Text>
         {sessionData?.user ? (
           <>
-            <Indicator color={networkStatus.online ? 'green' : 'red'}>
+            <Indicator color={networkStatus.online ? "green" : "red"}>
               <Avatar
-                size="sm"
-                src={sessionData?.user?.image ?? ''}
-                alt={sessionData?.user?.name ?? ''}
+                size={"sm"}
+                src={sessionData?.user?.image ?? ""}
+                alt={sessionData?.user?.name ?? ""}
               />
             </Indicator>
             <Button size="xs" variant="filled" color="red" onClick={() => void signOut()}>
@@ -56,7 +51,7 @@ const AppHeader = () => {
 
       <ActionIcon
         variant="light"
-        color={dark ? 'yellow' : 'blue'}
+        color={dark ? "yellow" : "blue"}
         onClick={() => toggleColorScheme()}
         title="Toggle color scheme"
       >
@@ -65,5 +60,3 @@ const AppHeader = () => {
     </>
   );
 };
-
-export default AppHeader;

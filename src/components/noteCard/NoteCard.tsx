@@ -1,90 +1,69 @@
-/* eslint-disable @typescript-eslint/no-unsafe-call */
-/* eslint-disable @typescript-eslint/restrict-template-expressions */
-import dayjs from 'dayjs';
-import relativeTime from 'dayjs/plugin/relativeTime';
-import React from 'react';
-import {
-  ActionIcon,
-  Badge,
-  Button,
-  Center,
-  Group,
-  Paper,
-  Stack,
-  Title,
-  Tooltip,
-} from '@mantine/core';
-import { useRouter } from 'next/router';
-import { IconTrash } from '@tabler/icons-react';
+import ReactMarkdown from "react-markdown";
+import remarkGfm from "remark-gfm";
+import MarkdownComponents, { useStyles } from "./MarkdownComponents";
+import { Accordion, ActionIcon, Badge, Group, Paper, Stack } from "@mantine/core";
+import rehypeRaw from 'rehype-raw'
 
-import { useTopicStore, useNoteStore, type Note } from '~/utils/store';
-import { useHelpers } from '~/helpers/useHelpers';
-import { useStyles } from '../../utils/MarkdownConfig';
-import { LoadingSpinnerNotes } from '~/components/LoadingSpinner/LoadingSpinner';
-
-dayjs.extend(relativeTime);
+import { api } from "~/utils/api";
+import { IconNote, IconTrash } from "@tabler/icons-react";
+import { useTopicStore } from "~/utils/store";
+import { useSession } from "next-auth/react";
+import React from "react";
 
 export const NoteCard = () => {
   const selectedTopic = useTopicStore((state) => state.selectedTopic);
-  const { setSelectedNote } = useNoteStore((state) => state);
+  const { data: sessionData } = useSession();
 
-  const { notes, deleteNote } = useHelpers();
+  const { data: notes, refetch: refetchNotes } = api.note.getAll.useQuery(
+    { topicId: selectedTopic?.id ?? "" },
+    {
+      enabled: sessionData?.user !== undefined && selectedTopic !== null,
+    },
+  );
+
+  const deleteNote = api.note.delete.useMutation({
+    onSuccess: () => {
+      void refetchNotes();
+    },
+  });
 
   const { classes } = useStyles();
-
-  const router = useRouter();
-
-  const handleRoute = (reqNote: Note) => {
-    setSelectedNote(reqNote);
-    void router.push(`/topics/${selectedTopic?.title}/notes/${reqNote.title}`);
-  };
-
   return (
     <Stack>
-      <Center>
-        <LoadingSpinnerNotes />
-      </Center>
+      {/* <LoadingOverlay visible={dataLoading} overlayBlur={2} /> */}
       {notes?.map((note) => (
-        <Paper key={note.id} variant="filled" className={classes.root} withBorder p="md">
-          <Group position="apart">
-            <Title order={3} m="md">
-              {note.title}
-            </Title>
-            <Button
-              color="blue"
-              onClick={() => {
-                handleRoute(note);
-              }}
-            >
-              Open note
-            </Button>
-          </Group>
-          <Group position="apart">
-            <Tooltip
-              position="bottom-end"
-              color="blue"
-              radius="xl"
-              arrowPosition="center"
-              withArrow
-              openDelay={300}
-              style={{ fontSize: 12 }}
-              label={`${note.createdAt.toLocaleDateString()} ${note.createdAt.toLocaleTimeString()}`}
-            >
-              <Badge m={'sm'} color="teal" variant="outline">
-                {dayjs(note.createdAt).fromNow()}
+        <Paper withBorder key={note.id}>
+          <Accordion variant="filled" classNames={classes} className={classes.root}>
+            <Accordion.Item value={note.title}>
+              <Group position="right">
+                <Accordion.Control icon={<IconNote />}>{note.title}</Accordion.Control>
+
+                <ActionIcon
+                  mr={"md"}
+                  color="red"
+                  variant="outline"
+                  onClick={() => {
+                    deleteNote.mutate({ id: note.id });
+                  }}
+                >
+                  <IconTrash />
+                </ActionIcon>
+              </Group>
+              <Accordion.Panel>
+                <ReactMarkdown
+                  components={MarkdownComponents}
+                  remarkPlugins={[remarkGfm]}
+                  rehypePlugins={[rehypeRaw]} 
+                >
+                  {note.content}
+                </ReactMarkdown>
+              </Accordion.Panel>
+              <Badge m={"sm"} color="teal" variant="outline">
+                created: {note.createdAt.toLocaleDateString()} -{" "}
+                {note.createdAt.toLocaleTimeString()}
               </Badge>
-            </Tooltip>
-            <ActionIcon
-              mr="md"
-              color="red"
-              variant="outline"
-              onClick={() => {
-                deleteNote.mutate({ id: note.id });
-              }}
-            >
-              <IconTrash />
-            </ActionIcon>
-          </Group>
+            </Accordion.Item>
+          </Accordion>
         </Paper>
       ))}
     </Stack>
