@@ -1,22 +1,22 @@
 /* eslint-disable @typescript-eslint/await-thenable */
-import { create } from "zustand";
+import { create } from 'zustand';
 
-type Topic = {
+export type Topic = {
   id: string;
   createdAt: Date;
   updatedAt: Date;
   title: string;
   userId: string;
-}
+};
 
-type Note = {
+export type Note = {
   id: string;
   createdAt: Date;
   updatedAt: Date;
   title: string;
   content: string;
   topicId: string;
-}
+};
 
 type TopicStore = {
   selectedTopic: Topic | null;

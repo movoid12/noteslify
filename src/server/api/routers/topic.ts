@@ -1,6 +1,6 @@
-import { z } from "zod";
+import { z } from 'zod';
 
-import { createTRPCRouter, protectedProcedure } from "../trpc";
+import { createTRPCRouter, protectedProcedure } from '../trpc';
 
 export const topicRouter = createTRPCRouter({
   getAll: protectedProcedure.query(({ ctx }) => {
@@ -30,8 +30,7 @@ export const topicRouter = createTRPCRouter({
           id: input.id,
         },
       });
-    }
-    ),
+    }),
 
   update: protectedProcedure
     .input(z.object({ id: z.string(), title: z.string() }))
@@ -44,6 +43,5 @@ export const topicRouter = createTRPCRouter({
           title: input.title,
         },
       });
-    }
-    ),
+    }),
 });
