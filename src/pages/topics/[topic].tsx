@@ -1,9 +1,11 @@
 import { type NextPage } from 'next';
+import { useRouter } from 'next/router';
+
 import Head from 'next/head';
-import { useTopicStore } from '~/utils/store';
 
 const CategoryPage: NextPage = () => {
-  const selectedTopic = useTopicStore((state) => state.selectedTopic);
+  const router = useRouter();
+  const routedTopic = router.query.topic?.toString();
 
   return (
     <>
@@ -17,7 +19,7 @@ const CategoryPage: NextPage = () => {
       </Head>
       <main>
         <h1>Category Page</h1>
-        <h2>{selectedTopic?.title}</h2>
+        <h2>{routedTopic}</h2>
       </main>
     </>
   );
