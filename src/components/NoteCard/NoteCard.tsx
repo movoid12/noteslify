@@ -65,6 +65,27 @@ export const NoteCard = () => {
 
   return (
     <Stack>
+      <Modal
+        opened={isModalOpen}
+        onClose={cancelDeletion}
+        title="Confirm deletion"
+        size="m"
+        centered
+        radius="md"
+        padding="xl"
+      >
+        <Stack>
+          <Group position="center">
+            <Text>Are you sure you want to delete this note?</Text>
+          </Group>
+          <Group spacing="xl" grow>
+            <Button onClick={confirmDeletion} color="red">
+              Yes
+            </Button>
+            <Button onClick={cancelDeletion}>No</Button>
+          </Group>
+        </Stack>
+      </Modal>
       <Center>
         <LoadingSpinnerNotes />
       </Center>
@@ -106,24 +127,6 @@ export const NoteCard = () => {
             >
               <IconTrash />
             </ActionIcon>
-            <Modal
-              opened={isModalOpen}
-              onClose={cancelDeletion}
-              title="Confirm deletion"
-              size="xs"
-            >
-              <Stack>
-                <Group position="center">
-                  <Text>Are you sure you want to delete this note?</Text>
-                </Group>
-                <Group spacing="xl" grow>
-                  <Button onClick={confirmDeletion} color="red">
-                    Yes
-                  </Button>
-                  <Button onClick={cancelDeletion}>No</Button>
-                </Group>
-              </Stack>
-            </Modal>
           </Group>
         </Paper>
       ))}
