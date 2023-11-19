@@ -32,13 +32,15 @@ export const noteRouter = createTRPCRouter({
         },
       });
     }),
-  get: protectedProcedure.input(z.object({ id: z.string() })).query(({ ctx, input }) => {
-    return ctx.prisma.note.findFirst({
-      where: {
-        id: input.id,
-      },
-    });
-  }),
+  get: protectedProcedure
+    .input(z.object({ noteId: z.string() }))
+    .query(({ ctx, input }) => {
+      return ctx.prisma.note.findUnique({
+        where: {
+          id: input.noteId,
+        },
+      });
+    }),
   update: protectedProcedure
     .input(z.object({ id: z.string(), title: z.string(), content: z.string() }))
     .mutation(async ({ ctx, input }) => {
