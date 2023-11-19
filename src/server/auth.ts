@@ -2,7 +2,7 @@ import { type GetServerSidePropsContext } from 'next';
 import { getServerSession, type NextAuthOptions, type DefaultSession } from 'next-auth';
 import GithubProvider from 'next-auth/providers/github';
 import GoogleProvider from 'next-auth/providers/google';
-import EmailProvider from "next-auth/providers/email";
+import EmailProvider from 'next-auth/providers/email';
 
 import { PrismaAdapter } from '@next-auth/prisma-adapter';
 import { env } from '~/env.mjs';
@@ -60,11 +60,11 @@ export const authOptions: NextAuthOptions = {
         port: process.env.EMAIL_SERVER_PORT,
         auth: {
           user: process.env.EMAIL_SERVER_USER,
-          pass: process.env.EMAIL_SERVER_PASSWORD
-        }
+          pass: process.env.EMAIL_SERVER_PASSWORD,
+        },
       },
       from: process.env.EMAIL_FROM,
-      maxAge: 10 * 60 // Magic links are valid for 10 min only
+      maxAge: 10 * 60, // Magic links are valid for 10 min only
     }),
     /**
      * ...add more providers here.
