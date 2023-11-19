@@ -7,12 +7,11 @@ This is a [T3 Stack](https://create.t3.gg/) project bootstrapped with `create-t3
 - [Next.js](https://nextjs.org)
 - [NextAuth.js](https://next-auth.js.org)
 - [Prisma](https://prisma.io)
-- [Mantine](https://mantine.dev/) 
+- [Mantine](https://mantine.dev/)
 - [tRPC](https://trpc.io)
 - [zod] (https://zod.dev)
 - [react-markdown]
 - [CodeMirror]
-
 
 ## Create database with Supabase based on AWS:
 
@@ -24,7 +23,6 @@ This is a [T3 Stack](https://create.t3.gg/) project bootstrapped with `create-t3
 ### Authentication with Github OAuth:
 
 - instructions will folllow
-
 
 ## Deployment:
 
