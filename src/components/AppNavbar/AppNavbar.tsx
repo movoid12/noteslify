@@ -17,6 +17,7 @@ import { useTopicStore } from '~/utils/store';
 import { useHelpers } from '~/hooks/useHelpers';
 import { IconEdit, IconX } from '@tabler/icons-react';
 import { LoadingSpinnerTopics } from '../LoadingSpinner/LoadingSpinner';
+import ConfirmModal from '../ConfirmModal/ConfirmModal';
 
 const AppNavbar: React.FC = () => {
   const { createTopic, topics, deleteTopic, updateTopic, sessionData } = useHelpers();
@@ -39,7 +40,24 @@ const AppNavbar: React.FC = () => {
 
   // * delete topic
 
-  const handleDeleteTopic = (id: string) => deleteTopic.mutate({ id });
+  const [isModalOpen, setModalOpen] = useState(false);
+  const [topicToDelete, setTopicToDelete] = useState<string | null>(null);
+
+  const handleDeleteTopic = (id: string) => {
+    setTopicToDelete(id);
+    setModalOpen(true);
+  };
+
+  const confirmDeletion = () => {
+    if (topicToDelete) {
+      deleteTopic.mutate({ id: topicToDelete });
+    }
+    setModalOpen(false);
+  };
+
+  const cancelDeletion = () => {
+    setModalOpen(false);
+  };
 
   // * edit topic
 
@@ -75,6 +93,14 @@ const AppNavbar: React.FC = () => {
 
   return (
     <Stack>
+      <ConfirmModal
+        isOpen={isModalOpen}
+        onClose={cancelDeletion}
+        title="Confirm deletion"
+        confirmAction={confirmDeletion}
+        cancelAction={cancelDeletion}
+        message="Are you sure you want to delete this topic?"
+      />
       <Text>To add new Topic:</Text>
       <Input
         variant="filled"
