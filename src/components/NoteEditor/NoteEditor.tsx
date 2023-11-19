@@ -74,9 +74,11 @@ const NoteEditor = ({ onSave }: NoteEditorProps) => {
         Selected Topic:{' '}
         <Mark> {selectedTopic?.title ?? 'Select a topic to create a note'}</Mark>
       </Text>
+      <Text>Add your note title:</Text>
       <Input
+      required
         placeholder={
-          sessionData?.user === undefined ? 'Sign in to create a note' : 'Title'
+          sessionData?.user === undefined ? 'Sign in to create a note' : 'Title*'
         }
         value={title}
         onChange={(e) => setTitle(e.currentTarget.value)}
