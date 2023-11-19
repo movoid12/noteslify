@@ -3,7 +3,7 @@ import { useSession } from 'next-auth/react';
 
 import { type Topic, useTopicStore, type Note } from '~/utils/store';
 
-type useHelpersProps = {
+type Helpers = {
   topics: Topic[];
   createTopic: ReturnType<typeof api.topic.create.useMutation>;
   deleteTopic: ReturnType<typeof api.topic.delete.useMutation>;
@@ -17,7 +17,7 @@ type useHelpersProps = {
   topicIsLoading?: boolean;
 };
 
-const useHelpers = (): useHelpersProps => {
+const useHelpers = (): Helpers => {
   const selectedTopic = useTopicStore((state) => state.selectedTopic);
   const setSelectedTopic = useTopicStore((state) => state.setSelectedTopic);
 
