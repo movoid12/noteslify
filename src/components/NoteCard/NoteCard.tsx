@@ -24,6 +24,7 @@ import { useTopicStore, useNoteStore, type Note } from '~/utils/store';
 import { useHelpers } from '~/hooks/useHelpers';
 import { useStyles } from '../../utils/MarkdownConfig';
 import { LoadingSpinnerNotes } from '~/components/LoadingSpinner/LoadingSpinner';
+import ConfirmModal from '../ConfirmModal/ConfirmModal';
 
 dayjs.extend(relativeTime);
 
@@ -65,27 +66,14 @@ export const NoteCard = () => {
 
   return (
     <Stack>
-      <Modal
-        opened={isModalOpen}
+      <ConfirmModal
+        isOpen={isModalOpen}
         onClose={cancelDeletion}
-        title="Confirm deletion"
-        size="m"
-        centered
-        radius="md"
-        padding="xl"
-      >
-        <Stack>
-          <Group position="center">
-            <Text>Are you sure you want to delete this note?</Text>
-          </Group>
-          <Group spacing="xl" grow>
-            <Button onClick={confirmDeletion} color="red">
-              Yes
-            </Button>
-            <Button onClick={cancelDeletion}>No</Button>
-          </Group>
-        </Stack>
-      </Modal>
+        title="Confirm deletion of Note"
+        confirmAction={confirmDeletion}
+        cancelAction={cancelDeletion}
+        message="Are you sure you want to delete this note?"
+      />
       <Center>
         <LoadingSpinnerNotes />
       </Center>
