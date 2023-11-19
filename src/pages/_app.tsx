@@ -2,7 +2,7 @@
 import { type AppType } from 'next/app';
 import { type Session } from 'next-auth';
 import { SessionProvider } from 'next-auth/react';
-import { MantineProvider, ColorSchemeProvider, ColorScheme } from '@mantine/core';
+import { MantineProvider, ColorSchemeProvider, type ColorScheme } from '@mantine/core';
 import { useState } from 'react';
 
 import { api } from '~/utils/api';

@@ -12,12 +12,12 @@ import {
 } from '@mantine/core';
 import { IconSun, IconMoonStars } from '@tabler/icons-react';
 import { useNetwork } from '@mantine/hooks';
-import { useHelpers } from '~/helpers/useHelpers';
+import { useHelpers } from '~/hooks/useHelpers';
 
 const AppHeader = () => {
   // * color theme
   const { colorScheme, toggleColorScheme } = useMantineColorScheme();
-  const dark = colorScheme === 'dark';
+  const isDarkScheme = colorScheme === 'dark';
 
   // * session data
 
@@ -56,11 +56,11 @@ const AppHeader = () => {
 
       <ActionIcon
         variant="light"
-        color={dark ? 'yellow' : 'blue'}
+        color={isDarkScheme ? 'yellow' : 'blue'}
         onClick={() => toggleColorScheme()}
         title="Toggle color scheme"
       >
-        {dark ? <IconSun size="1.1rem" /> : <IconMoonStars size="1.1rem" />}
+        {isDarkScheme ? <IconSun size="1.1rem" /> : <IconMoonStars size="1.1rem" />}
       </ActionIcon>
     </>
   );

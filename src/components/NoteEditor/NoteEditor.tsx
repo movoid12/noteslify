@@ -13,7 +13,7 @@ import { languages } from '@codemirror/language-data';
 import CodeMirror from '@uiw/react-codemirror';
 import { IconMarkdown, IconNotes } from '@tabler/icons-react';
 
-import { useHelpers } from '~/helpers/useHelpers';
+import { useHelpers } from '~/hooks/useHelpers';
 import { useTopicStore } from '~/utils/store';
 
 type NoteEditorProps = {

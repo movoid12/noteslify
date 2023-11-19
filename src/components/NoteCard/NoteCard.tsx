@@ -18,7 +18,7 @@ import { useRouter } from 'next/router';
 import { IconTrash } from '@tabler/icons-react';
 
 import { useTopicStore, useNoteStore, type Note } from '~/utils/store';
-import { useHelpers } from '~/helpers/useHelpers';
+import { useHelpers } from '~/hooks/useHelpers';
 import { useStyles } from '../../utils/MarkdownConfig';
 import { LoadingSpinnerNotes } from '~/components/LoadingSpinner/LoadingSpinner';
 

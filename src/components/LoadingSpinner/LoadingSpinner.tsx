@@ -1,5 +1,5 @@
 import { Loader } from '@mantine/core';
-import { useHelpers } from '~/helpers/useHelpers';
+import { useHelpers } from '~/hooks/useHelpers';
 
 const LoadingSpinnerNotes = () => {
   const { noteIsLoading } = useHelpers();

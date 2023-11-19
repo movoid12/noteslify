@@ -14,7 +14,7 @@ import { useDisclosure } from '@mantine/hooks';
 import { useState } from 'react';
 
 import { useTopicStore } from '~/utils/store';
-import { useHelpers } from '~/helpers/useHelpers';
+import { useHelpers } from '~/hooks/useHelpers';
 import { IconEdit, IconX } from '@tabler/icons-react';
 import { LoadingSpinnerTopics } from '../LoadingSpinner/LoadingSpinner';
 
