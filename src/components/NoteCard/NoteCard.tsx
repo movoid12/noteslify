@@ -2,15 +2,18 @@
 /* eslint-disable @typescript-eslint/restrict-template-expressions */
 import dayjs from 'dayjs';
 import relativeTime from 'dayjs/plugin/relativeTime';
-import React from 'react';
+import React, { useState } from 'react';
 import {
   ActionIcon,
   Badge,
   Button,
   Center,
+  Container,
   Group,
+  Modal,
   Paper,
   Stack,
+  Text,
   Title,
   Tooltip,
 } from '@mantine/core';
@@ -25,14 +28,35 @@ import { LoadingSpinnerNotes } from '~/components/LoadingSpinner/LoadingSpinner'
 dayjs.extend(relativeTime);
 
 export const NoteCard = () => {
-  const selectedTopic = useTopicStore((state) => state.selectedTopic);
-  const { setSelectedNote } = useNoteStore((state) => state);
-
-  const { notes, deleteNote } = useHelpers();
-
   const { classes } = useStyles();
 
   const router = useRouter();
+
+  const { notes, deleteNote } = useHelpers();
+
+  const [isModalOpen, setModalOpen] = useState(false);
+
+  const [noteToDelete, setNoteToDelete] = useState<string | null>(null);
+
+  const selectedTopic = useTopicStore((state) => state.selectedTopic);
+
+  const { setSelectedNote } = useNoteStore((state) => state);
+
+  const handleDelete = (id: string) => {
+    setNoteToDelete(id);
+    setModalOpen(true);
+  };
+
+  const confirmDeletion = () => {
+    if (noteToDelete) {
+      deleteNote.mutate({ id: noteToDelete });
+    }
+    setModalOpen(false);
+  };
+
+  const cancelDeletion = () => {
+    setModalOpen(false);
+  };
 
   const handleRoute = (reqNote: Note) => {
     setSelectedNote(reqNote);
@@ -78,12 +102,28 @@ export const NoteCard = () => {
               mr="md"
               color="red"
               variant="outline"
-              onClick={() => {
-                deleteNote.mutate({ id: note.id });
-              }}
+              onClick={() => handleDelete(note.id)}
             >
               <IconTrash />
             </ActionIcon>
+            <Modal
+              opened={isModalOpen}
+              onClose={cancelDeletion}
+              title="Confirm deletion"
+              size="xs"
+            >
+              <Stack>
+                <Group position="center">
+                  <Text>Are you sure you want to delete this note?</Text>
+                </Group>
+                <Group spacing="xl" grow>
+                  <Button onClick={confirmDeletion} color="red">
+                    Yes
+                  </Button>
+                  <Button onClick={cancelDeletion}>No</Button>
+                </Group>
+              </Stack>
+            </Modal>
           </Group>
         </Paper>
       ))}
