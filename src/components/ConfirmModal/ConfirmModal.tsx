@@ -23,17 +23,17 @@ const ConfirmModal: React.FC<ModalProps> = ({
       opened={isOpen}
       onClose={onClose}
       title={title}
-      size="m"
+      size='m'
       centered
-      radius="md"
-      padding="xl"
+      radius='md'
+      padding='xl'
     >
       <Stack>
-        <Group position="center">
+        <Group position='center'>
           <Text>{message}</Text>
         </Group>
-        <Group spacing="xl" grow>
-          <Button onClick={confirmAction} color="red">
+        <Group spacing='xl' grow>
+          <Button onClick={confirmAction} color='red'>
             Yes
           </Button>
           <Button onClick={cancelAction}>No</Button>

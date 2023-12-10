@@ -1,11 +1,13 @@
 /** @type {import("prettier").Config} */
 const config = {
   semi: true,
-  trailingComma: 'all',
-  printWidth: 90,
   tabWidth: 2,
-  endOfLine: 'auto',
+  printWidth: 90,
   singleQuote: true,
+  jsxSingleQuote: true,
+  arrowParens: 'always',
+  trailingComma: 'all',
+  endOfLine: 'auto',
 };
 
 module.exports = config;

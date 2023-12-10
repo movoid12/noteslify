@@ -46,20 +46,20 @@ const NotePage: NextPage = () => {
       <Head>
         <title>Noteslify App</title>
         <meta
-          name="description"
-          content="Noteslify an app that makes your more creative to make"
+          name='description'
+          content='Noteslify an app that makes your more creative to make'
         />
-        <link rel="icon" href="/favicon.ico" />
+        <link rel='icon' href='/favicon.ico' />
       </Head>
       <PageLayout>
-        <Group position="apart" mb="md">
+        <Group position='apart' mb='md'>
           <BackButton />
           <Title order={2}>{noteMeta}</Title>
-          <Title color="yellow" order={5}>
+          <Title color='yellow' order={5}>
             Topic: {topicMeta}
           </Title>
         </Group>
-        <Divider size="lg" />
+        <Divider size='lg' />
         <ReactMarkdown
           components={markdownConf}
           remarkPlugins={[remarkGfm]}

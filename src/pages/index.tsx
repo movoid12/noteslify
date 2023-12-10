@@ -13,10 +13,10 @@ const Home: NextPage = () => {
       <Head>
         <title>Noteslify App</title>
         <meta
-          name="description"
-          content="Noteslify an app that makes your more creative to make"
+          name='description'
+          content='Noteslify an app that makes your more creative to make'
         />
-        <link rel="icon" href="/favicon.ico" />
+        <link rel='icon' href='/favicon.ico' />
       </Head>
       <PageLayout withNavbar>
         <NoteEditor onSave={(note) => console.log(note)} />

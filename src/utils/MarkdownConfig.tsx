@@ -15,7 +15,7 @@ const markdownConf: object = {
     return !inline && match ? (
       <SyntaxHighlighter
         style={oneDark}
-        PreTag="div"
+        PreTag='div'
         language={match[1]}
         children={String(children).replace(/\n$/, '')}
         {...props}
