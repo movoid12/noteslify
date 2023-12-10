@@ -17,7 +17,7 @@ const BackButton = () => {
 
   return (
     <>
-      <ActionIcon variant="outline" color="red" onClick={handleBack}>
+      <ActionIcon variant='outline' color='red' onClick={handleBack}>
         <IconArrowBack />
       </ActionIcon>
     </>

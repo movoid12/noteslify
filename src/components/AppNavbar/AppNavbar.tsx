@@ -96,20 +96,20 @@ const AppNavbar: React.FC = () => {
       <ConfirmModal
         isOpen={isModalOpen}
         onClose={cancelDeletion}
-        title="Confirm deletion"
+        title='Confirm deletion'
         confirmAction={confirmDeletion}
         cancelAction={cancelDeletion}
-        message="Are you sure you want to delete this topic?"
+        message='Are you sure you want to delete this topic?'
       />
       <Text>To add new Topic:</Text>
       <Input
-        variant="filled"
+        variant='filled'
         disabled={sessionData?.user === undefined}
         placeholder={
           sessionData?.user === undefined ? 'Sign in to add topic' : 'Add a new topic'
         }
-        radius="xl"
-        size="md"
+        radius='xl'
+        size='md'
         value={newTopic}
         onChange={(e) => {
           setNewTopic(e.currentTarget.value);
@@ -136,18 +136,18 @@ const AppNavbar: React.FC = () => {
           handleFormReset();
           close();
         }}
-        title="Manage Topics"
+        title='Manage Topics'
       >
         <Container>
           {topics?.map((topic) => (
-            <>
-              <Group mb="sm" mt="sm" position="apart" key={topic.id}>
+            <div key={topic.id}>
+              <Group mb='sm' mt='sm' position='apart'>
                 {editingTopicId === topic.id ? (
                   <>
                     <Input
                       onChange={(e) => setTempTopic(e.currentTarget.value)}
                       value={tempTopic}
-                      rightSection={<IconX onClick={handleFormReset} cursor="pointer" />}
+                      rightSection={<IconX onClick={handleFormReset} cursor='pointer' />}
                     />
                     <Button onClick={() => handleUpdateItem(topic.id)}>Update</Button>
                   </>
@@ -161,19 +161,19 @@ const AppNavbar: React.FC = () => {
                     >
                       <IconEdit />
                     </ActionIcon>
-                    <Text size="sm">{topic.title}</Text>
-                    <Button onClick={() => handleDeleteTopic(topic.id)} variant="outline">
+                    <Text size='sm'>{topic.title}</Text>
+                    <Button onClick={() => handleDeleteTopic(topic.id)} variant='outline'>
                       Delete
                     </Button>
                   </>
                 )}
               </Group>
               <Divider />
-            </>
+            </div>
           ))}
         </Container>
       </Modal>
-      <Group position="apart">
+      <Group position='apart'>
         <Text>Select a Topic:</Text>
         <Text fz={12}>{topicsCount} Topics</Text>
       </Group>

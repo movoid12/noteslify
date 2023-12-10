@@ -2,9 +2,10 @@ import { Divider, Group, Title } from '@mantine/core';
 import { type NextPage } from 'next';
 import Head from 'next/head';
 import { useRouter } from 'next/router';
-import { ReactMarkdown } from 'react-markdown/lib/react-markdown';
+import ReactMarkdown from 'react-markdown';
 import rehypeRaw from 'rehype-raw';
 import remarkGfm from 'remark-gfm';
+import rehypeSanitize from 'rehype-sanitize';
 
 import BackButton from '~/components/BackButton/BackButton';
 import { PageLayout } from '~/components/PageLayout';
@@ -45,24 +46,24 @@ const NotePage: NextPage = () => {
       <Head>
         <title>Noteslify App</title>
         <meta
-          name="description"
-          content="Noteslify an app that makes your more creative to make"
+          name='description'
+          content='Noteslify an app that makes your more creative to make'
         />
-        <link rel="icon" href="/favicon.ico" />
+        <link rel='icon' href='/favicon.ico' />
       </Head>
       <PageLayout>
-        <Group position="apart" mb="md">
+        <Group position='apart' mb='md'>
           <BackButton />
           <Title order={2}>{noteMeta}</Title>
-          <Title color="yellow" order={5}>
+          <Title color='yellow' order={5}>
             Topic: {topicMeta}
           </Title>
         </Group>
-        <Divider size="lg" />
+        <Divider size='lg' />
         <ReactMarkdown
           components={markdownConf}
           remarkPlugins={[remarkGfm]}
-          rehypePlugins={[rehypeRaw]}
+          rehypePlugins={[rehypeRaw, rehypeSanitize]}
         >
           {selectedNote.content}
         </ReactMarkdown>

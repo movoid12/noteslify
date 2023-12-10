@@ -30,7 +30,7 @@ const AppHeader = () => {
   return (
     <>
       <Group>
-        <Text size="sm">
+        <Text size='sm'>
           {/* {sessionData?.user?.name ? ` User: ${sessionData.user.name}` : ""} */}
           {''}
         </Text>
@@ -38,29 +38,29 @@ const AppHeader = () => {
           <>
             <Indicator color={networkStatus.online ? 'green' : 'red'}>
               <Avatar
-                size="sm"
+                size='sm'
                 src={sessionData?.user?.image ?? ''}
                 alt={sessionData?.user?.name ?? ''}
               />
             </Indicator>
-            <Button size="xs" variant="filled" color="red" onClick={() => void signOut()}>
+            <Button size='xs' variant='filled' color='red' onClick={() => void signOut()}>
               Sign out
             </Button>
           </>
         ) : (
-          <Button variant="filled" color="green" onClick={() => void signIn()}>
+          <Button variant='filled' color='green' onClick={() => void signIn()}>
             Sign in
           </Button>
         )}
       </Group>
 
       <ActionIcon
-        variant="light"
+        variant='light'
         color={isDarkScheme ? 'yellow' : 'blue'}
         onClick={() => toggleColorScheme()}
-        title="Toggle color scheme"
+        title='Toggle color scheme'
       >
-        {isDarkScheme ? <IconSun size="1.1rem" /> : <IconMoonStars size="1.1rem" />}
+        {isDarkScheme ? <IconSun size='1.1rem' /> : <IconMoonStars size='1.1rem' />}
       </ActionIcon>
     </>
   );

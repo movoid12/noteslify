@@ -32,18 +32,18 @@ export const PageLayout: React.FC<PageLayoutProps> = ({ children, withNavbar }) 
               theme.colorScheme === 'dark' ? theme.colors.dark[8] : theme.colors.gray[0],
           },
         }}
-        navbarOffsetBreakpoint="sm"
-        asideOffsetBreakpoint="sm"
+        navbarOffsetBreakpoint='sm'
+        asideOffsetBreakpoint='sm'
         navbar={
           <div>
             {withNavbar && (
               <Navbar
-                p="md"
-                hiddenBreakpoint="sm"
+                p='md'
+                hiddenBreakpoint='sm'
                 hidden={!opened}
                 width={{ sm: 200, lg: 300 }}
               >
-                <Navbar.Section grow component={ScrollArea} mx="-xs" px="xs">
+                <Navbar.Section grow component={ScrollArea} mx='-xs' px='xs'>
                   <AppNavbar />
                 </Navbar.Section>
               </Navbar>
@@ -51,12 +51,12 @@ export const PageLayout: React.FC<PageLayoutProps> = ({ children, withNavbar }) 
           </div>
         }
         footer={
-          <Footer height={60} p="md">
+          <Footer height={60} p='md'>
             Application footer
           </Footer>
         }
         header={
-          <Header height={{ base: 50, md: 70 }} p="md">
+          <Header height={{ base: 50, md: 70 }} p='md'>
             <div
               style={{
                 display: 'flex',
@@ -65,13 +65,13 @@ export const PageLayout: React.FC<PageLayoutProps> = ({ children, withNavbar }) 
                 justifyContent: 'space-between',
               }}
             >
-              <MediaQuery largerThan="sm" styles={{ display: 'none' }}>
+              <MediaQuery largerThan='sm' styles={{ display: 'none' }}>
                 <Burger
                   opened={opened}
                   onClick={() => setOpened((o) => !o)}
-                  size="sm"
+                  size='sm'
                   color={theme.colors.gray[6]}
-                  mr="xl"
+                  mr='xl'
                 />
               </MediaQuery>
               <AppHeader />

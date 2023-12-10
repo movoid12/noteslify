@@ -1,7 +1,7 @@
 import { api } from '~/utils/api';
 import { useSession } from 'next-auth/react';
 
-import { type Topic, useTopicStore, type Note, useNoteStore } from '~/utils/store';
+import { type Topic, useTopicStore, type Note } from '~/utils/store';
 
 type Helpers = {
   topics: Topic[];
@@ -20,7 +20,7 @@ type Helpers = {
 const useHelpers = (): Helpers => {
   const selectedTopic = useTopicStore((state) => state.selectedTopic);
   const setSelectedTopic = useTopicStore((state) => state.setSelectedTopic);
-  const selectedNote = useNoteStore((state) => state.selectedNote);
+  // const selectedNote = useNoteStore((state) => state.selectedNote);
 
   const { data: sessionData } = useSession();
 
@@ -80,12 +80,12 @@ const useHelpers = (): Helpers => {
     },
   });
 
-  const getNoteData = api.note.get.useQuery(
-    { noteId: selectedNote?.id ?? '' },
-    {
-      enabled: sessionData?.user !== undefined && selectedTopic !== null,
-    },
-  );
+  // const getNoteData = api.note.get.useQuery(
+  //   { noteId: selectedNote?.id ?? '' },
+  //   {
+  //     enabled: sessionData?.user !== undefined && selectedTopic !== null,
+  //   },
+  // );
 
   return {
     topics: topics ?? [],
