@@ -8,12 +8,9 @@ import {
   Badge,
   Button,
   Center,
-  Container,
   Group,
-  Modal,
   Paper,
   Stack,
-  Text,
   Title,
   Tooltip,
 } from '@mantine/core';
