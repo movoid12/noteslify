@@ -76,7 +76,7 @@ const NoteEditor = ({ onSave }: NoteEditorProps) => {
       </Text>
       <Text>Add your note title:</Text>
       <Input
-      required
+        required
         placeholder={
           sessionData?.user === undefined ? 'Sign in to create a note' : 'Title*'
         }
