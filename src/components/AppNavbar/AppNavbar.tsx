@@ -140,8 +140,8 @@ const AppNavbar: React.FC = () => {
       >
         <Container>
           {topics?.map((topic) => (
-            <>
-              <Group mb="sm" mt="sm" position="apart" key={topic.id}>
+            <div key={topic.id}>
+              <Group mb="sm" mt="sm" position="apart">
                 {editingTopicId === topic.id ? (
                   <>
                     <Input
@@ -169,7 +169,7 @@ const AppNavbar: React.FC = () => {
                 )}
               </Group>
               <Divider />
-            </>
+            </div>
           ))}
         </Container>
       </Modal>
