@@ -3,14 +3,14 @@ import { createStyles, rem } from '@mantine/core';
 import { PrismLight as SyntaxHighlighter } from 'react-syntax-highlighter';
 import { oneDark } from 'react-syntax-highlighter/dist/cjs/styles/prism';
 
-type MarkdownConfProps = {
+type MarkdownConfig = {
   inline: boolean;
   className: string;
   children: React.ReactNode;
 };
 
-const markdownConf: object = {
-  code({ inline, className, children, ...props }: MarkdownConfProps) {
+const markdownConfig: object = {
+  code({ inline, className, children, ...props }: MarkdownConfig) {
     const match = /language-(\w+)/.exec(className || '');
     return !inline && match ? (
       <SyntaxHighlighter
@@ -74,4 +74,4 @@ export const useStyles = createStyles((theme) => ({
   },
 }));
 
-export default markdownConf;
+export default markdownConfig;

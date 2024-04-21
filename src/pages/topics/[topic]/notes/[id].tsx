@@ -9,7 +9,7 @@ import rehypeSanitize from 'rehype-sanitize';
 
 import BackButton from '~/components/BackButton/BackButton';
 import { PageLayout } from '~/components/PageLayout';
-import markdownConf from '~/utils/MarkdownConfig';
+import markdownConfig from '~/utils/MarkdownConfig';
 import { useNoteStore } from '~/utils/store';
 
 const NotePage: NextPage = () => {
@@ -61,7 +61,7 @@ const NotePage: NextPage = () => {
         </Group>
         <Divider size='lg' />
         <ReactMarkdown
-          components={markdownConf}
+          components={markdownConfig}
           remarkPlugins={[remarkGfm]}
           rehypePlugins={[rehypeRaw, rehypeSanitize]}
         >
