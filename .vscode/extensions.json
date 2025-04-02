@@ -3,6 +3,7 @@
     "aaron-bond.better-comments",
     "esbenp.prettier-vscode",
     "dbaeumer.vscode-eslint",
-    "prisma.prisma"
+    "prisma.prisma",
+    "pflannery.vscode-versionlens"
   ]
 }
