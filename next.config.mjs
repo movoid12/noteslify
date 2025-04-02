@@ -7,7 +7,6 @@ await import('./src/env.mjs');
 
 /** @type {import("next").NextConfig} */
 const config = {
-  output: 'export',
   reactStrictMode: true,
   i18n: {
     locales: ['en'],
