@@ -1,8 +1,8 @@
-import { z } from 'zod';
 import { eq } from 'drizzle-orm';
+import { z } from 'zod';
 
-import { createTRPCRouter, protectedProcedure } from '../trpc';
 import { topics } from '~/server/db/schema';
+import { createTRPCRouter, protectedProcedure } from '../trpc';
 // Adjust the import to your schema file
 
 export const topicRouter = createTRPCRouter({

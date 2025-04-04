@@ -1,5 +1,5 @@
-import React from 'react';
-import { Modal, Stack, Group, Text, Button } from '@mantine/core';
+import { Button, Group, Modal, Stack, Text } from '@mantine/core';
+import type React from 'react';
 
 interface ModalProps {
   isOpen: boolean;

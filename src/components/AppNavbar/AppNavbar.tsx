@@ -13,11 +13,11 @@ import {
 import { useDisclosure } from '@mantine/hooks';
 import { useState } from 'react';
 
-import { useTopicStore } from '~/utils/store';
-import { useHelpers } from '~/hooks/useHelpers';
 import { IconEdit, IconX } from '@tabler/icons-react';
-import { LoadingSpinnerTopics } from '../LoadingSpinner/LoadingSpinner';
+import { useHelpers } from '~/hooks/useHelpers';
+import { useTopicStore } from '~/utils/store';
 import ConfirmModal from '../ConfirmModal/ConfirmModal';
+import { LoadingSpinnerTopics } from '../LoadingSpinner/LoadingSpinner';
 
 const AppNavbar: React.FC = () => {
   const { createTopic, topics, deleteTopic, updateTopic, sessionData } =

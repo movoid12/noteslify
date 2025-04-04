@@ -1,11 +1,11 @@
 import { Divider, Group, Title } from '@mantine/core';
-import { type NextPage } from 'next';
+import type { NextPage } from 'next';
 import Head from 'next/head';
 import { useRouter } from 'next/router';
 import ReactMarkdown from 'react-markdown';
 import rehypeRaw from 'rehype-raw';
-import remarkGfm from 'remark-gfm';
 import rehypeSanitize from 'rehype-sanitize';
+import remarkGfm from 'remark-gfm';
 
 import BackButton from '~/components/BackButton/BackButton';
 import { PageLayout } from '~/components/PageLayout';

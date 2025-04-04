@@ -7,7 +7,7 @@
  * need to use are documented accordingly near the end.
  */
 
-import { initTRPC, TRPCError } from '@trpc/server';
+import { TRPCError, initTRPC } from '@trpc/server';
 import type { CreateNextContextOptions } from '@trpc/server/adapters/next';
 import type { Session } from 'next-auth';
 import superjson from 'superjson';
@@ -38,7 +38,7 @@ interface CreateContextOptions {
  *
  * @see https://create.t3.gg/en/usage/trpc#-serverapitrpcts
  */
-const createInnerTRPCContext = (opts: CreateContextOptions) => {
+const createInnerTrpcContext = (opts: CreateContextOptions) => {
   return {
     session: opts.session,
     db,
@@ -57,7 +57,7 @@ export const createTRPCContext = async (opts: CreateNextContextOptions) => {
   // Get the session from the server using the getServerSession wrapper function
   const session = await auth(req, res);
 
-  return createInnerTRPCContext({
+  return createInnerTrpcContext({
     session,
   });
 };

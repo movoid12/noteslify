@@ -1,6 +1,3 @@
-import dayjs from 'dayjs';
-import relativeTime from 'dayjs/plugin/relativeTime';
-import React, { useState } from 'react';
 import {
   ActionIcon,
   Badge,
@@ -12,13 +9,16 @@ import {
   Title,
   Tooltip,
 } from '@mantine/core';
-import { useRouter } from 'next/router';
 import { IconTrash } from '@tabler/icons-react';
+import dayjs from 'dayjs';
+import relativeTime from 'dayjs/plugin/relativeTime';
+import { useRouter } from 'next/router';
+import { useState } from 'react';
 
-import { useTopicStore, useNoteStore, type Note } from '~/utils/store';
-import { useHelpers } from '~/hooks/useHelpers';
-import { useStyles } from '../../utils/MarkdownConfig';
 import { LoadingSpinnerNotes } from '~/components/LoadingSpinner/LoadingSpinner';
+import { useHelpers } from '~/hooks/useHelpers';
+import { type Note, useNoteStore, useTopicStore } from '~/utils/store';
+import { useStyles } from '../../utils/MarkdownConfig';
 import ConfirmModal from '../ConfirmModal/ConfirmModal';
 
 dayjs.extend(relativeTime);

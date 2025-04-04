@@ -1,17 +1,18 @@
-import React, { useState } from 'react';
 import {
   AppShell,
-  Navbar,
-  Header,
-  Footer,
-  MediaQuery,
   Burger,
-  useMantineTheme,
+  Footer,
+  Header,
+  MediaQuery,
+  Navbar,
   ScrollArea,
+  useMantineTheme,
 } from '@mantine/core';
+import type React from 'react';
+import { useState } from 'react';
 
-import AppNavbar from '~/components/AppNavbar/AppNavbar';
 import AppHeader from '~/components/AppHeader/AppHeader';
+import AppNavbar from '~/components/AppNavbar/AppNavbar';
 
 interface PageLayoutProps {
   children: React.ReactNode;

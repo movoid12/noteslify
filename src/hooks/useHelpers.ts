@@ -1,7 +1,7 @@
-import { api } from '~/utils/api';
 import { useSession } from 'next-auth/react';
+import { api } from '~/utils/api';
 
-import { type Topic, useTopicStore, type Note } from '~/utils/store';
+import { type Note, type Topic, useTopicStore } from '~/utils/store';
 
 type Helpers = {
   topics: Topic[];

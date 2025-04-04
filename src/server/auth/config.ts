@@ -3,8 +3,8 @@ import type { DefaultSession, NextAuthOptions } from 'next-auth';
 import GithubProvider from 'next-auth/providers/github';
 import GoogleProvider from 'next-auth/providers/google';
 
-import { db } from '~/server/db';
 import { env } from '~/env.js';
+import { db } from '~/server/db';
 import {
   accounts,
   sessions,

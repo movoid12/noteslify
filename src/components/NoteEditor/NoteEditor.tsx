@@ -1,17 +1,17 @@
-import { useState } from 'react';
-import { Button, Input, Mark, Space, Stack, Tabs, Text } from '@mantine/core';
-import { useEditor } from '@tiptap/react';
-import { RichTextEditor, Link } from '@mantine/tiptap';
-import Highlight from '@tiptap/extension-highlight';
-import StarterKit from '@tiptap/starter-kit';
-import Underline from '@tiptap/extension-underline';
-import TextAlign from '@tiptap/extension-text-align';
-import { Color } from '@tiptap/extension-color';
-import TextStyle from '@tiptap/extension-text-style';
 import { markdown, markdownLanguage } from '@codemirror/lang-markdown';
 import { languages } from '@codemirror/language-data';
-import CodeMirror from '@uiw/react-codemirror';
+import { Button, Input, Mark, Space, Stack, Tabs, Text } from '@mantine/core';
+import { Link, RichTextEditor } from '@mantine/tiptap';
 import { IconMarkdown, IconNotes } from '@tabler/icons-react';
+import { Color } from '@tiptap/extension-color';
+import Highlight from '@tiptap/extension-highlight';
+import TextAlign from '@tiptap/extension-text-align';
+import TextStyle from '@tiptap/extension-text-style';
+import Underline from '@tiptap/extension-underline';
+import { useEditor } from '@tiptap/react';
+import StarterKit from '@tiptap/starter-kit';
+import CodeMirror from '@uiw/react-codemirror';
+import { useState } from 'react';
 
 import { useHelpers } from '~/hooks/useHelpers';
 import { useTopicStore } from '~/utils/store';

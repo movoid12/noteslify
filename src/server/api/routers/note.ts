@@ -1,8 +1,8 @@
 import { z } from 'zod';
 
-import { createTRPCRouter, protectedProcedure } from '../trpc';
-import { notes } from '~/server/db/schema';
 import { eq } from 'drizzle-orm';
+import { notes } from '~/server/db/schema';
+import { createTRPCRouter, protectedProcedure } from '../trpc';
 
 export const noteRouter = createTRPCRouter({
   delete: protectedProcedure

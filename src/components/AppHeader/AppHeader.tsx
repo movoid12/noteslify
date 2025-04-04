@@ -2,15 +2,15 @@ import { signIn, signOut } from 'next-auth/react';
 
 import {
   ActionIcon,
+  Avatar,
+  Button,
+  Group,
+  Indicator,
   Text,
   useMantineColorScheme,
-  Avatar,
-  Group,
-  Button,
-  Indicator,
 } from '@mantine/core';
-import { IconSun, IconMoonStars } from '@tabler/icons-react';
 import { useNetwork } from '@mantine/hooks';
+import { IconMoonStars, IconSun } from '@tabler/icons-react';
 import { useHelpers } from '~/hooks/useHelpers';
 
 const AppHeader = () => {
