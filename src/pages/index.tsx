@@ -1,4 +1,3 @@
-/* eslint-disable @typescript-eslint/unbound-method */
 import { type NextPage } from 'next';
 import Head from 'next/head';
 import React from 'react';

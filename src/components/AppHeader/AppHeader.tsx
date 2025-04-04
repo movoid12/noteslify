@@ -1,4 +1,3 @@
-/* eslint-disable @typescript-eslint/unbound-method */
 import { signIn, signOut } from 'next-auth/react';
 
 import {
