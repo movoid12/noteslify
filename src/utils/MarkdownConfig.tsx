@@ -16,6 +16,7 @@ const markdownConf: object = {
         style={oneDark}
         PreTag="div"
         language={match[1]}
+        // biome-ignore lint/correctness/noChildrenProp: : <explanation>
         children={String(children).replace(/\n$/, '')}
         {...props}
       />

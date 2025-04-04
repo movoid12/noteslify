@@ -20,7 +20,6 @@ type Helpers = {
 const useHelpers = (): Helpers => {
   const selectedTopic = useTopicStore((state) => state.selectedTopic);
   const setSelectedTopic = useTopicStore((state) => state.setSelectedTopic);
-  // const selectedNote = useNoteStore((state) => state.selectedNote);
 
   const { data: sessionData } = useSession();
 
@@ -29,9 +28,14 @@ const useHelpers = (): Helpers => {
     refetch: refetchTopics,
     isInitialLoading: topicIsLoading,
   } = api.topic.getAll.useQuery(undefined, {
-    enabled: sessionData?.user !== undefined,
+    enabled: !!sessionData?.user,
     onSuccess: (data) => {
-      setSelectedTopic(selectedTopic ?? data[0] ?? null);
+      if (!selectedTopic && data.length > 0 && data[0] !== undefined) {
+        setSelectedTopic(data[0]);
+      }
+    },
+    onError: (error) => {
+      console.error('Error fetching topics:', error);
     },
   });
 
@@ -39,15 +43,26 @@ const useHelpers = (): Helpers => {
     onSuccess: () => {
       void refetchTopics();
     },
+    onError: (error) => {
+      console.error('Error creating topic:', error);
+    },
   });
+
   const deleteTopic = api.topic.delete.useMutation({
     onSuccess: () => {
       void refetchTopics();
     },
+    onError: (error) => {
+      console.error('Error deleting topic:', error);
+    },
   });
+
   const updateTopic = api.topic.update.useMutation({
     onSuccess: () => {
       void refetchTopics();
+    },
+    onError: (error) => {
+      console.error('Error updating topic:', error);
     },
   });
 
@@ -79,13 +94,6 @@ const useHelpers = (): Helpers => {
       void refetchNotes();
     },
   });
-
-  // const getNoteData = api.note.get.useQuery(
-  //   { noteId: selectedNote?.id ?? '' },
-  //   {
-  //     enabled: sessionData?.user !== undefined && selectedTopic !== null,
-  //   },
-  // );
 
   return {
     topics: topics ?? [],

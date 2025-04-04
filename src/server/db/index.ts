@@ -14,6 +14,7 @@ const globalForDb = globalThis as unknown as {
 
 export const client =
   globalForDb.client ?? createClient({ url: env.DATABASE_URL });
+// biome-ignore lint/style/useBlockStatements: : <explanation>
 if (env.NODE_ENV !== 'production') globalForDb.client = client;
 
 export const db = drizzle(client, { schema });

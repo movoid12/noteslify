@@ -71,5 +71,8 @@
     "formatter": {
       "quoteStyle": "single"
     }
+  },
+  "files": {
+    "ignore": ["src/server/db/schema.ts"]
   }
 }

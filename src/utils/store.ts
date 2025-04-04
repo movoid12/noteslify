@@ -2,16 +2,16 @@ import { create } from 'zustand';
 
 export type Topic = {
   id: string;
-  createdAt: Date;
-  updatedAt: Date;
+  createdAt: Date | string | null;
+  updatedAt: Date | string | null;
   title: string;
   userId: string;
 };
 
 export type Note = {
   id: string;
-  createdAt: Date;
-  updatedAt: Date;
+  createdAt: Date | string | null;
+  updatedAt: Date | string | null;
   title: string;
   content: string;
   topicId: string;
