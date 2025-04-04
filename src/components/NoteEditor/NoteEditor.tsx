@@ -69,22 +69,27 @@ const NoteEditor = ({ onSave }: NoteEditorProps) => {
   };
 
   return (
-    <Stack spacing='md'>
-      <Text size='lg' weight={700}>
+    <Stack spacing="md">
+      <Text size="lg" weight={700}>
         Selected Topic:{' '}
-        <Mark> {selectedTopic?.title ?? 'Select a topic to create a note'}</Mark>
+        <Mark>
+          {' '}
+          {selectedTopic?.title ?? 'Select a topic to create a note'}
+        </Mark>
       </Text>
       <Text>Add your note title:</Text>
       <Input
         required
         placeholder={
-          sessionData?.user === undefined ? 'Sign in to create a note' : 'Title*'
+          sessionData?.user === undefined
+            ? 'Sign in to create a note'
+            : 'Title*'
         }
         value={title}
         onChange={(e) => setTitle(e.currentTarget.value)}
         disabled={sessionData?.user === undefined}
       />
-      <Tabs color='teal' defaultValue='richtext'>
+      <Tabs color="teal" defaultValue="richtext">
         <Tabs.List
           grow
           onClick={() => {
@@ -92,28 +97,34 @@ const NoteEditor = ({ onSave }: NoteEditorProps) => {
             clearHandleClick();
           }}
         >
-          <Tabs.Tab value='richtext' icon={<IconNotes size='0.8rem' />}>
+          <Tabs.Tab value="richtext" icon={<IconNotes size="0.8rem" />}>
             Text Editor
           </Tabs.Tab>
-          <Tabs.Tab value='markdown' icon={<IconMarkdown size='0.8rem' />}>
+          <Tabs.Tab value="markdown" icon={<IconMarkdown size="0.8rem" />}>
             Markdown Editor
           </Tabs.Tab>
         </Tabs.List>
-        <Tabs.Panel value='markdown'>
+        <Tabs.Panel value="markdown">
           <CodeMirror
             value={noteContent}
             editable={sessionData?.user === undefined ? false : true}
             readOnly={sessionData?.user === undefined ? true : false}
-            width='auto'
-            height='30vh'
-            minWidth='100%'
-            minHeight='30vh'
-            extensions={[markdown({ base: markdownLanguage, codeLanguages: languages })]}
+            width="auto"
+            height="30vh"
+            minWidth="100%"
+            minHeight="30vh"
+            extensions={[
+              markdown({ base: markdownLanguage, codeLanguages: languages }),
+            ]}
             onChange={(value: string) => setNoteContent(value)}
           />
         </Tabs.Panel>
-        <Tabs.Panel value='richtext'>
-          <RichTextEditor editor={editor} h={'35vh'} style={{ overflowY: 'auto' }}>
+        <Tabs.Panel value="richtext">
+          <RichTextEditor
+            editor={editor}
+            h={'35vh'}
+            style={{ overflowY: 'auto' }}
+          >
             <RichTextEditor.Toolbar sticky>
               <RichTextEditor.ControlsGroup>
                 <RichTextEditor.ColorPicker colors={pickColors} />
@@ -159,10 +170,10 @@ const NoteEditor = ({ onSave }: NoteEditorProps) => {
       </Tabs>
       <Space />
       <Button
-        color='green'
-        radius='lg'
+        color="green"
+        radius="lg"
         uppercase
-        variant='filled'
+        variant="filled"
         onClick={() => {
           createNote.mutate({
             title,

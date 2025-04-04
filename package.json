@@ -12,7 +12,10 @@
     "lint": "next lint",
     "start": "next start",
     "audit": "next audit",
-    "format": ""
+    "format": "biome format --write .",
+    "format:check": "biome format --check .",
+    "lint:check": "biome check",
+    "lint:fix": "biome lint --fix ."
   },
   "dependencies": {
     "@auth/drizzle-adapter": "1.8.0",

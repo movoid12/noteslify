@@ -3,7 +3,7 @@ import { eq } from 'drizzle-orm';
 
 import { createTRPCRouter, protectedProcedure } from '../trpc';
 import { topics } from '~/server/db/schema';
- // Adjust the import to your schema file
+// Adjust the import to your schema file
 
 export const topicRouter = createTRPCRouter({
   getAll: protectedProcedure.query(async ({ ctx }) => {
