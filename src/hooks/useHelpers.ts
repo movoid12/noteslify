@@ -26,7 +26,7 @@ const useHelpers = (): Helpers => {
   const {
     data: topics,
     refetch: refetchTopics,
-    isInitialLoading: topicIsLoading,
+    isLoading: topicIsLoading,
   } = api.topic.getAll.useQuery(undefined, {
     enabled: !!sessionData?.user,
     onSuccess: (data) => {
