@@ -1,5 +1,4 @@
 import { Divider, Group, Title } from '@mantine/core';
-import type { NextPage } from 'next';
 import Head from 'next/head';
 import { useRouter } from 'next/router';
 import ReactMarkdown from 'react-markdown';
@@ -8,11 +7,12 @@ import rehypeSanitize from 'rehype-sanitize';
 import remarkGfm from 'remark-gfm';
 
 import BackButton from '~/components/BackButton/BackButton';
-import { PageLayout } from '~/components/PageLayout';
+import PageLayout from '~/components/layouts/page-layout';
+
 import markdownConf from '~/utils/MarkdownConfig';
 import { useNoteStore } from '~/utils/store';
 
-const NotePage: NextPage = () => {
+export default function NotePage() {
   const selectedNote = useNoteStore((state) => state.selectedNote);
 
   const router = useRouter();
@@ -70,6 +70,4 @@ const NotePage: NextPage = () => {
       </PageLayout>
     </>
   );
-};
-
-export default NotePage;
+}

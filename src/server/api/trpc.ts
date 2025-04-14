@@ -53,7 +53,7 @@ const createInnerTrpcContext = (opts: CreateContextOptions) => {
  */
 
 // biome-ignore lint/style/useNamingConvention: <explanation>
-export  const createTRPCContext = async (opts: CreateNextContextOptions) => {
+export const createTRPCContext = async (opts: CreateNextContextOptions) => {
   const { req, res } = opts;
 
   // Get the session from the server using the getServerSession wrapper function
@@ -107,7 +107,7 @@ export const createCallerFactory = t.createCallerFactory;
  */
 
 // biome-ignore lint/style/useNamingConvention: <explanation>
-export  const createTRPCRouter = t.router;
+export const createTRPCRouter = t.router;
 
 /**
  * Middleware for timing procedure execution and adding an artificial delay in development.

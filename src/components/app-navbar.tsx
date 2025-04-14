@@ -16,10 +16,10 @@ import { useState } from 'react';
 import { IconEdit, IconX } from '@tabler/icons-react';
 import { useHelpers } from '~/hooks/useHelpers';
 import { useTopicStore } from '~/utils/store';
-import ConfirmModal from '../ConfirmModal/ConfirmModal';
-import { LoadingSpinnerTopics } from '../LoadingSpinner/LoadingSpinner';
+import ConfirmModal from './ConfirmModal/ConfirmModal';
+import { LoadingSpinnerTopics } from './LoadingSpinner/LoadingSpinner';
 
-const AppNavbar: React.FC = () => {
+export default function AppNavbar() {
   const { createTopic, topics, deleteTopic, updateTopic, sessionData } =
     useHelpers();
 
@@ -114,10 +114,10 @@ const AppNavbar: React.FC = () => {
         radius="xl"
         size="md"
         value={newTopic}
-        onChange={(e) => {
+        onChange={(e: React.ChangeEvent<HTMLInputElement>) => {
           setNewTopic(e.currentTarget.value);
         }}
-        onKeyDown={(e) => {
+        onKeyDown={(e: React.KeyboardEvent) => {
           if (e.key === 'Enter') {
             handleCreateTopic;
           }
@@ -148,7 +148,9 @@ const AppNavbar: React.FC = () => {
                 {editingTopicId === topic.id ? (
                   <>
                     <Input
-                      onChange={(e) => setTempTopic(e.currentTarget.value)}
+                      onChange={(e: React.ChangeEvent<HTMLInputElement>) =>
+                        setTempTopic(e.currentTarget.value)
+                      }
                       value={tempTopic}
                       rightSection={
                         <IconX onClick={handleFormReset} cursor="pointer" />
@@ -192,7 +194,7 @@ const AppNavbar: React.FC = () => {
         <Paper
           withBorder
           bg={selectedTopic?.id === topic.id ? '#d2c293a3' : ''}
-          onClick={(evt) => {
+          onClick={(evt: React.MouseEvent) => {
             evt.preventDefault();
             setSelectedTopic(topic);
           }}
@@ -219,6 +221,4 @@ const AppNavbar: React.FC = () => {
       ))}
     </Stack>
   );
-};
-
-export default AppNavbar;
+}

@@ -11,18 +11,16 @@ import {
 import type React from 'react';
 import { useState } from 'react';
 
-import AppHeader from '~/components/AppHeader/AppHeader';
-import AppNavbar from '~/components/AppNavbar/AppNavbar';
+import AppHeader from '~/components/app-header';
+import AppNavbar from '~/components/app-navbar';
 
-interface PageLayoutProps {
-  children: React.ReactNode;
-  withNavbar?: boolean;
-}
-
-export const PageLayout: React.FC<PageLayoutProps> = ({
+export default function PageLayout({
   children,
   withNavbar,
-}) => {
+}: {
+  children: React.ReactNode;
+  withNavbar?: boolean;
+}) {
   const theme = useMantineTheme();
 
   const [opened, setOpened] = useState(false);
@@ -49,8 +47,10 @@ export const PageLayout: React.FC<PageLayoutProps> = ({
                 hidden={!opened}
                 width={{ sm: 200, lg: 300 }}
               >
-                <Navbar.Section grow component={ScrollArea} mx="-xs" px="xs">
-                  <AppNavbar />
+                <Navbar.Section grow mx="-xs" px="xs">
+                  <ScrollArea>
+                    <AppNavbar />
+                  </ScrollArea>
                 </Navbar.Section>
               </Navbar>
             )}
@@ -89,4 +89,4 @@ export const PageLayout: React.FC<PageLayoutProps> = ({
       </AppShell>
     </main>
   );
-};
+}

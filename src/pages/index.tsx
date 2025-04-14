@@ -3,7 +3,7 @@ import Head from 'next/head';
 
 import { NoteCard } from '~/components/NoteCard/NoteCard';
 import NoteEditor from '~/components/NoteEditor/NoteEditor';
-import { PageLayout } from '~/components/PageLayout';
+import PageLayout from '~/components/layouts/page-layout';
 
 const Home: NextPage = () => {
   return (

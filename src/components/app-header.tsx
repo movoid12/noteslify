@@ -13,7 +13,7 @@ import { useNetwork } from '@mantine/hooks';
 import { IconMoonStars, IconSun } from '@tabler/icons-react';
 import { useHelpers } from '~/hooks/useHelpers';
 
-const AppHeader = () => {
+export default function AppHeader() {
   // * color theme
   const { colorScheme, toggleColorScheme } = useMantineColorScheme();
   const isDarkScheme = colorScheme === 'dark';
@@ -72,6 +72,4 @@ const AppHeader = () => {
       </ActionIcon>
     </>
   );
-};
-
-export default AppHeader;
+}
