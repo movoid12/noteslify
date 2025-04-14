@@ -19,7 +19,7 @@ export type Note = {
 
 type TopicStore = {
   selectedTopic: Topic | null;
-  setSelectedTopic: (topic: Topic | null) => void;
+  setSelectedTopic: (topic: Topic | undefined) => void;
 };
 
 type NoteStore = {
