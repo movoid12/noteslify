@@ -1,5 +1,5 @@
-import { z } from 'zod';
 import { createEnv } from '@t3-oss/env-nextjs';
+import { z } from 'zod';
 
 export const env = createEnv({
   /**
@@ -61,4 +61,6 @@ export const env = createEnv({
     EMAIL_SERVER_PORT: process.env.EMAIL_SERVER_PORT,
     EMAIL_FROM: process.env.EMAIL_FROM,
   },
+  skipValidation: !!process.env.SKIP_ENV_VALIDATION,
+  emptyStringAsUndefined: true,
 });

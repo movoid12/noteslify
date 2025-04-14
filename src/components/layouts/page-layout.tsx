@@ -1,24 +1,26 @@
-import React, { useState } from 'react';
 import {
   AppShell,
-  Navbar,
-  Header,
-  Footer,
-  MediaQuery,
   Burger,
-  useMantineTheme,
+  Footer,
+  Header,
+  MediaQuery,
+  Navbar,
   ScrollArea,
+  useMantineTheme,
 } from '@mantine/core';
+import type React from 'react';
+import { useState } from 'react';
 
-import AppNavbar from '~/components/AppNavbar/AppNavbar';
-import AppHeader from '~/components/AppHeader/AppHeader';
+import AppHeader from '~/components/app-header';
+import AppNavbar from '~/components/app-navbar';
 
-interface PageLayoutProps {
+export default function PageLayout({
+  children,
+  withNavbar,
+}: {
   children: React.ReactNode;
   withNavbar?: boolean;
-}
-
-export const PageLayout: React.FC<PageLayoutProps> = ({ children, withNavbar }) => {
+}) {
   const theme = useMantineTheme();
 
   const [opened, setOpened] = useState(false);
@@ -29,34 +31,38 @@ export const PageLayout: React.FC<PageLayoutProps> = ({ children, withNavbar }) 
         styles={{
           main: {
             background:
-              theme.colorScheme === 'dark' ? theme.colors.dark[8] : theme.colors.gray[0],
+              theme.colorScheme === 'dark'
+                ? theme.colors.dark[8]
+                : theme.colors.gray[0],
           },
         }}
-        navbarOffsetBreakpoint='sm'
-        asideOffsetBreakpoint='sm'
+        navbarOffsetBreakpoint="sm"
+        asideOffsetBreakpoint="sm"
         navbar={
           <div>
             {withNavbar && (
               <Navbar
-                p='md'
-                hiddenBreakpoint='sm'
+                p="md"
+                hiddenBreakpoint="sm"
                 hidden={!opened}
                 width={{ sm: 200, lg: 300 }}
               >
-                <Navbar.Section grow component={ScrollArea} mx='-xs' px='xs'>
-                  <AppNavbar />
+                <Navbar.Section grow mx="-xs" px="xs">
+                  <ScrollArea>
+                    <AppNavbar />
+                  </ScrollArea>
                 </Navbar.Section>
               </Navbar>
             )}
           </div>
         }
         footer={
-          <Footer height={60} p='md'>
+          <Footer height={60} p="md">
             Application footer
           </Footer>
         }
         header={
-          <Header height={{ base: 50, md: 70 }} p='md'>
+          <Header height={{ base: 50, md: 70 }} p="md">
             <div
               style={{
                 display: 'flex',
@@ -65,13 +71,13 @@ export const PageLayout: React.FC<PageLayoutProps> = ({ children, withNavbar }) 
                 justifyContent: 'space-between',
               }}
             >
-              <MediaQuery largerThan='sm' styles={{ display: 'none' }}>
+              <MediaQuery largerThan="sm" styles={{ display: 'none' }}>
                 <Burger
                   opened={opened}
                   onClick={() => setOpened((o) => !o)}
-                  size='sm'
+                  size="sm"
                   color={theme.colors.gray[6]}
-                  mr='xl'
+                  mr="xl"
                 />
               </MediaQuery>
               <AppHeader />
@@ -83,4 +89,4 @@ export const PageLayout: React.FC<PageLayoutProps> = ({ children, withNavbar }) 
       </AppShell>
     </main>
   );
-};
+}

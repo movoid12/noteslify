@@ -1,4 +1,3 @@
-/* eslint-disable react/no-children-prop */
 import { createStyles, rem } from '@mantine/core';
 import { PrismLight as SyntaxHighlighter } from 'react-syntax-highlighter';
 import { oneDark } from 'react-syntax-highlighter/dist/cjs/styles/prism';
@@ -15,8 +14,9 @@ const markdownConf: object = {
     return !inline && match ? (
       <SyntaxHighlighter
         style={oneDark}
-        PreTag='div'
+        PreTag="div"
         language={match[1]}
+        // biome-ignore lint/correctness/noChildrenProp: : <explanation>
         children={String(children).replace(/\n$/, '')}
         {...props}
       />
@@ -31,13 +31,17 @@ const markdownConf: object = {
 export const useStyles = createStyles((theme) => ({
   root: {
     backgroundColor:
-      theme.colorScheme === 'dark' ? theme.colors.dark[6] : theme.colors.gray[0],
+      theme.colorScheme === 'dark'
+        ? theme.colors.dark[6]
+        : theme.colors.gray[0],
     borderRadius: theme.radius.sm,
   },
 
   item: {
     backgroundColor:
-      theme.colorScheme === 'dark' ? theme.colors.dark[5] : theme.colors.gray[0],
+      theme.colorScheme === 'dark'
+        ? theme.colors.dark[5]
+        : theme.colors.gray[0],
     border: `${rem(1)} solid transparent`,
     position: 'relative',
     zIndex: 0,
@@ -45,10 +49,13 @@ export const useStyles = createStyles((theme) => ({
 
     '&[data-active]': {
       transform: 'scale(1.03)',
-      backgroundColor: theme.colorScheme === 'dark' ? theme.colors.dark[7] : theme.white,
+      backgroundColor:
+        theme.colorScheme === 'dark' ? theme.colors.dark[7] : theme.white,
       boxShadow: theme.shadows.md,
       borderColor:
-        theme.colorScheme === 'dark' ? theme.colors.dark[4] : theme.colors.gray[2],
+        theme.colorScheme === 'dark'
+          ? theme.colors.dark[4]
+          : theme.colors.gray[2],
       borderRadius: theme.radius.md,
       zIndex: 1,
     },
@@ -59,7 +66,9 @@ export const useStyles = createStyles((theme) => ({
     lineHeight: rem(20),
     '&[data-active]': {
       backgroundColor:
-        theme.colorScheme === 'dark' ? theme.colors.dark[4] : theme.colors.blue[1],
+        theme.colorScheme === 'dark'
+          ? theme.colors.dark[4]
+          : theme.colors.blue[1],
     },
   },
 

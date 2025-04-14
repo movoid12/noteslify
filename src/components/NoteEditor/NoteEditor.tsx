@@ -1,17 +1,17 @@
-import { useState } from 'react';
-import { Button, Input, Mark, Space, Stack, Tabs, Text } from '@mantine/core';
-import { useEditor } from '@tiptap/react';
-import { RichTextEditor, Link } from '@mantine/tiptap';
-import Highlight from '@tiptap/extension-highlight';
-import StarterKit from '@tiptap/starter-kit';
-import Underline from '@tiptap/extension-underline';
-import TextAlign from '@tiptap/extension-text-align';
-import { Color } from '@tiptap/extension-color';
-import TextStyle from '@tiptap/extension-text-style';
 import { markdown, markdownLanguage } from '@codemirror/lang-markdown';
 import { languages } from '@codemirror/language-data';
-import CodeMirror from '@uiw/react-codemirror';
+import { Button, Input, Mark, Space, Stack, Tabs, Text } from '@mantine/core';
+import { Link, RichTextEditor } from '@mantine/tiptap';
 import { IconMarkdown, IconNotes } from '@tabler/icons-react';
+import { Color } from '@tiptap/extension-color';
+import Highlight from '@tiptap/extension-highlight';
+import TextAlign from '@tiptap/extension-text-align';
+import TextStyle from '@tiptap/extension-text-style';
+import Underline from '@tiptap/extension-underline';
+import { useEditor } from '@tiptap/react';
+import StarterKit from '@tiptap/starter-kit';
+import CodeMirror from '@uiw/react-codemirror';
+import { useState } from 'react';
 
 import { useHelpers } from '~/hooks/useHelpers';
 import { useTopicStore } from '~/utils/store';
@@ -69,22 +69,29 @@ const NoteEditor = ({ onSave }: NoteEditorProps) => {
   };
 
   return (
-    <Stack spacing='md'>
-      <Text size='lg' weight={700}>
+    <Stack spacing="md">
+      <Text size="lg" weight={700}>
         Selected Topic:{' '}
-        <Mark> {selectedTopic?.title ?? 'Select a topic to create a note'}</Mark>
+        <Mark>
+          {' '}
+          {selectedTopic?.title ?? 'Select a topic to create a note'}
+        </Mark>
       </Text>
       <Text>Add your note title:</Text>
       <Input
         required
         placeholder={
-          sessionData?.user === undefined ? 'Sign in to create a note' : 'Title*'
+          sessionData?.user === undefined
+            ? 'Sign in to create a note'
+            : 'Title*'
         }
         value={title}
-        onChange={(e) => setTitle(e.currentTarget.value)}
+        onChange={(e: React.ChangeEvent<HTMLInputElement>) =>
+          setTitle(e.currentTarget.value)
+        }
         disabled={sessionData?.user === undefined}
       />
-      <Tabs color='teal' defaultValue='richtext'>
+      <Tabs color="teal" defaultValue="richtext">
         <Tabs.List
           grow
           onClick={() => {
@@ -92,28 +99,36 @@ const NoteEditor = ({ onSave }: NoteEditorProps) => {
             clearHandleClick();
           }}
         >
-          <Tabs.Tab value='richtext' icon={<IconNotes size='0.8rem' />}>
+          <Tabs.Tab value="richtext" icon={<IconNotes size="0.8rem" />}>
             Text Editor
           </Tabs.Tab>
-          <Tabs.Tab value='markdown' icon={<IconMarkdown size='0.8rem' />}>
+          <Tabs.Tab value="markdown" icon={<IconMarkdown size="0.8rem" />}>
             Markdown Editor
           </Tabs.Tab>
         </Tabs.List>
-        <Tabs.Panel value='markdown'>
+        <Tabs.Panel value="markdown">
           <CodeMirror
             value={noteContent}
+            // biome-ignore lint/complexity/noUselessTernary: <explanation>
             editable={sessionData?.user === undefined ? false : true}
+            // biome-ignore lint/complexity/noUselessTernary: <explanation>
             readOnly={sessionData?.user === undefined ? true : false}
-            width='auto'
-            height='30vh'
-            minWidth='100%'
-            minHeight='30vh'
-            extensions={[markdown({ base: markdownLanguage, codeLanguages: languages })]}
+            width="auto"
+            height="30vh"
+            minWidth="100%"
+            minHeight="30vh"
+            extensions={[
+              markdown({ base: markdownLanguage, codeLanguages: languages }),
+            ]}
             onChange={(value: string) => setNoteContent(value)}
           />
         </Tabs.Panel>
-        <Tabs.Panel value='richtext'>
-          <RichTextEditor editor={editor} h={'35vh'} style={{ overflowY: 'auto' }}>
+        <Tabs.Panel value="richtext">
+          <RichTextEditor
+            editor={editor}
+            h={'35vh'}
+            style={{ overflowY: 'auto' }}
+          >
             <RichTextEditor.Toolbar sticky>
               <RichTextEditor.ControlsGroup>
                 <RichTextEditor.ColorPicker colors={pickColors} />
@@ -159,10 +174,10 @@ const NoteEditor = ({ onSave }: NoteEditorProps) => {
       </Tabs>
       <Space />
       <Button
-        color='green'
-        radius='lg'
+        color="green"
+        radius="lg"
         uppercase
-        variant='filled'
+        variant="filled"
         onClick={() => {
           createNote.mutate({
             title,

@@ -1,8 +1,11 @@
-/* eslint-disable @typescript-eslint/consistent-type-imports */
-import { type AppType } from 'next/app';
-import { type Session } from 'next-auth';
+import {
+  type ColorScheme,
+  ColorSchemeProvider,
+  MantineProvider,
+} from '@mantine/core';
+import type { Session } from 'next-auth';
 import { SessionProvider } from 'next-auth/react';
-import { MantineProvider, ColorSchemeProvider, type ColorScheme } from '@mantine/core';
+import type { AppType } from 'next/app';
 import { useState } from 'react';
 
 import { api } from '~/utils/api';
@@ -20,7 +23,11 @@ const MyApp: AppType<{ session: Session | null }> = ({
         colorScheme={colorScheme}
         toggleColorScheme={toggleColorScheme}
       >
-        <MantineProvider withGlobalStyles withNormalizeCSS theme={{ colorScheme }}>
+        <MantineProvider
+          withGlobalStyles
+          withNormalizeCSS
+          theme={{ colorScheme }}
+        >
           <Component {...pageProps} />
         </MantineProvider>
       </ColorSchemeProvider>

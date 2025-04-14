@@ -1,18 +1,17 @@
-/* eslint-disable @typescript-eslint/await-thenable */
 import { create } from 'zustand';
 
 export type Topic = {
   id: string;
-  createdAt: Date;
-  updatedAt: Date;
+  createdAt: Date | string | null;
+  updatedAt: Date | string | null;
   title: string;
   userId: string;
 };
 
 export type Note = {
   id: string;
-  createdAt: Date;
-  updatedAt: Date;
+  createdAt: Date | string | null;
+  updatedAt: Date | string | null;
   title: string;
   content: string;
   topicId: string;
@@ -20,7 +19,7 @@ export type Note = {
 
 type TopicStore = {
   selectedTopic: Topic | null;
-  setSelectedTopic: (topic: Topic | null) => void;
+  setSelectedTopic: (topic: Topic | undefined) => void;
 };
 
 type NoteStore = {

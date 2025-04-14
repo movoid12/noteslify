@@ -13,14 +13,15 @@ import {
 import { useDisclosure } from '@mantine/hooks';
 import { useState } from 'react';
 
-import { useTopicStore } from '~/utils/store';
-import { useHelpers } from '~/hooks/useHelpers';
 import { IconEdit, IconX } from '@tabler/icons-react';
-import { LoadingSpinnerTopics } from '../LoadingSpinner/LoadingSpinner';
-import ConfirmModal from '../ConfirmModal/ConfirmModal';
+import { useHelpers } from '~/hooks/useHelpers';
+import { useTopicStore } from '~/utils/store';
+import ConfirmModal from './ConfirmModal/ConfirmModal';
+import { LoadingSpinnerTopics } from './LoadingSpinner/LoadingSpinner';
 
-const AppNavbar: React.FC = () => {
-  const { createTopic, topics, deleteTopic, updateTopic, sessionData } = useHelpers();
+export default function AppNavbar() {
+  const { createTopic, topics, deleteTopic, updateTopic, sessionData } =
+    useHelpers();
 
   const { selectedTopic, setSelectedTopic } = useTopicStore((state) => ({
     selectedTopic: state.selectedTopic,
@@ -96,25 +97,27 @@ const AppNavbar: React.FC = () => {
       <ConfirmModal
         isOpen={isModalOpen}
         onClose={cancelDeletion}
-        title='Confirm deletion'
+        title="Confirm deletion"
         confirmAction={confirmDeletion}
         cancelAction={cancelDeletion}
-        message='Are you sure you want to delete this topic?'
+        message="Are you sure you want to delete this topic?"
       />
       <Text>To add new Topic:</Text>
       <Input
-        variant='filled'
+        variant="filled"
         disabled={sessionData?.user === undefined}
         placeholder={
-          sessionData?.user === undefined ? 'Sign in to add topic' : 'Add a new topic'
+          sessionData?.user === undefined
+            ? 'Sign in to add topic'
+            : 'Add a new topic'
         }
-        radius='xl'
-        size='md'
+        radius="xl"
+        size="md"
         value={newTopic}
-        onChange={(e) => {
+        onChange={(e: React.ChangeEvent<HTMLInputElement>) => {
           setNewTopic(e.currentTarget.value);
         }}
-        onKeyDown={(e) => {
+        onKeyDown={(e: React.KeyboardEvent) => {
           if (e.key === 'Enter') {
             handleCreateTopic;
           }
@@ -136,20 +139,26 @@ const AppNavbar: React.FC = () => {
           handleFormReset();
           close();
         }}
-        title='Manage Topics'
+        title="Manage Topics"
       >
         <Container>
           {topics?.map((topic) => (
             <div key={topic.id}>
-              <Group mb='sm' mt='sm' position='apart'>
+              <Group mb="sm" mt="sm" position="apart">
                 {editingTopicId === topic.id ? (
                   <>
                     <Input
-                      onChange={(e) => setTempTopic(e.currentTarget.value)}
+                      onChange={(e: React.ChangeEvent<HTMLInputElement>) =>
+                        setTempTopic(e.currentTarget.value)
+                      }
                       value={tempTopic}
-                      rightSection={<IconX onClick={handleFormReset} cursor='pointer' />}
+                      rightSection={
+                        <IconX onClick={handleFormReset} cursor="pointer" />
+                      }
                     />
-                    <Button onClick={() => handleUpdateItem(topic.id)}>Update</Button>
+                    <Button onClick={() => handleUpdateItem(topic.id)}>
+                      Update
+                    </Button>
                   </>
                 ) : (
                   <>
@@ -161,8 +170,11 @@ const AppNavbar: React.FC = () => {
                     >
                       <IconEdit />
                     </ActionIcon>
-                    <Text size='sm'>{topic.title}</Text>
-                    <Button onClick={() => handleDeleteTopic(topic.id)} variant='outline'>
+                    <Text size="sm">{topic.title}</Text>
+                    <Button
+                      onClick={() => handleDeleteTopic(topic.id)}
+                      variant="outline"
+                    >
                       Delete
                     </Button>
                   </>
@@ -173,7 +185,7 @@ const AppNavbar: React.FC = () => {
           ))}
         </Container>
       </Modal>
-      <Group position='apart'>
+      <Group position="apart">
         <Text>Select a Topic:</Text>
         <Text fz={12}>{topicsCount} Topics</Text>
       </Group>
@@ -182,14 +194,16 @@ const AppNavbar: React.FC = () => {
         <Paper
           withBorder
           bg={selectedTopic?.id === topic.id ? '#d2c293a3' : ''}
-          onClick={(evt) => {
+          onClick={(evt: React.MouseEvent) => {
             evt.preventDefault();
             setSelectedTopic(topic);
           }}
           key={topic.id}
           sx={(theme) => ({
             backgroundColor:
-              theme.colorScheme === 'dark' ? theme.colors.dark[6] : theme.colors.gray[0],
+              theme.colorScheme === 'dark'
+                ? theme.colors.dark[6]
+                : theme.colors.gray[0],
             textAlign: 'center',
             padding: theme.spacing.xl,
             borderRadius: theme.radius.md,
@@ -207,6 +221,4 @@ const AppNavbar: React.FC = () => {
       ))}
     </Stack>
   );
-};
-
-export default AppNavbar;
+}

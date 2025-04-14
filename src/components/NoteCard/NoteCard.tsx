@@ -1,8 +1,3 @@
-/* eslint-disable @typescript-eslint/no-unsafe-call */
-/* eslint-disable @typescript-eslint/restrict-template-expressions */
-import dayjs from 'dayjs';
-import relativeTime from 'dayjs/plugin/relativeTime';
-import React, { useState } from 'react';
 import {
   ActionIcon,
   Badge,
@@ -14,13 +9,16 @@ import {
   Title,
   Tooltip,
 } from '@mantine/core';
-import { useRouter } from 'next/router';
 import { IconTrash } from '@tabler/icons-react';
+import dayjs from 'dayjs';
+import relativeTime from 'dayjs/plugin/relativeTime';
+import { useRouter } from 'next/router';
+import { useState } from 'react';
 
-import { useTopicStore, useNoteStore, type Note } from '~/utils/store';
-import { useHelpers } from '~/hooks/useHelpers';
-import { useStyles } from '../../utils/MarkdownConfig';
 import { LoadingSpinnerNotes } from '~/components/LoadingSpinner/LoadingSpinner';
+import { useHelpers } from '~/hooks/useHelpers';
+import { type Note, useNoteStore, useTopicStore } from '~/utils/store';
+import { useStyles } from '../../utils/MarkdownConfig';
 import ConfirmModal from '../ConfirmModal/ConfirmModal';
 
 dayjs.extend(relativeTime);
@@ -66,22 +64,28 @@ export const NoteCard = () => {
       <ConfirmModal
         isOpen={isModalOpen}
         onClose={cancelDeletion}
-        title='Confirm deletion of Note'
+        title="Confirm deletion of Note"
         confirmAction={confirmDeletion}
         cancelAction={cancelDeletion}
-        message='Are you sure you want to delete this note?'
+        message="Are you sure you want to delete this note?"
       />
       <Center>
         <LoadingSpinnerNotes />
       </Center>
       {notes?.map((note) => (
-        <Paper key={note.id} variant='filled' className={classes.root} withBorder p='md'>
-          <Group position='apart'>
-            <Title order={3} m='md'>
+        <Paper
+          key={note.id}
+          variant="filled"
+          className={classes.root}
+          withBorder
+          p="md"
+        >
+          <Group position="apart">
+            <Title order={3} m="md">
               {note.title}
             </Title>
             <Button
-              color='blue'
+              color="blue"
               onClick={() => {
                 handleRoute(note);
               }}
@@ -89,25 +93,25 @@ export const NoteCard = () => {
               Open note
             </Button>
           </Group>
-          <Group position='apart'>
+          <Group position="apart">
             <Tooltip
-              position='bottom-end'
-              color='blue'
-              radius='xl'
-              arrowPosition='center'
+              position="bottom-end"
+              color="blue"
+              radius="xl"
+              arrowPosition="center"
               withArrow
               openDelay={300}
               style={{ fontSize: 12 }}
               label={`${note.createdAt.toLocaleDateString()} ${note.createdAt.toLocaleTimeString()}`}
             >
-              <Badge m={'sm'} color='teal' variant='outline'>
+              <Badge m={'sm'} color="teal" variant="outline">
                 {dayjs(note.createdAt).fromNow()}
               </Badge>
             </Tooltip>
             <ActionIcon
-              mr='md'
-              color='red'
-              variant='outline'
+              mr="md"
+              color="red"
+              variant="outline"
               onClick={() => handleDelete(note.id)}
             >
               <IconTrash />

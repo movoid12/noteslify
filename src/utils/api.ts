@@ -6,13 +6,14 @@
  */
 import { httpBatchLink, loggerLink } from '@trpc/client';
 import { createTRPCNext } from '@trpc/next';
-import { type inferRouterInputs, type inferRouterOutputs } from '@trpc/server';
+import type { inferRouterInputs, inferRouterOutputs } from '@trpc/server';
 import superjson from 'superjson';
-
-import { type AppRouter } from '~/server/api/root';
+import type { AppRouter } from '~/server/api/root';
 
 const getBaseUrl = () => {
+  // biome-ignore lint/style/useBlockStatements: <explanation>
   if (typeof window !== 'undefined') return ''; // browser should use relative url
+  // biome-ignore lint/style/useBlockStatements: <explanation>
   if (process.env.VERCEL_URL) return `https://${process.env.VERCEL_URL}`; // SSR should use vercel url
   return `http://localhost:${process.env.PORT ?? 3000}`; // dev SSR should use localhost
 };
@@ -21,20 +22,6 @@ const getBaseUrl = () => {
 export const api = createTRPCNext<AppRouter>({
   config() {
     return {
-      queryClientConfig: {
-        defaultOptions: {
-          queries: {
-            refetchOnWindowFocus: false,
-          },
-        },
-      },
-      /**
-       * Transformer used for data de-serialization from the server.
-       *
-       * @see https://trpc.io/docs/data-transformers
-       */
-      transformer: superjson,
-
       /**
        * Links used to determine request flow from client to server.
        *
@@ -47,6 +34,12 @@ export const api = createTRPCNext<AppRouter>({
             (opts.direction === 'down' && opts.result instanceof Error),
         }),
         httpBatchLink({
+          /**
+           * Transformer used for data de-serialization from the server.
+           *
+           * @see https://trpc.io/docs/data-transformers
+           */
+          transformer: superjson,
           url: `${getBaseUrl()}/api/trpc`,
         }),
       ],
@@ -58,6 +51,7 @@ export const api = createTRPCNext<AppRouter>({
    * @see https://trpc.io/docs/nextjs#ssr-boolean-default-false
    */
   ssr: false,
+  transformer: superjson,
 });
 
 /**
