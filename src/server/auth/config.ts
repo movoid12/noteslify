@@ -7,9 +7,9 @@ import { env } from '~/env.js';
 import { db } from '~/server/db';
 import {
   accounts,
-  sessions,
-  users,
-  verificationTokens,
+  session,
+  user,
+  verification,
 } from '~/server/db/schema';
 
 /**
@@ -35,10 +35,10 @@ declare module 'next-auth' {
  */
 export const authConfig = {
   adapter: DrizzleAdapter(db, {
-    usersTable: users,
+    usersTable: user,
     accountsTable: accounts,
-    sessionsTable: sessions,
-    verificationTokensTable: verificationTokens,
+    sessionsTable: session,
+    verificationTokensTable: verification,
   }),
   providers: [
     GithubProvider({
