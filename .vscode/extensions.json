@@ -1,8 +1,7 @@
 {
   "recommendations": [
     "aaron-bond.better-comments",
-    "esbenp.prettier-vscode",
-    "prisma.prisma",
-    "pflannery.vscode-versionlens"
+    "pflannery.vscode-versionlens",
+    "biomejs.biome",
   ]
 }
