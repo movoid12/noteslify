@@ -1,29 +1,31 @@
-# Create T3 App
+# Noteslify App
 
 This is a [T3 Stack](https://create.t3.gg/) project bootstrapped with `create-t3-app` but without tailwind. I`ve used mantine UI instead
+
+> ⚡ **Note from the Maintainer:**  
+> This project is currently under active development and ongoing maintenance. Contributions, feedback, and suggestions are welcome. Please note that features and APIs may not work correctly as the project progresses.
 
 ## Recipe:
 
 - [Next.js](https://nextjs.org)
-- [NextAuth.js](https://next-auth.js.org)
-- [Prisma](https://prisma.io)
+- Drizzle
+- Next Auth
 - [Mantine](https://mantine.dev/)
 - [tRPC](https://trpc.io)
 - [zod] (https://zod.dev)
 - [react-markdown]
 - [CodeMirror]
 
-## Create database with Supabase based on AWS:
+### TODOs: 
+- Migrate from Next Auth to Better-Auth (in progress)
+- Complete the Migration: Prisma => Drizzle ORM (in progress)
+- Test authentication workflow after integration (not yet)
 
-- connect your github profile with Supabase and create a database and set a name and password for it.
-- then go to Settings => Database => Connection string => URl and copy that link add it to `DATABASE_URL` inside your environment variables or locally in .env
-- add the postgresql in the provider of `datasource db` inside your prisma configuration file: `schema.prisma`
-- got to table editor on the Supabase and check if you see the tables: account, example, session, user.... if so, then our database is succesfully working!
-
-### Authentication with Github OAuth:
+### Authentication with Github OAuth + Google Cloud oAuth:
 
 - instructions will folllow
 
 ## Deployment:
 
-Follow our deployment guides for [Vercel](https://create.t3.gg/en/deployment/vercel) [Netlify](https://create.t3.gg/en/deployment/netlify) and [Docker](https://create.t3.gg/en/deployment/docker) for more information.
+- [Vercel](https://create.t3.gg/en/deployment/vercel) 
+- [Docker](https://create.t3.gg/en/deployment/docker) 
