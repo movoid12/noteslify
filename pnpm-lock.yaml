@@ -7,6 +7,7 @@ settings:
 overrides:
   esbuild@<=0.24.2: '>=0.25.0'
   prismjs@<1.30.0: '>=1.30.0'
+  '@trpc/server@>=11.0.0 <11.1.1': '>=11.1.1'
 
 importers:
 
@@ -83,16 +84,16 @@ importers:
         version: 2.0.3(@tiptap/pm@2.0.3)
       '@trpc/client':
         specifier: 11.0.2
-        version: 11.0.2(@trpc/server@11.0.2(typescript@5.8.2))(typescript@5.8.2)
+        version: 11.0.2(@trpc/server@11.1.2(typescript@5.8.2))(typescript@5.8.2)
       '@trpc/next':
         specifier: 11.0.2
-        version: 11.0.2(@tanstack/react-query@5.71.5(react@19.1.0))(@trpc/client@11.0.2(@trpc/server@11.0.2(typescript@5.8.2))(typescript@5.8.2))(@trpc/react-query@11.0.2(@tanstack/react-query@5.71.5(react@19.1.0))(@trpc/client@11.0.2(@trpc/server@11.0.2(typescript@5.8.2))(typescript@5.8.2))(@trpc/server@11.0.2(typescript@5.8.2))(react-dom@19.1.0(react@19.1.0))(react@19.1.0)(typescript@5.8.2))(@trpc/server@11.0.2(typescript@5.8.2))(next@15.2.4(react-dom@19.1.0(react@19.1.0))(react@19.1.0))(react-dom@19.1.0(react@19.1.0))(react@19.1.0)(typescript@5.8.2)
+        version: 11.0.2(@tanstack/react-query@5.71.5(react@19.1.0))(@trpc/client@11.0.2(@trpc/server@11.1.2(typescript@5.8.2))(typescript@5.8.2))(@trpc/react-query@11.0.2(@tanstack/react-query@5.71.5(react@19.1.0))(@trpc/client@11.0.2(@trpc/server@11.1.2(typescript@5.8.2))(typescript@5.8.2))(@trpc/server@11.1.2(typescript@5.8.2))(react-dom@19.1.0(react@19.1.0))(react@19.1.0)(typescript@5.8.2))(@trpc/server@11.1.2(typescript@5.8.2))(next@15.2.4(react-dom@19.1.0(react@19.1.0))(react@19.1.0))(react-dom@19.1.0(react@19.1.0))(react@19.1.0)(typescript@5.8.2)
       '@trpc/react-query':
         specifier: 11.0.2
-        version: 11.0.2(@tanstack/react-query@5.71.5(react@19.1.0))(@trpc/client@11.0.2(@trpc/server@11.0.2(typescript@5.8.2))(typescript@5.8.2))(@trpc/server@11.0.2(typescript@5.8.2))(react-dom@19.1.0(react@19.1.0))(react@19.1.0)(typescript@5.8.2)
+        version: 11.0.2(@tanstack/react-query@5.71.5(react@19.1.0))(@trpc/client@11.0.2(@trpc/server@11.1.2(typescript@5.8.2))(typescript@5.8.2))(@trpc/server@11.1.2(typescript@5.8.2))(react-dom@19.1.0(react@19.1.0))(react@19.1.0)(typescript@5.8.2)
       '@trpc/server':
-        specifier: 11.0.2
-        version: 11.0.2(typescript@5.8.2)
+        specifier: '>=11.1.1'
+        version: 11.1.2(typescript@5.8.2)
       '@uiw/react-codemirror':
         specifier: 4.19.16
         version: 4.19.16(@babel/runtime@7.27.0)(@codemirror/autocomplete@6.18.6)(@codemirror/language@6.11.0)(@codemirror/lint@6.8.5)(@codemirror/search@6.5.10)(@codemirror/state@6.5.2)(@codemirror/theme-one-dark@6.1.2)(@codemirror/view@6.22.2)(codemirror@6.0.1)(react-dom@19.1.0(react@19.1.0))(react@19.1.0)
@@ -152,7 +153,7 @@ importers:
         specifier: 22.14.0
         version: 22.14.0
       '@types/nodemailer':
-        specifier: ^6.4.17
+        specifier: 6.4.17
         version: 6.4.17
       '@types/react':
         specifier: 19.1.0
@@ -164,8 +165,8 @@ importers:
         specifier: 15.5.13
         version: 15.5.13
       drizzle-kit:
-        specifier: ^0.30.5
-        version: 0.30.6
+        specifier: 0.30.5
+        version: 0.30.5
       typescript:
         specifier: 5.8.2
         version: 5.8.2
@@ -1237,7 +1238,7 @@ packages:
   '@trpc/client@11.0.2':
     resolution: {integrity: sha512-GlPEedbMTerkUfAJBsrwU6dg8N65lt3LBwrCoqR3MTZ64lRU/DQqyLjzpz5nRkEN0x4S2JmX0hASV9vc2KlSHA==}
     peerDependencies:
-      '@trpc/server': 11.0.2
+      '@trpc/server': '>=11.1.1'
       typescript: '>=5.7.2'
 
   '@trpc/next@11.0.2':
@@ -1246,7 +1247,7 @@ packages:
       '@tanstack/react-query': ^5.59.15
       '@trpc/client': 11.0.2
       '@trpc/react-query': 11.0.2
-      '@trpc/server': 11.0.2
+      '@trpc/server': '>=11.1.1'
       next: '>=15.2.2'
       react: '>=16.8.0'
       react-dom: '>=16.8.0'
@@ -1262,13 +1263,13 @@ packages:
     peerDependencies:
       '@tanstack/react-query': ^5.67.1
       '@trpc/client': 11.0.2
-      '@trpc/server': 11.0.2
+      '@trpc/server': '>=11.1.1'
       react: '>=18.2.0'
       react-dom: '>=18.2.0'
       typescript: '>=5.7.2'
 
-  '@trpc/server@11.0.2':
-    resolution: {integrity: sha512-PIcm8UWFyE0AnIYjxsyc1zfVa6X10m9Opm1SJ2ou9Vu8dlXO6rMtmafLUXJsMeQk/3ecxObFtEiZIX8TvB3eCg==}
+  '@trpc/server@11.1.2':
+    resolution: {integrity: sha512-Oi9zWHG0ZDkbDo4sYkduoV7q4sIe6UwjrRLC91vNMYQK+PVgpbTCmK1laRwewAGu0zaayqcGDosANjceOIC3GA==}
     peerDependencies:
       typescript: '>=5.7.2'
 
@@ -1518,8 +1519,8 @@ packages:
   domutils@2.8.0:
     resolution: {integrity: sha512-w96Cjofp72M5IIhpjgobBimYEfoPjx1Vx0BSX9P30WBdZW2WIKU0T1Bd0kz2eNZ9ikjKgHbEyKx8BB6H1L3h3A==}
 
-  drizzle-kit@0.30.6:
-    resolution: {integrity: sha512-U4wWit0fyZuGuP7iNmRleQyK2V8wCuv57vf5l3MnG4z4fzNTjY/U13M8owyQ5RavqvqxBifWORaR3wIUzlN64g==}
+  drizzle-kit@0.30.5:
+    resolution: {integrity: sha512-l6dMSE100u7sDaTbLczibrQZjA35jLsHNqIV+jmhNVO3O8jzM6kywMOmV9uOz9ZVSCMPQhAZEFjL/qDPVrqpUA==}
     hasBin: true
 
   drizzle-orm@0.41.0:
@@ -3778,33 +3779,33 @@ snapshots:
     transitivePeerDependencies:
       - '@tiptap/pm'
 
-  '@trpc/client@11.0.2(@trpc/server@11.0.2(typescript@5.8.2))(typescript@5.8.2)':
+  '@trpc/client@11.0.2(@trpc/server@11.1.2(typescript@5.8.2))(typescript@5.8.2)':
     dependencies:
-      '@trpc/server': 11.0.2(typescript@5.8.2)
+      '@trpc/server': 11.1.2(typescript@5.8.2)
       typescript: 5.8.2
 
-  '@trpc/next@11.0.2(@tanstack/react-query@5.71.5(react@19.1.0))(@trpc/client@11.0.2(@trpc/server@11.0.2(typescript@5.8.2))(typescript@5.8.2))(@trpc/react-query@11.0.2(@tanstack/react-query@5.71.5(react@19.1.0))(@trpc/client@11.0.2(@trpc/server@11.0.2(typescript@5.8.2))(typescript@5.8.2))(@trpc/server@11.0.2(typescript@5.8.2))(react-dom@19.1.0(react@19.1.0))(react@19.1.0)(typescript@5.8.2))(@trpc/server@11.0.2(typescript@5.8.2))(next@15.2.4(react-dom@19.1.0(react@19.1.0))(react@19.1.0))(react-dom@19.1.0(react@19.1.0))(react@19.1.0)(typescript@5.8.2)':
+  '@trpc/next@11.0.2(@tanstack/react-query@5.71.5(react@19.1.0))(@trpc/client@11.0.2(@trpc/server@11.1.2(typescript@5.8.2))(typescript@5.8.2))(@trpc/react-query@11.0.2(@tanstack/react-query@5.71.5(react@19.1.0))(@trpc/client@11.0.2(@trpc/server@11.1.2(typescript@5.8.2))(typescript@5.8.2))(@trpc/server@11.1.2(typescript@5.8.2))(react-dom@19.1.0(react@19.1.0))(react@19.1.0)(typescript@5.8.2))(@trpc/server@11.1.2(typescript@5.8.2))(next@15.2.4(react-dom@19.1.0(react@19.1.0))(react@19.1.0))(react-dom@19.1.0(react@19.1.0))(react@19.1.0)(typescript@5.8.2)':
     dependencies:
-      '@trpc/client': 11.0.2(@trpc/server@11.0.2(typescript@5.8.2))(typescript@5.8.2)
-      '@trpc/server': 11.0.2(typescript@5.8.2)
+      '@trpc/client': 11.0.2(@trpc/server@11.1.2(typescript@5.8.2))(typescript@5.8.2)
+      '@trpc/server': 11.1.2(typescript@5.8.2)
       next: 15.2.4(react-dom@19.1.0(react@19.1.0))(react@19.1.0)
       react: 19.1.0
       react-dom: 19.1.0(react@19.1.0)
       typescript: 5.8.2
     optionalDependencies:
       '@tanstack/react-query': 5.71.5(react@19.1.0)
-      '@trpc/react-query': 11.0.2(@tanstack/react-query@5.71.5(react@19.1.0))(@trpc/client@11.0.2(@trpc/server@11.0.2(typescript@5.8.2))(typescript@5.8.2))(@trpc/server@11.0.2(typescript@5.8.2))(react-dom@19.1.0(react@19.1.0))(react@19.1.0)(typescript@5.8.2)
+      '@trpc/react-query': 11.0.2(@tanstack/react-query@5.71.5(react@19.1.0))(@trpc/client@11.0.2(@trpc/server@11.1.2(typescript@5.8.2))(typescript@5.8.2))(@trpc/server@11.1.2(typescript@5.8.2))(react-dom@19.1.0(react@19.1.0))(react@19.1.0)(typescript@5.8.2)
 
-  '@trpc/react-query@11.0.2(@tanstack/react-query@5.71.5(react@19.1.0))(@trpc/client@11.0.2(@trpc/server@11.0.2(typescript@5.8.2))(typescript@5.8.2))(@trpc/server@11.0.2(typescript@5.8.2))(react-dom@19.1.0(react@19.1.0))(react@19.1.0)(typescript@5.8.2)':
+  '@trpc/react-query@11.0.2(@tanstack/react-query@5.71.5(react@19.1.0))(@trpc/client@11.0.2(@trpc/server@11.1.2(typescript@5.8.2))(typescript@5.8.2))(@trpc/server@11.1.2(typescript@5.8.2))(react-dom@19.1.0(react@19.1.0))(react@19.1.0)(typescript@5.8.2)':
     dependencies:
       '@tanstack/react-query': 5.71.5(react@19.1.0)
-      '@trpc/client': 11.0.2(@trpc/server@11.0.2(typescript@5.8.2))(typescript@5.8.2)
-      '@trpc/server': 11.0.2(typescript@5.8.2)
+      '@trpc/client': 11.0.2(@trpc/server@11.1.2(typescript@5.8.2))(typescript@5.8.2)
+      '@trpc/server': 11.1.2(typescript@5.8.2)
       react: 19.1.0
       react-dom: 19.1.0(react@19.1.0)
       typescript: 5.8.2
 
-  '@trpc/server@11.0.2(typescript@5.8.2)':
+  '@trpc/server@11.1.2(typescript@5.8.2)':
     dependencies:
       typescript: 5.8.2
 
@@ -4047,7 +4048,7 @@ snapshots:
       domelementtype: 2.3.0
       domhandler: 4.3.1
 
-  drizzle-kit@0.30.6:
+  drizzle-kit@0.30.5:
     dependencies:
       '@drizzle-team/brocli': 0.10.2
       '@esbuild-kit/esm-loader': 2.6.5
