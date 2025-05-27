@@ -10,7 +10,7 @@ import type { inferRouterInputs, inferRouterOutputs } from '@trpc/server';
 import superjson from 'superjson';
 import type { AppRouter } from '~/server/api/root';
 
-const getBaseUrl = () => {
+export const getBaseUrl = () => {
   // biome-ignore lint/style/useBlockStatements: <explanation>
   if (typeof window !== 'undefined') return ''; // browser should use relative url
   // biome-ignore lint/style/useBlockStatements: <explanation>
@@ -41,6 +41,12 @@ export const api = createTRPCNext<AppRouter>({
            */
           transformer: superjson,
           url: `${getBaseUrl()}/api/trpc`,
+          fetch(url, options) {
+            return fetch(url, {
+              ...options,
+              credentials: 'include', // This is important for better-auth session cookie
+            });
+          },
         }),
       ],
     };
