@@ -88,8 +88,8 @@ export const notes = pgTable('notes', {
     .primaryKey()
     .notNull()
     .$defaultFn(() => crypto.randomUUID()),
-  createdAt: text().default(sql`(CURRENT_DATE)`),
-  updatedAt: text().default(sql`(CURRENT_DATE)`)
+  createdAt: text('created_at').default(sql`(CURRENT_DATE)`),
+  updatedAt: text('updated_at').default(sql`(CURRENT_DATE)`)
     .$onUpdate(() => sql`(CURRENT_DATE)`),
   title: text('title').notNull(),
   content: text('content').notNull(),

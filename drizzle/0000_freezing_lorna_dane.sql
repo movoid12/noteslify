@@ -16,8 +16,8 @@ CREATE TABLE "account" (
 --> statement-breakpoint
 CREATE TABLE "notes" (
 	"id" text PRIMARY KEY NOT NULL,
-	"createdAt" text DEFAULT (CURRENT_DATE),
-	"updatedAt" text DEFAULT (CURRENT_DATE),
+	"created_at" text DEFAULT (CURRENT_DATE),
+	"updated_at" text DEFAULT (CURRENT_DATE),
 	"title" text NOT NULL,
 	"content" text NOT NULL,
 	"topicId" text NOT NULL
