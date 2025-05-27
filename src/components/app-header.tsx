@@ -1,5 +1,3 @@
-import { signIn, signOut } from 'next-auth/react';
-
 import {
   ActionIcon,
   Avatar,
@@ -12,6 +10,7 @@ import {
 import { useNetwork } from '@mantine/hooks';
 import { IconMoonStars, IconSun } from '@tabler/icons-react';
 import { useHelpers } from '~/hooks/useHelpers';
+import { signIn, signOut } from '~/lib/clients';
 
 export default function AppHeader() {
   // * color theme
@@ -46,13 +45,17 @@ export default function AppHeader() {
               size="xs"
               variant="filled"
               color="red"
-              onClick={() => void signOut()}
+              onClick={() => signOut()}
             >
               Sign out
             </Button>
           </>
         ) : (
-          <Button variant="filled" color="green" onClick={() => void signIn()}>
+          <Button
+            variant="filled"
+            color="green"
+            onClick={() => void signIn.social({ provider: 'google' })}
+          >
             Sign in
           </Button>
         )}

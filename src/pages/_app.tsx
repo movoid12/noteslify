@@ -3,8 +3,8 @@ import {
   ColorSchemeProvider,
   MantineProvider,
 } from '@mantine/core';
-import type { Session } from 'next-auth';
-import { SessionProvider } from 'next-auth/react';
+import type { Session } from 'better-auth';
+
 import type { AppType } from 'next/app';
 import { useState } from 'react';
 
@@ -15,23 +15,23 @@ const MyApp: AppType<{ session: Session | null }> = ({
   pageProps: { session, ...pageProps },
 }) => {
   const [colorScheme, setColorScheme] = useState<ColorScheme>('light');
+
   const toggleColorScheme = (value?: ColorScheme) =>
     setColorScheme(value || (colorScheme === 'dark' ? 'light' : 'dark'));
+
   return (
-    <SessionProvider session={session}>
-      <ColorSchemeProvider
-        colorScheme={colorScheme}
-        toggleColorScheme={toggleColorScheme}
+    <ColorSchemeProvider
+      colorScheme={colorScheme}
+      toggleColorScheme={toggleColorScheme}
+    >
+      <MantineProvider
+        withGlobalStyles
+        withNormalizeCSS
+        theme={{ colorScheme }}
       >
-        <MantineProvider
-          withGlobalStyles
-          withNormalizeCSS
-          theme={{ colorScheme }}
-        >
-          <Component {...pageProps} />
-        </MantineProvider>
-      </ColorSchemeProvider>
-    </SessionProvider>
+        <Component {...pageProps} />
+      </MantineProvider>
+    </ColorSchemeProvider>
   );
 };
 
