@@ -2,6 +2,6 @@
   "recommendations": [
     "aaron-bond.better-comments",
     "pflannery.vscode-versionlens",
-    "biomejs.biome",
+    "biomejs.biome"
   ]
 }
