@@ -98,15 +98,9 @@ export default function NoteCard() {
               position="bottom-end"
               color="blue"
               radius="xl"
-              arrowPosition="center"
-              withArrow
               openDelay={300}
-              style={{ fontSize: 12 }}
-              label={
-                note.createdAt
-                  ? ` (${dayjs(note.createdAt).format('llll')}`
-                  : 'Unknown date'
-              }
+              style={{ fontSize: 11 }}
+              label={note.createdAt?.toLocaleString() || 'Unknown date'}
             >
               <Badge m={'sm'} color="teal" variant="outline">
                 {dayjs(note.createdAt).fromNow()}
