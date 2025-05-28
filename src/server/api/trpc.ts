@@ -16,8 +16,15 @@ import { auth } from '~/lib/auth';
 import { db } from '~/server/db';
 
 // biome-ignore lint/style/useNamingConvention: <explanation>
-export const createTRPCContext = async () => {
-  const session = (await auth.$context).session;
+// biome-ignore lint/suspicious/noExplicitAny: <explanation>
+export const createTRPCContext = async (opts: {
+  req: { headers: Headers };
+}) => {
+  const session = await auth.api.getSession({
+    headers: opts.req.headers,
+  });
+
+  console.log('Session HERE HERE HERE NEW', session);
 
   return {
     db,
