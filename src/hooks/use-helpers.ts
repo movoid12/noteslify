@@ -28,7 +28,7 @@ const useHelpers = (): Helpers => {
     refetch: refetchTopics,
     isLoading: topicIsLoading,
   } = api.topic.getAll.useQuery(undefined, {
-    enabled: !!sessionData?.user, // Check for user instead of session
+    enabled: !!sessionData?.user,
     select: (data) => {
       if (data && data.length > 0 && !selectedTopic) {
         setSelectedTopic(data[0]);
