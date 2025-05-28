@@ -1,13 +1,5 @@
-/**
- * YOU PROBABLY DON'T NEED TO EDIT THIS FILE, UNLESS:
- * 1. You want to modify request context (see Part 1).
- * 2. You want to create a new middleware or type of procedure (see Part 3).
- *
- * TL;DR - This is where all the tRPC server stuff is created and plugged in. The pieces you will
- * need to use are documented accordingly near the end.
- */
-
 import { TRPCError, initTRPC } from '@trpc/server';
+import type { NextApiRequest, NextApiResponse } from 'next';
 
 import superjson from 'superjson';
 import { ZodError } from 'zod';
@@ -16,15 +8,22 @@ import { auth } from '~/lib/auth';
 import { db } from '~/server/db';
 
 // biome-ignore lint/style/useNamingConvention: <explanation>
-// biome-ignore lint/suspicious/noExplicitAny: <explanation>
 export const createTRPCContext = async (opts: {
-  req: { headers: Headers };
+  req: NextApiRequest;
+  res: NextApiResponse;
 }) => {
+  // Convert IncomingHttpHeaders to Headers instance for compatibility
+  const headers = new Headers();
+  for (const [key, value] of Object.entries(opts.req.headers)) {
+    if (Array.isArray(value)) {
+      headers.set(key, value.join(', '));
+    } else if (typeof value === 'string' && value !== undefined) {
+      headers.set(key, value);
+    }
+  }
   const session = await auth.api.getSession({
-    headers: opts.req.headers,
+    headers,
   });
-
-  console.log('Session HERE HERE HERE NEW', session);
 
   return {
     db,
