@@ -41,7 +41,7 @@ importers:
         specifier: 6.0.11
         version: 6.0.11(@mantine/core@6.0.10(@emotion/react@11.11.0(@types/react@19.1.0)(react@19.1.0))(@mantine/hooks@6.0.10(react@19.1.0))(@types/react@19.1.0)(react-dom@19.1.0(react@19.1.0))(react@19.1.0))(@mantine/hooks@6.0.10(react@19.1.0))(@tabler/icons-react@2.18.0(react@19.1.0))(@tiptap/extension-link@2.0.3(@tiptap/core@2.11.7)(@tiptap/pm@2.0.3))(@tiptap/react@2.0.3(@tiptap/core@2.11.7)(@tiptap/pm@2.0.3)(react-dom@19.1.0(react@19.1.0))(react@19.1.0))(react@19.1.0)
       '@neondatabase/serverless':
-        specifier: ^1.0.0
+        specifier: 1.0.0
         version: 1.0.0
       '@t3-oss/env-nextjs':
         specifier: 0.12.0
