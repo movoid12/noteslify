@@ -58,7 +58,7 @@ export default function AppHeader() {
             color="green"
             onClick={() => void signIn.social({ provider: 'google' })}
           >
-            Sign in
+            Sign in with Google
           </Button>
         )}
       </Group>
