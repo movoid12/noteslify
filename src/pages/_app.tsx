@@ -13,7 +13,6 @@ const MyApp: AppType<{ session: Session | null }> = ({
   Component,
   pageProps: { session, ...pageProps },
 }) => {
-
   const [colorScheme, setColorScheme] = useState<ColorScheme>('light');
   const [mounted, setMounted] = useState(false);
 
