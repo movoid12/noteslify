@@ -5,7 +5,7 @@ import { IconArrowBack } from '@tabler/icons-react';
 import { useRouter } from 'next/router';
 import { useNoteStore } from '~/utils/store';
 
-const BackButton = () => {
+export default function BackButton() {
   const setSelectedNote = useNoteStore((state) => state.setSelectedNote);
 
   const router = useRouter();
@@ -22,6 +22,4 @@ const BackButton = () => {
       </ActionIcon>
     </>
   );
-};
-
-export default BackButton;
+}

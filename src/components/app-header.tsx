@@ -1,4 +1,4 @@
-import { signIn, signOut } from 'next-auth/react';
+'use client';
 
 import {
   ActionIcon,
@@ -11,7 +11,8 @@ import {
 } from '@mantine/core';
 import { useNetwork } from '@mantine/hooks';
 import { IconMoonStars, IconSun } from '@tabler/icons-react';
-import { useHelpers } from '~/hooks/useHelpers';
+import { useHelpers } from '~/hooks/use-helpers';
+import { signIn, signOut } from '~/lib/clients';
 
 export default function AppHeader() {
   // * color theme
@@ -46,14 +47,18 @@ export default function AppHeader() {
               size="xs"
               variant="filled"
               color="red"
-              onClick={() => void signOut()}
+              onClick={() => signOut()}
             >
               Sign out
             </Button>
           </>
         ) : (
-          <Button variant="filled" color="green" onClick={() => void signIn()}>
-            Sign in
+          <Button
+            variant="filled"
+            color="green"
+            onClick={() => void signIn.social({ provider: 'google' })}
+          >
+            Sign in with Google
           </Button>
         )}
       </Group>

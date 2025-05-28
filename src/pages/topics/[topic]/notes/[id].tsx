@@ -6,10 +6,10 @@ import rehypeRaw from 'rehype-raw';
 import rehypeSanitize from 'rehype-sanitize';
 import remarkGfm from 'remark-gfm';
 
-import BackButton from '~/components/BackButton/BackButton';
+import BackButton from '~/components/buttons/back-button';
 import PageLayout from '~/components/layouts/page-layout';
 
-import markdownConf from '~/utils/MarkdownConfig';
+import { markdownConf } from '~/utils/markdown-config';
 import { useNoteStore } from '~/utils/store';
 
 export default function NotePage() {

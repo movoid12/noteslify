@@ -1,6 +1,18 @@
+'use client';
+
 import { markdown, markdownLanguage } from '@codemirror/lang-markdown';
 import { languages } from '@codemirror/language-data';
-import { Button, Input, Mark, Space, Stack, Tabs, Text } from '@mantine/core';
+import {
+  Button,
+  Grid,
+  Input,
+  Mark,
+  Space,
+  Stack,
+  Tabs,
+  Text,
+  useMantineColorScheme,
+} from '@mantine/core';
 import { Link, RichTextEditor } from '@mantine/tiptap';
 import { IconMarkdown, IconNotes } from '@tabler/icons-react';
 import { Color } from '@tiptap/extension-color';
@@ -13,20 +25,23 @@ import StarterKit from '@tiptap/starter-kit';
 import CodeMirror from '@uiw/react-codemirror';
 import { useState } from 'react';
 
-import { useHelpers } from '~/hooks/useHelpers';
+import { useHelpers } from '~/hooks/use-helpers';
 import { useTopicStore } from '~/utils/store';
 
-type NoteEditorProps = {
+export default function NoteEditor({
+  onSave,
+}: {
   onSave: (note: { title: string; content: string }) => void;
-};
-const NoteEditor = ({ onSave }: NoteEditorProps) => {
+}) {
   const selectedTopic = useTopicStore((state) => state.selectedTopic);
 
-  const [noteContent, setNoteContent] = useState<string>('');
+  const [noteContent, setNoteContent] = useState('');
 
-  const [title, setTitle] = useState<string>('');
+  const [title, setTitle] = useState('');
 
   const { createNote, sessionData } = useHelpers();
+
+  const { colorScheme } = useMantineColorScheme();
 
   const editor = useEditor({
     extensions: [
@@ -109,10 +124,9 @@ const NoteEditor = ({ onSave }: NoteEditorProps) => {
         <Tabs.Panel value="markdown">
           <CodeMirror
             value={noteContent}
-            // biome-ignore lint/complexity/noUselessTernary: <explanation>
-            editable={sessionData?.user === undefined ? false : true}
-            // biome-ignore lint/complexity/noUselessTernary: <explanation>
-            readOnly={sessionData?.user === undefined ? true : false}
+            editable={sessionData?.user === undefined}
+            readOnly={sessionData?.user === undefined}
+            theme={colorScheme}
             width="auto"
             height="30vh"
             minWidth="100%"
@@ -173,33 +187,36 @@ const NoteEditor = ({ onSave }: NoteEditorProps) => {
         </Tabs.Panel>
       </Tabs>
       <Space />
-      <Button
-        color="green"
-        radius="lg"
-        uppercase
-        variant="filled"
-        onClick={() => {
-          createNote.mutate({
-            title,
-            content: noteContent,
-            topicId: selectedTopic?.id ?? '',
-          });
-          onSave({ title, content: noteContent });
-          setTitle('');
-          setNoteContent('');
-          clearHandleClick();
-        }}
-        disabled={
-          title.trim().length === 0 ||
-          noteContent.trim().length === 0 ||
-          sessionData?.user === undefined
-        }
-      >
-        Save
-      </Button>
+      <Grid justify="space-around" align="center">
+        <Grid.Col span={1}>
+          <Button
+            color="green"
+            radius="lg"
+            uppercase
+            variant="filled"
+            size="md"
+            onClick={() => {
+              createNote.mutate({
+                title,
+                content: noteContent,
+                topicId: selectedTopic?.id ?? '',
+              });
+              onSave({ title, content: noteContent });
+              setTitle('');
+              setNoteContent('');
+              clearHandleClick();
+            }}
+            disabled={
+              title.trim().length === 0 ||
+              noteContent.trim().length === 0 ||
+              sessionData?.user === undefined
+            }
+          >
+            Save
+          </Button>
+        </Grid.Col>
+      </Grid>
       <Space />
     </Stack>
   );
-};
-
-export default NoteEditor;
+}

@@ -1,4 +1,4 @@
-import { useSession } from 'next-auth/react';
+import { useSession } from '~/lib/clients';
 import { api } from '~/utils/api';
 
 import { type Note, type Topic, useTopicStore } from '~/utils/store';
@@ -29,13 +29,11 @@ const useHelpers = (): Helpers => {
     isLoading: topicIsLoading,
   } = api.topic.getAll.useQuery(undefined, {
     enabled: !!sessionData?.user,
-    onSuccess: (data) => {
-      if (!selectedTopic && data.length > 0 && data[0] !== undefined) {
+    select: (data) => {
+      if (data && data.length > 0 && !selectedTopic) {
         setSelectedTopic(data[0]);
       }
-    },
-    onError: (error) => {
-      console.error('Error fetching topics:', error);
+      return data;
     },
   });
 
