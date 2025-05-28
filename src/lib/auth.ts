@@ -1,14 +1,16 @@
-import { drizzleAdapter } from 'better-auth/adapters/drizzle';
 import { betterAuth } from 'better-auth';
+import { drizzleAdapter } from 'better-auth/adapters/drizzle';
 
-import { db } from '~/server/db';
 import { env } from '~/env';
+import { db } from '~/server/db';
+// import * as schema from '../server/db/schema';
 
 export const auth = betterAuth({
   // biome-ignore lint/style/useNamingConvention: <explanation>
   baseURL: env.BETTER_AUTH_URL,
   database: drizzleAdapter(db, {
     provider: 'pg',
+    // schema: schema
   }),
   socialProviders: {
     google: {

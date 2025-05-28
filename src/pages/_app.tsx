@@ -4,7 +4,6 @@ import {
   MantineProvider,
 } from '@mantine/core';
 import type { Session } from 'better-auth';
-
 import type { AppType } from 'next/app';
 import { useState } from 'react';
 

@@ -15,15 +15,15 @@ import relativeTime from 'dayjs/plugin/relativeTime';
 import { useRouter } from 'next/router';
 import { useState } from 'react';
 
-import { LoadingSpinnerNotes } from '~/components/LoadingSpinner/LoadingSpinner';
-import { useHelpers } from '~/hooks/useHelpers';
+import { LoadingSpinnerNotes } from '~/components/loading-spinner/loading-spinner';
+import { useHelpers } from '~/hooks/use-helpers';
 import { type Note, useNoteStore, useTopicStore } from '~/utils/store';
-import { useStyles } from '../../utils/MarkdownConfig';
-import ConfirmModal from '../ConfirmModal/ConfirmModal';
+import { useStyles } from '../utils/markdown-config';
+import ConfirmModal from './modals/confirm-modal';
 
 dayjs.extend(relativeTime);
 
-export const NoteCard = () => {
+export default function NoteCard() {
   const { classes } = useStyles();
 
   const router = useRouter();
@@ -102,7 +102,11 @@ export const NoteCard = () => {
               withArrow
               openDelay={300}
               style={{ fontSize: 12 }}
-              label={`${note.createdAt.toLocaleDateString()} ${note.createdAt.toLocaleTimeString()}`}
+              label={
+                note.createdAt
+                  ? ` (${dayjs(note.createdAt).format('llll')}`
+                  : 'Unknown date'
+              }
             >
               <Badge m={'sm'} color="teal" variant="outline">
                 {dayjs(note.createdAt).fromNow()}
@@ -121,4 +125,4 @@ export const NoteCard = () => {
       ))}
     </Stack>
   );
-};
+}

@@ -1,23 +1,20 @@
 import { Button, Group, Modal, Stack, Text } from '@mantine/core';
-import type React from 'react';
 
-interface ModalProps {
-  isOpen: boolean;
-  onClose: () => void;
-  title: string;
-  confirmAction: () => void;
-  cancelAction: () => void;
-  message: string;
-}
-
-const ConfirmModal: React.FC<ModalProps> = ({
+export default function ConfirmModal({
   isOpen,
   onClose,
   title,
   confirmAction,
   cancelAction,
   message,
-}) => {
+}: {
+  isOpen: boolean;
+  onClose: () => void;
+  title: string;
+  confirmAction: () => void;
+  cancelAction: () => void;
+  message: string;
+}) {
   return (
     <Modal
       opened={isOpen}
@@ -41,6 +38,4 @@ const ConfirmModal: React.FC<ModalProps> = ({
       </Stack>
     </Modal>
   );
-};
-
-export default ConfirmModal;
+}

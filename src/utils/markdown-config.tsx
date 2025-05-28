@@ -8,7 +8,7 @@ type MarkdownConfProps = {
   children: React.ReactNode;
 };
 
-const markdownConf: object = {
+export const markdownConf: object = {
   code({ inline, className, children, ...props }: MarkdownConfProps) {
     const match = /language-(\w+)/.exec(className || '');
     return !inline && match ? (
@@ -82,5 +82,3 @@ export const useStyles = createStyles((theme) => ({
     height: '90%', // height of the note card
   },
 }));
-
-export default markdownConf;

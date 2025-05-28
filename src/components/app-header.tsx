@@ -9,7 +9,7 @@ import {
 } from '@mantine/core';
 import { useNetwork } from '@mantine/hooks';
 import { IconMoonStars, IconSun } from '@tabler/icons-react';
-import { useHelpers } from '~/hooks/useHelpers';
+import { useHelpers } from '~/hooks/use-helpers';
 import { signIn, signOut } from '~/lib/clients';
 
 export default function AppHeader() {

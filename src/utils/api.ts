@@ -11,11 +11,14 @@ import superjson from 'superjson';
 import type { AppRouter } from '~/server/api/root';
 
 export const getBaseUrl = () => {
-  // biome-ignore lint/style/useBlockStatements: <explanation>
-  if (typeof window !== 'undefined') return ''; // browser should use relative url
-  // biome-ignore lint/style/useBlockStatements: <explanation>
-  if (process.env.VERCEL_URL) return `https://${process.env.VERCEL_URL}`; // SSR should use vercel url
-  return `http://localhost:${process.env.PORT ?? 3000}`; // dev SSR should use localhost
+  if (typeof window !== 'undefined') {
+    return '';
+  } // browser should use relative url
+
+  if (process.env.VERCEL_URL) {
+    return `https://${process.env.VERCEL_URL}`;
+  } // SSR should use vercel url
+  return `http://localhost:${process.env.PORT ?? 3000}`;
 };
 
 /** A set of type-safe react-query hooks for your tRPC API. */
@@ -30,7 +33,8 @@ export const api = createTRPCNext<AppRouter>({
       links: [
         loggerLink({
           enabled: (opts) =>
-            process.env.NODE_ENV === 'development' ||
+            (process.env.NODE_ENV === 'development' &&
+              typeof window !== 'undefined') ||
             (opts.direction === 'down' && opts.result instanceof Error),
         }),
         httpBatchLink({
@@ -44,18 +48,13 @@ export const api = createTRPCNext<AppRouter>({
           fetch(url, options) {
             return fetch(url, {
               ...options,
-              credentials: 'include', // This is important for better-auth session cookie
+              credentials: 'include',
             });
           },
         }),
       ],
     };
   },
-  /**
-   * Whether tRPC should await queries when server rendering pages.
-   *
-   * @see https://trpc.io/docs/nextjs#ssr-boolean-default-false
-   */
   ssr: false,
   transformer: superjson,
 });

@@ -13,13 +13,14 @@ import StarterKit from '@tiptap/starter-kit';
 import CodeMirror from '@uiw/react-codemirror';
 import { useState } from 'react';
 
-import { useHelpers } from '~/hooks/useHelpers';
+import { useHelpers } from '~/hooks/use-helpers';
 import { useTopicStore } from '~/utils/store';
 
-type NoteEditorProps = {
+export default function NoteEditor({
+  onSave,
+}: {
   onSave: (note: { title: string; content: string }) => void;
-};
-const NoteEditor = ({ onSave }: NoteEditorProps) => {
+}) {
   const selectedTopic = useTopicStore((state) => state.selectedTopic);
 
   const [noteContent, setNoteContent] = useState<string>('');
@@ -200,6 +201,4 @@ const NoteEditor = ({ onSave }: NoteEditorProps) => {
       <Space />
     </Stack>
   );
-};
-
-export default NoteEditor;
+}

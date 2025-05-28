@@ -17,12 +17,11 @@ import { db } from '~/server/db';
 
 // biome-ignore lint/style/useNamingConvention: <explanation>
 export const createTRPCContext = async () => {
-  
   const session = (await auth.$context).session;
 
   return {
     db,
-    session
+    session,
   };
 };
 
@@ -119,7 +118,7 @@ export const protectedProcedure = t.procedure
     }
     return next({
       ctx: {
-        session: { ...ctx.session, user: ctx.session?.user }
+        session: { ...ctx.session, user: ctx.session?.user },
       },
     });
   });

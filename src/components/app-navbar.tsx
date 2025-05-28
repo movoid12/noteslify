@@ -14,10 +14,10 @@ import { useDisclosure } from '@mantine/hooks';
 import { useState } from 'react';
 
 import { IconEdit, IconX } from '@tabler/icons-react';
-import { useHelpers } from '~/hooks/useHelpers';
+import { useHelpers } from '~/hooks/use-helpers';
 import { useTopicStore } from '~/utils/store';
-import ConfirmModal from './ConfirmModal/ConfirmModal';
-import { LoadingSpinnerTopics } from './LoadingSpinner/LoadingSpinner';
+import { LoadingSpinnerTopics } from './loading-spinner/loading-spinner';
+import ConfirmModal from './modals/confirm-modal';
 
 export default function AppNavbar() {
   const { createTopic, topics, deleteTopic, updateTopic, sessionData } =
