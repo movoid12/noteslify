@@ -11,6 +11,7 @@ import {
   Stack,
   Tabs,
   Text,
+  useMantineColorScheme,
 } from '@mantine/core';
 import { Link, RichTextEditor } from '@mantine/tiptap';
 import { IconMarkdown, IconNotes } from '@tabler/icons-react';
@@ -34,11 +35,13 @@ export default function NoteEditor({
 }) {
   const selectedTopic = useTopicStore((state) => state.selectedTopic);
 
-  const [noteContent, setNoteContent] = useState<string>('');
+  const [noteContent, setNoteContent] = useState('');
 
-  const [title, setTitle] = useState<string>('');
+  const [title, setTitle] = useState('');
 
   const { createNote, sessionData } = useHelpers();
+
+  const { colorScheme } = useMantineColorScheme();
 
   const editor = useEditor({
     extensions: [
@@ -121,10 +124,9 @@ export default function NoteEditor({
         <Tabs.Panel value="markdown">
           <CodeMirror
             value={noteContent}
-            // biome-ignore lint/complexity/noUselessTernary: <explanation>
-            editable={sessionData?.user === undefined ? false : true}
-            // biome-ignore lint/complexity/noUselessTernary: <explanation>
-            readOnly={sessionData?.user === undefined ? true : false}
+            editable={sessionData?.user === undefined}
+            readOnly={sessionData?.user === undefined}
+            theme={colorScheme}
             width="auto"
             height="30vh"
             minWidth="100%"
@@ -192,7 +194,7 @@ export default function NoteEditor({
             radius="lg"
             uppercase
             variant="filled"
-            size='md'
+            size="md"
             onClick={() => {
               createNote.mutate({
                 title,
