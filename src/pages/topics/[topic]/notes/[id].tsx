@@ -9,7 +9,7 @@ import remarkGfm from 'remark-gfm';
 import BackButton from '~/components/buttons/back-button';
 import PageLayout from '~/components/layouts/page-layout';
 
-import markdownConf from '~/utils/markdown-config';
+import { markdownConf } from '~/utils/markdown-config';
 import { useNoteStore } from '~/utils/store';
 
 export default function NotePage() {
