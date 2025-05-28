@@ -1,4 +1,4 @@
-import { relations, sql } from 'drizzle-orm';
+import { relations } from 'drizzle-orm';
 import { boolean, pgTable, text, timestamp } from 'drizzle-orm/pg-core';
 
 
@@ -75,10 +75,8 @@ export const topics = pgTable('topics', {
     .primaryKey()
     .notNull()
     .$defaultFn(() => crypto.randomUUID()),
-  createdAt: text('created_at').default(sql`(CURRENT_DATE)`),
-  updatedAt: text('updated_at')
-    .default(sql`(CURRENT_DATE)`)
-    .$onUpdate(() => sql`(CURRENT_DATE)`),
+  createdAt: timestamp('created_at').notNull().defaultNow(),
+  updatedAt: timestamp('updated_at').notNull().defaultNow().$onUpdate(() => new Date()),
   title: text('title').notNull(),
   userId: text('userId').notNull(),
 });
@@ -88,9 +86,8 @@ export const notes = pgTable('notes', {
     .primaryKey()
     .notNull()
     .$defaultFn(() => crypto.randomUUID()),
-  createdAt: text('created_at').default(sql`(CURRENT_DATE)`),
-  updatedAt: text('updated_at').default(sql`(CURRENT_DATE)`)
-    .$onUpdate(() => sql`(CURRENT_DATE)`),
+  createdAt: timestamp('created_at').notNull().defaultNow(),
+  updatedAt: timestamp('updated_at').notNull().defaultNow().$onUpdate(() => new Date()),
   title: text('title').notNull(),
   content: text('content').notNull(),
   topicId: text('topicId').notNull(),

@@ -16,8 +16,8 @@ CREATE TABLE "account" (
 --> statement-breakpoint
 CREATE TABLE "notes" (
 	"id" text PRIMARY KEY NOT NULL,
-	"created_at" text DEFAULT (CURRENT_DATE),
-	"updated_at" text DEFAULT (CURRENT_DATE),
+	"created_at" timestamp DEFAULT now() NOT NULL,
+	"updated_at" timestamp DEFAULT now() NOT NULL,
 	"title" text NOT NULL,
 	"content" text NOT NULL,
 	"topicId" text NOT NULL
@@ -37,8 +37,8 @@ CREATE TABLE "session" (
 --> statement-breakpoint
 CREATE TABLE "topics" (
 	"id" text PRIMARY KEY NOT NULL,
-	"created_at" text DEFAULT (CURRENT_DATE),
-	"updated_at" text DEFAULT (CURRENT_DATE),
+	"created_at" timestamp DEFAULT now() NOT NULL,
+	"updated_at" timestamp DEFAULT now() NOT NULL,
 	"title" text NOT NULL,
 	"userId" text NOT NULL
 );
