@@ -1,6 +1,17 @@
+'use client';
+
 import { markdown, markdownLanguage } from '@codemirror/lang-markdown';
 import { languages } from '@codemirror/language-data';
-import { Button, Input, Mark, Space, Stack, Tabs, Text } from '@mantine/core';
+import {
+  Button,
+  Grid,
+  Input,
+  Mark,
+  Space,
+  Stack,
+  Tabs,
+  Text,
+} from '@mantine/core';
 import { Link, RichTextEditor } from '@mantine/tiptap';
 import { IconMarkdown, IconNotes } from '@tabler/icons-react';
 import { Color } from '@tiptap/extension-color';
@@ -174,30 +185,35 @@ export default function NoteEditor({
         </Tabs.Panel>
       </Tabs>
       <Space />
-      <Button
-        color="green"
-        radius="lg"
-        uppercase
-        variant="filled"
-        onClick={() => {
-          createNote.mutate({
-            title,
-            content: noteContent,
-            topicId: selectedTopic?.id ?? '',
-          });
-          onSave({ title, content: noteContent });
-          setTitle('');
-          setNoteContent('');
-          clearHandleClick();
-        }}
-        disabled={
-          title.trim().length === 0 ||
-          noteContent.trim().length === 0 ||
-          sessionData?.user === undefined
-        }
-      >
-        Save
-      </Button>
+      <Grid justify="space-around" align="center">
+        <Grid.Col span={1}>
+          <Button
+            color="green"
+            radius="lg"
+            uppercase
+            variant="filled"
+            size='md'
+            onClick={() => {
+              createNote.mutate({
+                title,
+                content: noteContent,
+                topicId: selectedTopic?.id ?? '',
+              });
+              onSave({ title, content: noteContent });
+              setTitle('');
+              setNoteContent('');
+              clearHandleClick();
+            }}
+            disabled={
+              title.trim().length === 0 ||
+              noteContent.trim().length === 0 ||
+              sessionData?.user === undefined
+            }
+          >
+            Save
+          </Button>
+        </Grid.Col>
+      </Grid>
       <Space />
     </Stack>
   );
