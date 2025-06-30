@@ -12,9 +12,9 @@ This is a [T3 Stack](https://create.t3.gg/) project bootstrapped with `create-t3
 - Next Auth
 - [Mantine](https://mantine.dev/)
 - [tRPC](https://trpc.io)
-- [zod] (https://zod.dev)
-- [react-markdown]
-- [CodeMirror]
+- [zod](https://zod.dev)
+- [react-markdown](#)
+- [CodeMirror](#)
 
 ### TODOs: 
 - Migrate from Next Auth to Better-Auth (in progress)
