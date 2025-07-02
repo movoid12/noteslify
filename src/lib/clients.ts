@@ -1,8 +1,8 @@
 import { createAuthClient } from 'better-auth/react';
 
-import { getBaseUrl } from '~/utils/api';
-
-const baseUrl = getBaseUrl();
+const baseUrl = process.env.VERCEL_URL 
+  ? `https://${process.env.VERCEL_URL}` 
+  : process.env.BETTER_AUTH_URL ;
 
 // biome-ignore lint/style/useNamingConvention: <explanation>
 export const authClient = createAuthClient({ baseURL: baseUrl });

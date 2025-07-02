@@ -7,7 +7,7 @@ import { db } from '~/server/db';
 
 export const auth = betterAuth({
   // biome-ignore lint/style/useNamingConvention: <explanation>
-  baseURL: env.BETTER_AUTH_URL,
+  baseURL: process.env.VERCEL_URL ? `https://${process.env.VERCEL_URL}` : env.BETTER_AUTH_URL,
   database: drizzleAdapter(db, {
     provider: 'pg',
     // schema: schema
