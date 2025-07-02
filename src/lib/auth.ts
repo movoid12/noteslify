@@ -7,8 +7,8 @@ import { db } from '~/server/db';
 
 export const auth = betterAuth({
   // biome-ignore lint/style/useNamingConvention: <explanation>
-  baseURL: process.env.VERCEL_URL
-    ? `https://${process.env.VERCEL_URL}`
+  baseURL: process.env.VERCEL_PROJECT_PRODUCTION_URL
+    ? `https://${process.env.VERCEL_PROJECT_PRODUCTION_URL}`
     : env.BETTER_AUTH_URL,
   database: drizzleAdapter(db, {
     provider: 'pg',
@@ -19,7 +19,7 @@ export const auth = betterAuth({
       clientId: env.GOOGLE_CLIENT_ID,
       clientSecret: env.GOOGLE_CLIENT_SECRET,
       // biome-ignore lint/style/useNamingConvention: <explanation>
-      redirectURI: `${process.env.VERCEL_URL ? `https://${process.env.VERCEL_URL}` : env.BETTER_AUTH_URL}/api/auth/callback/google`,
+      redirectURI: `${process.env.VERCEL_PROJECT_PRODUCTION_URL ? `https://${process.env.VERCEL_PROJECT_PRODUCTION_URL}` : env.BETTER_AUTH_URL}/api/auth/callback/google`,
     },
     github: {
       clientId: env.GITHUB_CLIENT_ID,
