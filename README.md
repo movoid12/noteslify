@@ -1,4 +1,5 @@
 # Noteslify App
+Notes app made with TypeScript, React, Next.js, PostgreSQL,Node.js and Drizzle ORM
 
 This is a [T3 Stack](https://create.t3.gg/) project bootstrapped with `create-t3-app` but without tailwind. I`ve used mantine UI instead
 
@@ -8,8 +9,10 @@ This is a [T3 Stack](https://create.t3.gg/) project bootstrapped with `create-t3
 ## Recipe:
 
 - [Next.js](https://nextjs.org)
-- Drizzle
-- Next Auth
+- Drizzle ORM
+- Better-Auth
+- PostgreSQL
+- TypeScript
 - [Mantine](https://mantine.dev/)
 - [tRPC](https://trpc.io)
 - [zod](https://zod.dev)
@@ -17,9 +20,7 @@ This is a [T3 Stack](https://create.t3.gg/) project bootstrapped with `create-t3
 - [CodeMirror](#)
 
 ### TODOs: 
-- Migrate from Next Auth to Better-Auth (in progress)
-- Complete the Migration: Prisma => Drizzle ORM (in progress)
-- Test authentication workflow after integration (not yet)
+- Test authentication workflow after migrating from Auth0 to Better-Auth and integration it in Next.ja (in progress)
 
 ### Authentication with Github OAuth + Google Cloud oAuth:
 
