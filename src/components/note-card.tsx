@@ -18,8 +18,9 @@ import { useState } from 'react';
 import { LoadingSpinnerNotes } from '~/components/loading-spinner/loading-spinner';
 import { useHelpers } from '~/hooks/use-helpers';
 import { type Note, useNoteStore, useTopicStore } from '~/utils/store';
-import { useStyles } from '../utils/markdown-config';
+
 import ConfirmModal from './modals/confirm-modal';
+import { useStyles } from '~/hooks/use-styles';
 
 dayjs.extend(relativeTime);
 
