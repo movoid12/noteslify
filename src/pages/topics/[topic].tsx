@@ -6,12 +6,10 @@ const CategoryPage: NextPage = () => {
   const routedTopic = router.query.topic?.toString();
 
   return (
-    <>
-      <main>
-        <h1>Category Page BOOOOOOO</h1>
-        <h2>{routedTopic}</h2>
-      </main>
-    </>
+    <main>
+      <h1>Category Page BOOOOOOO</h1>
+      <h2>{routedTopic}</h2>
+    </main>
   );
 };
 
