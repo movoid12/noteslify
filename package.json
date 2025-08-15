@@ -10,9 +10,8 @@
     "db:migrate": "drizzle-kit migrate",
     "db:push": "drizzle-kit push",
     "db:studio": "drizzle-kit studio",
-    "lint": "next lint",
+    "lint": "biome lint",
     "start": "next start",
-    "audit": "next audit",
     "format": "biome format --write .",
     "format:check": "biome format --check .",
     "lint:check": "biome check",
@@ -81,8 +80,6 @@
       "esbuild@<=0.24.2": ">=0.25.0",
       "prismjs@<1.30.0": ">=1.30.0"
     },
-    "ignoredBuiltDependencies": [
-      "esbuild"
-    ]
+    "ignoredBuiltDependencies": ["esbuild"]
   }
 }
