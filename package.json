@@ -6,6 +6,7 @@
   "scripts": {
     "build": "next build",
     "dev": "next dev",
+    "preview": "next start --port 3001",
     "db:generate": "drizzle-kit generate",
     "db:migrate": "drizzle-kit migrate",
     "db:push": "drizzle-kit push",
