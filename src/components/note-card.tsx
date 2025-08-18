@@ -18,10 +18,11 @@ import { useState } from 'react';
 
 import { LoadingSpinnerNotes } from '~/components/loading-spinner/loading-spinner';
 import { useHelpers } from '~/hooks/use-helpers';
-import { type Note, useNoteStore, useTopicStore } from '~/utils/store';
 
-import ConfirmModal from './modals/confirm-modal';
 import { useStyles } from '~/hooks/use-styles';
+import { useNoteStore, useTopicStore } from '~/store';
+import type { Note } from '~/store/note-slice';
+import ConfirmModal from './modals/confirm-modal';
 
 dayjs.extend(relativeTime);
 
@@ -37,9 +38,9 @@ export default function NoteCard() {
   const [noteId, setNoteId] = useState<string | null>(null);
   const [isDeletingId, setIsDeletingId] = useState<string | null>(null);
 
-  const selectedTopic = useTopicStore((state) => state.selectedTopic);
+  const { selectedTopic } = useTopicStore();
 
-  const { setSelectedNote } = useNoteStore((state) => state);
+  const { setSelectedNote } = useNoteStore();
 
   const handleDelete = (id: string) => {
     setNoteId(id);

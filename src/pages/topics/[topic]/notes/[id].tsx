@@ -9,11 +9,11 @@ import remarkGfm from 'remark-gfm';
 import BackButton from '~/components/buttons/back-button';
 import PageLayout from '~/components/layouts/page-layout';
 
+import { useNoteStore } from '~/store';
 import { markdownConf } from '~/utils/markdown-config';
-import { useNoteStore } from '~/utils/store';
 
 export default function NotePage() {
-  const selectedNote = useNoteStore((state) => state.selectedNote);
+  const { selectedNote } = useNoteStore();
 
   const router = useRouter();
 

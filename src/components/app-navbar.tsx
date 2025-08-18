@@ -15,7 +15,8 @@ import { useState } from 'react';
 
 import { IconEdit, IconX } from '@tabler/icons-react';
 import { useHelpers } from '~/hooks/use-helpers';
-import { useTopicStore } from '~/utils/store';
+
+import { useTopicStore } from '~/store';
 import { LoadingSpinnerTopics } from './loading-spinner/loading-spinner';
 import ConfirmModal from './modals/confirm-modal';
 
@@ -23,10 +24,7 @@ export default function AppNavbar() {
   const { createTopic, topics, deleteTopic, updateTopic, sessionData } =
     useHelpers();
 
-  const { selectedTopic, setSelectedTopic } = useTopicStore((state) => ({
-    selectedTopic: state.selectedTopic,
-    setSelectedTopic: state.setSelectedTopic,
-  }));
+  const { selectedTopic, setSelectedTopic } = useTopicStore();
 
   const [opened, { open, close }] = useDisclosure(false);
 

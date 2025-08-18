@@ -1,4 +1,5 @@
 import { useSession } from '~/lib/clients';
+import { useTopicStore } from '~/store';
 import { api } from '~/utils/api';
 
 import { type Note, type Topic, useTopicStore } from '~/utils/store';

@@ -3,10 +3,10 @@
 import { ActionIcon } from '@mantine/core';
 import { IconArrowBack } from '@tabler/icons-react';
 import { useRouter } from 'next/router';
-import { useNoteStore } from '~/utils/store';
+import { useNoteStore } from '~/store';
 
 export default function BackButton() {
-  const setSelectedNote = useNoteStore((state) => state.setSelectedNote);
+  const { setSelectedNote } = useNoteStore();
 
   const router = useRouter();
 
