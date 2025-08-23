@@ -60,21 +60,11 @@ export default function NoteEditor({
     },
   });
 
-  const clearHandleClick = () => {
-    if (!editor) {
-      return null;
-    }
-    editor.commands.clearContent();
-  };
-
   return (
     <Stack spacing="md">
       <Text size="lg" weight={700}>
         Selected Topic:{' '}
-        <Mark>
-          {' '}
-          {selectedTopic?.title ?? 'Select a topic to create a note'}
-        </Mark>
+        <Mark>{selectedTopic?.title ?? 'Select a topic to create a note'}</Mark>
       </Text>
       <Text>Add your note title:</Text>
       <Input
@@ -91,13 +81,7 @@ export default function NoteEditor({
         disabled={sessionData?.user === undefined}
       />
       <Tabs color="teal" defaultValue="richtext">
-        <Tabs.List
-          grow
-          onClick={() => {
-            setNoteContent('');
-            clearHandleClick();
-          }}
-        >
+        <Tabs.List grow>
           <Tabs.Tab value="richtext" icon={<IconNotes size="0.8rem" />}>
             Text Editor
           </Tabs.Tab>
@@ -108,17 +92,30 @@ export default function NoteEditor({
         <Tabs.Panel value="markdown">
           <CodeMirror
             value={noteContent}
-            editable={sessionData?.user === undefined}
-            readOnly={sessionData?.user === undefined}
-            theme={colorScheme}
-            width="auto"
-            height="30vh"
-            minWidth="100%"
-            minHeight="30vh"
+            editable={Boolean(sessionData?.user)}
+            readOnly={!sessionData?.user}
+            theme={colorScheme === 'dark' ? 'dark' : 'light'}
+            width="100%"
+            height="35vh"
+            basicSetup={{
+              lineNumbers: true,
+              foldGutter: true,
+              dropCursor: false,
+              allowMultipleSelections: false,
+              indentOnInput: true,
+              bracketMatching: true,
+              closeBrackets: true,
+              searchKeymap: true,
+            }}
             extensions={[
               markdown({ base: markdownLanguage, codeLanguages: languages }),
             ]}
             onChange={(value: string) => setNoteContent(value)}
+            placeholder={
+              sessionData?.user === undefined
+                ? 'Sign in to write markdown'
+                : 'Write your markdown here...'
+            }
           />
         </Tabs.Panel>
         <Tabs.Panel value="richtext">
@@ -188,7 +185,6 @@ export default function NoteEditor({
               onSave({ title, content: noteContent });
               setTitle('');
               setNoteContent('');
-              clearHandleClick();
             }}
             disabled={
               title.trim().length === 0 ||
