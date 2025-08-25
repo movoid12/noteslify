@@ -26,14 +26,15 @@ import CodeMirror from '@uiw/react-codemirror';
 import { useState } from 'react';
 
 import { useHelpers } from '~/hooks/use-helpers';
-import { useTopicStore } from '~/utils/store';
+import { useTopicStore } from '~/store';
+import { pickColors } from '~/utils/markdown-config';
 
 export default function NoteEditor({
   onSave,
 }: {
   onSave: (note: { title: string; content: string }) => void;
 }) {
-  const selectedTopic = useTopicStore((state) => state.selectedTopic);
+  const { selectedTopic } = useTopicStore();
 
   const [noteContent, setNoteContent] = useState('');
 
@@ -59,38 +60,11 @@ export default function NoteEditor({
     },
   });
 
-  const pickColors = [
-    '#25262b',
-    '#868e96',
-    '#fa5252',
-    '#e64980',
-    '#be4bdb',
-    '#7950f2',
-    '#4c6ef5',
-    '#228be6',
-    '#15aabf',
-    '#12b886',
-    '#40c057',
-    '#82c91e',
-    '#fab005',
-    '#fd7e14',
-  ];
-
-  const clearHandleClick = () => {
-    if (!editor) {
-      return null;
-    }
-    editor.commands.clearContent();
-  };
-
   return (
     <Stack spacing="md">
       <Text size="lg" weight={700}>
         Selected Topic:{' '}
-        <Mark>
-          {' '}
-          {selectedTopic?.title ?? 'Select a topic to create a note'}
-        </Mark>
+        <Mark>{selectedTopic?.title ?? 'Select a topic to create a note'}</Mark>
       </Text>
       <Text>Add your note title:</Text>
       <Input
@@ -107,13 +81,7 @@ export default function NoteEditor({
         disabled={sessionData?.user === undefined}
       />
       <Tabs color="teal" defaultValue="richtext">
-        <Tabs.List
-          grow
-          onClick={() => {
-            setNoteContent('');
-            clearHandleClick();
-          }}
-        >
+        <Tabs.List grow>
           <Tabs.Tab value="richtext" icon={<IconNotes size="0.8rem" />}>
             Text Editor
           </Tabs.Tab>
@@ -124,17 +92,30 @@ export default function NoteEditor({
         <Tabs.Panel value="markdown">
           <CodeMirror
             value={noteContent}
-            editable={sessionData?.user === undefined}
-            readOnly={sessionData?.user === undefined}
-            theme={colorScheme}
-            width="auto"
-            height="30vh"
-            minWidth="100%"
-            minHeight="30vh"
+            editable={Boolean(sessionData?.user)}
+            readOnly={!sessionData?.user}
+            theme={colorScheme === 'dark' ? 'dark' : 'light'}
+            width="100%"
+            height="35vh"
+            basicSetup={{
+              lineNumbers: true,
+              foldGutter: true,
+              dropCursor: false,
+              allowMultipleSelections: false,
+              indentOnInput: true,
+              bracketMatching: true,
+              closeBrackets: true,
+              searchKeymap: true,
+            }}
             extensions={[
               markdown({ base: markdownLanguage, codeLanguages: languages }),
             ]}
             onChange={(value: string) => setNoteContent(value)}
+            placeholder={
+              sessionData?.user === undefined
+                ? 'Sign in to write markdown'
+                : 'Write your markdown here...'
+            }
           />
         </Tabs.Panel>
         <Tabs.Panel value="richtext">
@@ -204,7 +185,6 @@ export default function NoteEditor({
               onSave({ title, content: noteContent });
               setTitle('');
               setNoteContent('');
-              clearHandleClick();
             }}
             disabled={
               title.trim().length === 0 ||

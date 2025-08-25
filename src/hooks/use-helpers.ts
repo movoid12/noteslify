@@ -1,25 +1,9 @@
 import { useSession } from '~/lib/clients';
+import { useTopicStore } from '~/store';
 import { api } from '~/utils/api';
 
-import { type Note, type Topic, useTopicStore } from '~/utils/store';
-
-type Helpers = {
-  topics: Topic[];
-  createTopic: ReturnType<typeof api.topic.create.useMutation>;
-  deleteTopic: ReturnType<typeof api.topic.delete.useMutation>;
-  updateTopic: ReturnType<typeof api.topic.update.useMutation>;
-  sessionData: ReturnType<typeof useSession>['data'];
-  createNote: ReturnType<typeof api.note.create.useMutation>;
-  deleteNote: ReturnType<typeof api.note.delete.useMutation>;
-  updateNote: ReturnType<typeof api.note.update.useMutation>;
-  notes: Note[];
-  noteIsLoading?: boolean;
-  topicIsLoading?: boolean;
-};
-
-const useHelpers = (): Helpers => {
-  const selectedTopic = useTopicStore((state) => state.selectedTopic);
-  const setSelectedTopic = useTopicStore((state) => state.setSelectedTopic);
+const useHelpers = () => {
+  const { selectedTopic, setSelectedTopic } = useTopicStore();
 
   const { data: sessionData } = useSession();
 
@@ -31,7 +15,7 @@ const useHelpers = (): Helpers => {
     enabled: !!sessionData?.user,
     select: (data) => {
       if (data && data.length > 0 && !selectedTopic) {
-        setSelectedTopic(data[0]);
+        setSelectedTopic(data[0] ?? null);
       }
       return data;
     },

@@ -9,11 +9,11 @@ import remarkGfm from 'remark-gfm';
 import BackButton from '~/components/buttons/back-button';
 import PageLayout from '~/components/layouts/page-layout';
 
+import { useNoteStore } from '~/store';
 import { markdownConf } from '~/utils/markdown-config';
-import { useNoteStore } from '~/utils/store';
 
 export default function NotePage() {
-  const selectedNote = useNoteStore((state) => state.selectedNote);
+  const { selectedNote } = useNoteStore();
 
   const router = useRouter();
 
@@ -21,28 +21,12 @@ export default function NotePage() {
 
   const noteMeta = router.query.id?.toString() || '';
 
-  // const [topic, setTopic] = useState();
-  // const [note, setNote] = useState();
-
-  // useEffect(() => {
-
-  //   async function init() {
-
-  //     const topicFromApi = api.topic.getById(topicId);
-  //     const noteFromApi = api.note.getById(noteId);
-
-  //     setTopic(topicFromApi)
-  //     setNote(noteFromApi)
-  //   }
-
-  // }, [topicId, noteId ])
-
   if (selectedNote === null) {
     return null;
   }
 
   return (
-    <>
+    <main>
       <Head>
         <title>Noteslify App</title>
         <meta
@@ -68,6 +52,6 @@ export default function NotePage() {
           {selectedNote.content}
         </ReactMarkdown>
       </PageLayout>
-    </>
+    </main>
   );
 }

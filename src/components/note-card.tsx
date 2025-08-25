@@ -4,6 +4,7 @@ import {
   Button,
   Center,
   Group,
+  Loader,
   Paper,
   Stack,
   Title,
@@ -17,8 +18,10 @@ import { useState } from 'react';
 
 import { LoadingSpinnerNotes } from '~/components/loading-spinner/loading-spinner';
 import { useHelpers } from '~/hooks/use-helpers';
-import { type Note, useNoteStore, useTopicStore } from '~/utils/store';
-import { useStyles } from '../utils/markdown-config';
+
+import { useStyles } from '~/hooks/use-styles';
+import { useNoteStore, useTopicStore } from '~/store';
+import type { Note } from '~/store/note-slice';
 import ConfirmModal from './modals/confirm-modal';
 
 dayjs.extend(relativeTime);
@@ -32,22 +35,35 @@ export default function NoteCard() {
 
   const [isModalOpen, setModalOpen] = useState(false);
 
-  const [noteToDelete, setNoteToDelete] = useState<string | null>(null);
+  const [noteId, setNoteId] = useState<string | null>(null);
+  const [isDeletingId, setIsDeletingId] = useState<string | null>(null);
 
-  const selectedTopic = useTopicStore((state) => state.selectedTopic);
+  const { selectedTopic } = useTopicStore();
 
-  const { setSelectedNote } = useNoteStore((state) => state);
+  const { setSelectedNote } = useNoteStore();
 
   const handleDelete = (id: string) => {
-    setNoteToDelete(id);
+    setNoteId(id);
     setModalOpen(true);
   };
 
-  const confirmDeletion = () => {
-    if (noteToDelete) {
-      deleteNote.mutate({ id: noteToDelete });
+  const handleDeleteModel = async () => {
+    if (!noteId) {
+      setModalOpen(false);
+      return;
     }
-    setModalOpen(false);
+    const id = noteId;
+    setIsDeletingId(id);
+
+    try {
+      await deleteNote.mutateAsync({ id });
+    } catch (error) {
+      console.error('Failed to delete note', error);
+    } finally {
+      setIsDeletingId(null);
+      setNoteId(null);
+      setModalOpen(false);
+    }
   };
 
   const cancelDeletion = () => {
@@ -55,8 +71,17 @@ export default function NoteCard() {
   };
 
   const handleRoute = (reqNote: Note) => {
+    if (!selectedTopic) {
+      setSelectedNote(reqNote);
+      console.warn('No selected topic — navigation skipped');
+      return;
+    }
+
     setSelectedNote(reqNote);
-    void router.push(`/topics/${selectedTopic?.title}/notes/${reqNote.title}`);
+
+    const topicSlug = encodeURIComponent(selectedTopic.title);
+    const noteSlug = encodeURIComponent(reqNote.title);
+    void router.push(`/topics/${topicSlug}/notes/${noteSlug}`);
   };
 
   return (
@@ -65,13 +90,22 @@ export default function NoteCard() {
         isOpen={isModalOpen}
         onClose={cancelDeletion}
         title="Confirm deletion of Note"
-        confirmAction={confirmDeletion}
+        confirmAction={handleDeleteModel}
         cancelAction={cancelDeletion}
         message="Are you sure you want to delete this note?"
       />
       <Center>
         <LoadingSpinnerNotes />
       </Center>
+
+      {notes && notes.length === 0 && (
+        <Center>
+          <Title order={4} color="dimmed">
+            No notes yet
+          </Title>
+        </Center>
+      )}
+
       {notes?.map((note) => (
         <Paper
           key={note.id}
@@ -100,10 +134,14 @@ export default function NoteCard() {
               radius="xl"
               openDelay={300}
               style={{ fontSize: 11 }}
-              label={note.createdAt?.toLocaleString() || 'Unknown date'}
+              label={
+                note.createdAt
+                  ? note.createdAt.toLocaleString()
+                  : 'Unknown date'
+              }
             >
               <Badge m={'sm'} color="teal" variant="outline">
-                {dayjs(note.createdAt).fromNow()}
+                {note.createdAt ? dayjs(note.createdAt).fromNow() : 'Unknown'}
               </Badge>
             </Tooltip>
             <ActionIcon
@@ -111,8 +149,11 @@ export default function NoteCard() {
               color="red"
               variant="outline"
               onClick={() => handleDelete(note.id)}
+              aria-label={`Delete ${note.title}`}
+              aria-busy={isDeletingId === note.id}
+              disabled={isDeletingId !== null}
             >
-              <IconTrash />
+              {isDeletingId === note.id ? <Loader size="xs" /> : <IconTrash />}
             </ActionIcon>
           </Group>
         </Paper>
