@@ -77,7 +77,7 @@
     "initVersion": "7.13.0"
   },
   "engines": {
-    "node": "22.x",
-    "pnpm": "10.x"
-  }
+    "node": "22.x"
+  },
+  "packageManager": "pnpm@10.19.0"
 }
