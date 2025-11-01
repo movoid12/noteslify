@@ -18,7 +18,6 @@ export const auth = betterAuth({
       clientId: env.GOOGLE_CLIENT_ID,
       clientSecret: env.GOOGLE_CLIENT_SECRET,
       // biome-ignore lint/style/useNamingConvention: env
-      // Refactor this code to not use nested template literals
       redirectURI: `${process.env.VERCEL_PROJECT_PRODUCTION_URL ? `https://${process.env.VERCEL_PROJECT_PRODUCTION_URL}` : env.BETTER_AUTH_URL}/api/auth/callback/google`,
     },
     github: {
