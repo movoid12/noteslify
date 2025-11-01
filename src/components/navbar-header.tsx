@@ -27,23 +27,23 @@ export default function NavbarHeader() {
 
   // * delete topic
 
-  const [isModalOpen, setModalOpen] = useState(false);
+  const [isModalOpen, setIsModalOpen] = useState(false);
   const [topicToDelete, setTopicToDelete] = useState<string | null>(null);
 
   const handleDeleteTopic = (id: string) => {
     setTopicToDelete(id);
-    setModalOpen(true);
+    setIsModalOpen(true);
   };
 
   const confirmDeletion = () => {
     if (topicToDelete) {
       deleteTopic.mutate({ id: topicToDelete });
     }
-    setModalOpen(false);
+    setIsModalOpen(false);
   };
 
   const cancelDeletion = () => {
-    setModalOpen(false);
+    setIsModalOpen(false);
   };
 
   // * edit topic
