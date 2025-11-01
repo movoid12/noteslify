@@ -36,7 +36,6 @@ export const markdownConf: object = {
         children={String(children).replace(/\n$/, '')}
         {...props}
       />
-       
     ) : (
       <code className={className ? className : ''} {...props}>
         {children}

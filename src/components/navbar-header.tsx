@@ -117,7 +117,7 @@ export default function NavbarHeader() {
       />
       <Button
         onClick={handleCreateTopic()}
-        color='green'
+        color="green"
         disabled={sessionData?.user === undefined || newTopic === ''}
       >
         Add Topic
