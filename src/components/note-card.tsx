@@ -97,15 +97,14 @@ export default function NoteCard() {
       <Center>
         <LoadingSpinnerNotes />
       </Center>
-
-      {notes && notes.length === 0 && (
+      {/* // Prefer using an optional chain expression instead, as it's more concise and easier to read. */}
+      {notes && notes.length === 0 ? (
         <Center>
           <Title order={4} color="dimmed">
             No notes yet
           </Title>
         </Center>
-      )}
-
+      ) : null}
       {notes?.map((note) => (
         <Paper
           key={note.id}

@@ -111,12 +111,12 @@ export default function NavbarHeader() {
         }}
         onKeyDown={(e: React.KeyboardEvent) => {
           if (e.key === 'Enter') {
-            handleCreateTopic;
+            handleCreateTopic();
           }
         }}
       />
       <Button
-        onClick={handleCreateTopic}
+        onClick={handleCreateTopic()}
         color='green'
         disabled={sessionData?.user === undefined || newTopic === ''}
       >
@@ -182,6 +182,7 @@ export default function NavbarHeader() {
         <Text>Select a Topic:</Text>
         <Text fz={12}>{topicsCount} Topics</Text>
       </Group>
+      <Divider />
     </Stack>
   );
 }
