@@ -1,7 +1,7 @@
 import { create } from 'zustand';
 import { devtools } from 'zustand/middleware';
-import { type NoteSlice, createNoteSlice } from './note-slice';
-import { type TopicSlice, createTopicSlice } from './topic-slice';
+import { createNoteSlice, type NoteSlice } from './note-slice';
+import { createTopicSlice, type TopicSlice } from './topic-slice';
 
 export const useAppStore = create<TopicSlice & NoteSlice>()(
   devtools(

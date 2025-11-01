@@ -20,7 +20,6 @@
         "noConstantMathMinMaxClamp": "error",
         "noUnusedImports": "error",
         "noUnusedVariables": "error",
-        "useArrayLiterals": "error",
         "useHookAtTopLevel": "error"
       },
       "performance": {
@@ -71,8 +70,5 @@
     "formatter": {
       "quoteStyle": "single"
     }
-  },
-  "files": {
-    "ignore": ["src/server/db/schema.ts"]
   }
 }

@@ -16,10 +16,8 @@ export default function BackButton() {
   };
 
   return (
-    <>
-      <ActionIcon variant="outline" color="red" onClick={handleBack}>
-        <IconArrowBack />
-      </ActionIcon>
-    </>
+    <ActionIcon variant="outline" color="red" onClick={handleBack}>
+      <IconArrowBack />
+    </ActionIcon>
   );
 }
