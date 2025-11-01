@@ -29,7 +29,7 @@
     "@mantine/next": "6.0.10",
     "@mantine/tiptap": "6.0.11",
     "@neondatabase/serverless": "1.0.0",
-    "@t3-oss/env-nextjs": "0.12.0",
+    "@t3-oss/env-nextjs": "0.13.8",
     "@tabler/icons-react": "2.47.0",
     "@tanstack/react-query": "5.77.2",
     "@tiptap/extension-color": "2.0.3",
@@ -60,7 +60,7 @@
     "rehype-sanitize": "6.0.0",
     "remark-gfm": "4.0.0",
     "superjson": "2.2.1",
-    "zod": "4.1.0",
+    "zod": "4.1.12",
     "zustand": "4.5.7"
   },
   "devDependencies": {
