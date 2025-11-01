@@ -25,11 +25,6 @@ export default function NavbarHeader() {
 
   const [newTopic, setNewTopic] = useState('');
 
-  const handleCreateTopic = () => {
-    createTopic.mutate({ title: newTopic });
-    setNewTopic('');
-  };
-
   // * delete topic
 
   const [isModalOpen, setModalOpen] = useState(false);
@@ -111,12 +106,16 @@ export default function NavbarHeader() {
         }}
         onKeyDown={(e: React.KeyboardEvent) => {
           if (e.key === 'Enter') {
-            handleCreateTopic();
+            createTopic.mutate({ title: newTopic });
+            setNewTopic('');
           }
         }}
       />
       <Button
-        onClick={handleCreateTopic()}
+        onClick={() => {
+          createTopic.mutate({ title: newTopic });
+          setNewTopic('');
+        }}
         color="green"
         disabled={sessionData?.user === undefined || newTopic === ''}
       >
