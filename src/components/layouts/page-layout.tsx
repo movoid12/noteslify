@@ -48,7 +48,7 @@ export default function PageLayout({
                 width={{ sm: 200, lg: 300 }}
               >
                 <Navbar.Section grow mx="-xs" px="xs">
-                  <ScrollArea>
+                  <ScrollArea type="scroll">
                     <AppNavbar />
                   </ScrollArea>
                 </Navbar.Section>
