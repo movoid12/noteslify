@@ -16,10 +16,6 @@ export const user = pgTable('user', {
     .$onUpdate(() => new Date()),
 });
 
-// export const usersRelations = relations(user, ({ many }) => ({
-//   accounts: many(accounts),
-// }));
-
 export const account = pgTable('account', {
   id: text('id').primaryKey(),
   accountId: text('account_id').notNull(),

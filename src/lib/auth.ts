@@ -3,7 +3,6 @@ import { drizzleAdapter } from 'better-auth/adapters/drizzle';
 
 import { env } from '~/env';
 import { db } from '~/server/db';
-// import * as schema from '../server/db/schema';
 
 export const auth = betterAuth({
   // biome-ignore lint/style/useNamingConvention: env

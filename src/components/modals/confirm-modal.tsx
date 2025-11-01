@@ -24,6 +24,7 @@ export default function ConfirmModal({
       centered
       radius="md"
       padding="xl"
+      zIndex={9999}
     >
       <Stack>
         <Group position="center">

@@ -32,7 +32,7 @@ export const markdownConf: object = {
         style={oneDark}
         PreTag="div"
         language={match[1]}
-        // biome-ignore lint/correctness/noChildrenProp: : <explanation>
+        // biome-ignore lint/correctness/noChildrenProp: SyntaxHighlighter requires children prop
         children={String(children).replace(/\n$/, '')}
         {...props}
       />

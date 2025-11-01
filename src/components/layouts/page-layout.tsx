@@ -13,6 +13,7 @@ import { useState } from 'react';
 
 import AppHeader from '~/components/app-header';
 import AppNavbar from '~/components/app-navbar';
+import NavbarHeader from '../navbar-header';
 
 export default function PageLayout({
   children,
@@ -47,10 +48,11 @@ export default function PageLayout({
                 hidden={!opened}
                 width={{ sm: 200, lg: 300 }}
               >
-                <Navbar.Section grow mx="-xs" px="xs">
-                  <ScrollArea>
-                    <AppNavbar />
-                  </ScrollArea>
+                <Navbar.Section>
+                  <NavbarHeader />
+                </Navbar.Section>
+                <Navbar.Section grow component={ScrollArea} mx="-xs" px="xs">
+                  <AppNavbar />
                 </Navbar.Section>
               </Navbar>
             )}
