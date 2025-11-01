@@ -23,7 +23,7 @@ const useHelpers = () => {
 
   const createTopic = api.topic.create.useMutation({
     onSuccess: () => {
-      void refetchTopics();
+      refetchTopics();
     },
     onError: (error) => {
       console.error('Error creating topic:', error);
@@ -32,7 +32,7 @@ const useHelpers = () => {
 
   const deleteTopic = api.topic.delete.useMutation({
     onSuccess: () => {
-      void refetchTopics();
+      refetchTopics();
     },
     onError: (error) => {
       console.error('Error deleting topic:', error);
@@ -41,7 +41,7 @@ const useHelpers = () => {
 
   const updateTopic = api.topic.update.useMutation({
     onSuccess: () => {
-      void refetchTopics();
+      refetchTopics();
     },
     onError: (error) => {
       console.error('Error updating topic:', error);
@@ -61,19 +61,19 @@ const useHelpers = () => {
 
   const createNote = api.note.create.useMutation({
     onSuccess: () => {
-      void refetchNotes();
+      refetchNotes();
     },
   });
 
   const deleteNote = api.note.delete.useMutation({
     onSuccess: () => {
-      void refetchNotes();
+      refetchNotes();
     },
   });
 
   const updateNote = api.note.update.useMutation({
     onSuccess: () => {
-      void refetchNotes();
+      refetchNotes();
     },
   });
 

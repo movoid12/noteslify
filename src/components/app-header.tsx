@@ -56,7 +56,7 @@ export default function AppHeader() {
           <Button
             variant="filled"
             color="green"
-            onClick={() => void signIn.social({ provider: 'google' })}
+            onClick={() => signIn.social({ provider: 'google' })}
           >
             Sign in with Google
           </Button>

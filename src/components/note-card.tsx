@@ -81,7 +81,7 @@ export default function NoteCard() {
 
     const topicSlug = encodeURIComponent(selectedTopic.title);
     const noteSlug = encodeURIComponent(reqNote.title);
-    void router.push(`/topics/${topicSlug}/notes/${noteSlug}`);
+    router.push(`/topics/${topicSlug}/notes/${noteSlug}`);
   };
 
   return (

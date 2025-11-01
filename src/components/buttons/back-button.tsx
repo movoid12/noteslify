@@ -11,7 +11,7 @@ export default function BackButton() {
   const router = useRouter();
 
   const handleBack = () => {
-    void router.back();
+    router.back();
     setSelectedNote(null);
   };
 
