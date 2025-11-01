@@ -11,9 +11,8 @@ import {
   Text,
 } from '@mantine/core';
 import { useDisclosure } from '@mantine/hooks';
-import { useState } from 'react';
-
 import { IconEdit, IconX } from '@tabler/icons-react';
+import { useState } from 'react';
 import { useHelpers } from '~/hooks/use-helpers';
 
 import { useTopicStore } from '~/store';

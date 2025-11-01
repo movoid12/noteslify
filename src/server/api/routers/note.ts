@@ -1,6 +1,5 @@
-import { z } from 'zod';
-
 import { eq } from 'drizzle-orm';
+import { z } from 'zod';
 import { notes } from '~/server/db/schema';
 import { createTRPCRouter, protectedProcedure } from '../trpc';
 

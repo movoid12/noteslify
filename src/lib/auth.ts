@@ -6,7 +6,7 @@ import { db } from '~/server/db';
 // import * as schema from '../server/db/schema';
 
 export const auth = betterAuth({
-  // biome-ignore lint/style/useNamingConvention: <explanation>
+  // biome-ignore lint/style/useNamingConvention: env
   baseURL: process.env.VERCEL_PROJECT_PRODUCTION_URL
     ? `https://${process.env.VERCEL_PROJECT_PRODUCTION_URL}`
     : env.BETTER_AUTH_URL,
@@ -18,7 +18,7 @@ export const auth = betterAuth({
     google: {
       clientId: env.GOOGLE_CLIENT_ID,
       clientSecret: env.GOOGLE_CLIENT_SECRET,
-      // biome-ignore lint/style/useNamingConvention: <explanation>
+      // biome-ignore lint/style/useNamingConvention: env
       redirectURI: `${process.env.VERCEL_PROJECT_PRODUCTION_URL ? `https://${process.env.VERCEL_PROJECT_PRODUCTION_URL}` : env.BETTER_AUTH_URL}/api/auth/callback/google`,
     },
     github: {

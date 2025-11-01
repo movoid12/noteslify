@@ -1,4 +1,4 @@
-import { TRPCError, initTRPC } from '@trpc/server';
+import { initTRPC, TRPCError } from '@trpc/server';
 import type { NextApiRequest, NextApiResponse } from 'next';
 
 import superjson from 'superjson';
@@ -7,7 +7,7 @@ import { auth } from '~/lib/auth';
 
 import { db } from '~/server/db';
 
-// biome-ignore lint/style/useNamingConvention: <explanation>
+// biome-ignore lint/style/useNamingConvention: defined by trpc
 export const createTRPCContext = async (opts: {
   req: NextApiRequest;
   res: NextApiResponse;
@@ -73,7 +73,7 @@ export const createCallerFactory = t.createCallerFactory;
  * @see https://trpc.io/docs/router
  */
 
-// biome-ignore lint/style/useNamingConvention: <explanation>
+// biome-ignore lint/style/useNamingConvention: defined by trpc
 export const createTRPCRouter = t.router;
 
 /**
