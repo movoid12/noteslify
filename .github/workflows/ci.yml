@@ -38,12 +38,6 @@ jobs:
       - name: Check dependencies Security (high severity) 🔒
         run: pnpm audit --audit-level high
 
-      - name: Run reviewdog with biome ✅
-        uses: mongolyy/reviewdog-action-biome@v1
-        with:
-          github_token: ${{ secrets.github_token }}
-          reporter: github-pr-review
-
       - name: Run lint check and format check ✅
         run: biome ci
 
