@@ -1,5 +1,5 @@
 allowBuilds:
-  esbuild: false
+  esbuild: true
   sharp: true
 minimumReleaseAgeExclude:
   - defu@6.1.5
